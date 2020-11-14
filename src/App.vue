@@ -22,12 +22,12 @@ export default {
 
   components: {
     AppBar,
-    Footer,
+    Footer
   },
 
   data: () => ({
     //
-  }),
+  })
 };
 </script>
 <style scoped></style>

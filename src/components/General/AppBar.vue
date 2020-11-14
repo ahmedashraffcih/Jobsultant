@@ -5,7 +5,8 @@
     <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
     <v-toolbar-title class="title">Jobsultant</v-toolbar-title>
-    <v-btn class="ml-10" text flat>Home</v-btn>
+    <v-btn href="/" class="ml-10" text flat>Home</v-btn>
+    <v-btn href="/about" text flat>Jobs</v-btn>
     <v-spacer></v-spacer>
     <v-btn icon>
       <v-icon>mdi-magnify</v-icon>

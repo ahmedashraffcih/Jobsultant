@@ -6,7 +6,6 @@
     <v-row justify="center">
       <h1 class="white--text mt-5">Find Jobs,Netowrk and Learn</h1>
     </v-row>
-
     <v-row justify="center" class="mt-15">
       <v-col cols="4">
         <v-text-field
