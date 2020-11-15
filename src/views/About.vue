@@ -196,9 +196,9 @@
 export default {
   mounted() {},
   data: () => ({
-    report: false,
+    report: false
   }),
-  methods: {},
+  methods: {}
 };
 </script>
 
