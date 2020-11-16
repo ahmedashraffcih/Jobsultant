@@ -12,8 +12,8 @@
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
 
-    <v-btn class="mr-4" href="Details/login" outlined>Log in</v-btn>
-    <v-btn class="mr-4" outlined>Sign Up</v-btn>
+    <v-btn class="mr-4" to="/Details/login" outlined>Log in</v-btn>
+    <v-btn class="mr-4" to="/Details/Register" outlined>Register</v-btn>
     <v-btn outlined>For Employers</v-btn>
     <v-menu left bottom>
       <template v-slot:activator="{ on, attrs }">
