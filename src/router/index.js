@@ -4,6 +4,8 @@ import Home from "../views/Home.vue";
 import About from "../views/About.vue";
 import Login from "../views/Details/Login.vue";
 import Register from "../views/Details/Register.vue";
+import Account_Settings from "../views/User/Account_Settings.vue";
+import MyCV from "../views/User/My_CV.vue";
 
 Vue.use(VueRouter);
 
@@ -27,6 +29,16 @@ const routes = [
     path: "/Details/Register",
     name: "Register",
     component: Register
+  },
+  {
+    path: "/User/Account_Settings",
+    name: "Account_Settings",
+    component: Account_Settings
+  },
+  {
+    path: "/User/My_CV",
+    name: "My_CV",
+    component: MyCV
   }
 ];
 

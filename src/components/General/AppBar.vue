@@ -7,6 +7,8 @@
     <v-toolbar-title class="title">Jobsultant</v-toolbar-title>
     <v-btn href="/" class="ml-10" text flat>Home</v-btn>
     <v-btn href="/about" text flat>Jobs</v-btn>
+    <v-btn href="/user/account_settings" text flat>My Account</v-btn>
+    <v-btn href="/user/My_CV" text flat>My CV</v-btn>
     <v-spacer></v-spacer>
     <v-btn icon>
       <v-icon>mdi-magnify</v-icon>

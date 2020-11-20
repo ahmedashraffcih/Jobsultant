@@ -1,13 +1,18 @@
 <template>
   <v-row justify="center">
     <!-- Filters card -->
-
     <v-col cols="2">
       <v-card>
         <v-card-title>Filter</v-card-title>
         <v-divider></v-divider>
         <v-col cols="11" class="mt-3">
-          <v-text-field dense class="searchbar" outlined label="Search" rounded-0>
+          <v-text-field
+            dense
+            class="searchbar"
+            outlined
+            label="Search"
+            rounded-0
+          >
           </v-text-field>
         </v-col>
         <v-card-text>
@@ -128,6 +133,7 @@
           doloribus? Illum necessitatibus repellat rerum sed nemo exercitationem
           reiciendis a illo laborum neque.</v-card-text
         >
+
         <v-card-title class="title">Skills</v-card-title>
         <v-card-text
           >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta
