@@ -5,7 +5,10 @@
       <v-card>
         <v-card-title>Improve Your Profile</v-card-title>
         <v-divider></v-divider>
-        <v-card-text>Reach profile strength of 80% to be in the top 10% of highly visible users.</v-card-text>
+        <v-card-text
+          >Reach profile strength of 80% to be in the top 10% of highly visible
+          users.</v-card-text
+        >
       </v-card>
     </v-col>
 
