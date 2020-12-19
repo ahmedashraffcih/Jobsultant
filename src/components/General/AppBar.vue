@@ -9,9 +9,7 @@
     <v-toolbar-title class="title"></v-toolbar-title>
     <v-btn to="/" class="buttoncase ml-10" text flat>Home</v-btn>
     <v-btn class="buttoncase" to="/about" text flat>Find Jobs</v-btn>
-    <v-btn class="buttoncase" to="/user/account_settings" text flat
-      >My Account</v-btn
-    >
+    <v-btn class="buttoncase" to="/user/account_settings" text flat>My Account</v-btn>
     <v-btn class="buttoncase" to="/user/My_CV" text flat>My CV</v-btn>
     <v-spacer></v-spacer>
     <v-btn icon>
@@ -19,10 +17,8 @@
     </v-btn>
 
     <v-btn class="buttoncase mr-4" to="/Details/login" outlined>Log in</v-btn>
-    <v-btn class="buttoncase mr-4" to="/Details/Register" outlined
-      >Register</v-btn
-    >
-    <v-btn class="buttoncase" outlined>For Employers</v-btn>
+    <v-btn class="buttoncase mr-4" to="/Details/Register" outlined>Register</v-btn>
+    <v-btn class="buttoncase" to="/Employer/Emp_Register" outlined>For Employers</v-btn>
     <v-menu left bottom>
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on">

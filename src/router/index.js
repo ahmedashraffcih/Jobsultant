@@ -7,6 +7,7 @@ import Register from "../views/Details/Register.vue";
 import Account_Settings from "../views/User/Account_Settings.vue";
 import MyCV from "../views/User/My_CV.vue";
 import BuildCV from "../views/User/Build_CV.vue";
+import Emp_Register from "../views/Employer/Emp_Register.vue";
 
 Vue.use(VueRouter);
 
@@ -45,6 +46,11 @@ const routes = [
     path: "/User/Build_CV",
     name: "Build_CV",
     component: BuildCV
+  },
+  {
+    path: "/Employer/Emp_Register",
+    name: "Emp_Register",
+    component: Emp_Register
   }
 ];
 
