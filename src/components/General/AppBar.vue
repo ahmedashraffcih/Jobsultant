@@ -1,12 +1,11 @@
 <template>
   <!-- flat to remove shadow-->
-  <v-app-bar class="nav" app color="light-blue darken-4" dark flat>
+  <v-app-bar class="nav" app color="#2C3C5B" dark flat>
     <!-- 3 dashes
     <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>-->
     <v-avatar size="160px">
       <img :src="require('@/assets/Logo_on_blue.png')"/>
     </v-avatar>
-
     <v-toolbar-title class="title"></v-toolbar-title>
     <v-btn to="/" class="buttoncase ml-10" text flat>Home</v-btn>
     <v-btn class="buttoncase" to="/about" text flat>Find Jobs</v-btn>
@@ -45,8 +44,8 @@
 <script>
 export default {
   data: () => ({
-    group: null,
-  }),
+    group: null
+  })
 };
 </script>
 <style scoped>

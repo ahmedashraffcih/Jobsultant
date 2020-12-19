@@ -43,10 +43,6 @@
             <v-list-item-title>Residence Location</v-list-item-title>
             <v-list-item-subtitle>Egypt - Cairo</v-list-item-subtitle>
           </v-list-item>
-          <v-list-item>
-            <v-list-item-title>Marital status</v-list-item-title>
-            <v-list-item-subtitle>Single</v-list-item-subtitle>
-          </v-list-item>
         </v-list>
       </v-card>
 
