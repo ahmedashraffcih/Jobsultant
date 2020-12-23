@@ -7,12 +7,12 @@
       <img :src="require('@/assets/Logo_on_blue.png')"/>
     </v-avatar>
     <v-toolbar-title class="title"></v-toolbar-title>
-    <v-btn to="/" class="buttoncase ml-10" text flat>Home</v-btn>
-    <v-btn class="buttoncase" to="/about" text flat>Find Jobs</v-btn>
-    <v-btn class="buttoncase" to="/user/account_settings" text flat
+    <v-btn to="/" class="buttoncase ml-10" text >Home</v-btn>
+    <v-btn class="buttoncase" to="/about" text >Find Jobs</v-btn>
+    <v-btn class="buttoncase" to="/user/account_settings" text 
       >My Account</v-btn
     >
-    <v-btn class="buttoncase" to="/user/My_CV" text flat>My CV</v-btn>
+    <v-btn class="buttoncase" to="/user/My_CV" text >My CV</v-btn>
     <v-spacer></v-spacer>
     <v-btn icon>
       <v-icon>mdi-magnify</v-icon>

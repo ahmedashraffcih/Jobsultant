@@ -494,8 +494,8 @@
 export default {
   data() {
     return {
-      e6: 1
+      e6: 1,
     };
-  }
+  },
 };
 </script>

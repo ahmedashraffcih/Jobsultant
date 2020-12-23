@@ -9,8 +9,6 @@
     <v-row justify="center" class="mt-15">
       <v-col cols="4">
         <v-text-field
-          v-model="name"
-          :disabled="isUpdating"
           outlined
           color="white"
           label="Enter job title,skills,etc."
