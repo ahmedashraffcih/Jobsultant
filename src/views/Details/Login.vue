@@ -89,19 +89,19 @@ export default {
     return {
       email: null,
       emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+        v => !!v || "E-mail is required",
+        v => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],
       password: null,
       passRules: [
-        v => !!v || 'Password is required',
-        v => (v && v.length >= 8) || 'Name must be more than 8 characters',
+        v => !!v || "Password is required",
+        v => (v && v.length >= 8) || "Name must be more than 8 characters",
       ],
-      value:String,
-      Valid:false,
+      value: String,
+      Valid: false,
     };
   },
- /* methods: {
+  /* methods: {
     onSubmit(email, password) {
       this.$store
         .dispatch(LOGIN, { email, password })

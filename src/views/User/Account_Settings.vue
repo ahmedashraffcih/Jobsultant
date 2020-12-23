@@ -103,8 +103,7 @@
 
 <style scoped>
 .div {
-  background-color: #006064
-;
+  background-color: #006064;
   width: 100%;
 }
 </style>
