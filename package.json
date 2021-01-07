@@ -5,23 +5,11 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "aws-sdk": "^2.817.0",
     "bcrypt": "^5.0.0",
-    "body-parser": "^1.19.0",
-    "connect-mongodb-session": "^2.4.1",
-    "cookie-parser": "^1.4.5",
-    "core-js": "^3.6.5",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "express-session": "^1.17.1",
-    "mongodb": "^3.6.3",
-    "mongoose": "^5.11.8",
-    "nodemon": "^2.0.6",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuetify": "^2.2.11",
