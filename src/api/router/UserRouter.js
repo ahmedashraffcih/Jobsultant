@@ -20,7 +20,7 @@ UserRouter.get("/users", (req, res) => {
 });
 
 /// SignUP ///
-UserRouter.post("/Register", (req, res) => {
+UserRouter.post("../views/Details/Register.vue", (req, res) => {
   return new Promise((resolve, reject) => {
     mongoose
       .connect(url)
@@ -56,7 +56,7 @@ UserRouter.post("/Register", (req, res) => {
 });
 
 // /LOGIN///
-UserRouter.post("/Login", (req, res) => {
+UserRouter.post("../views/Details/Login.vue", (req, res) => {
   return new Promise((resolve, reject) => {
     mongoose
       .connect(url)

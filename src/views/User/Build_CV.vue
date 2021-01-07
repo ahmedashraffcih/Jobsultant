@@ -10,152 +10,169 @@
         </v-stepper-step>
 
         <v-stepper-content step="1">
-          <v-list class="mb-4" max-width="500px" dense>
-            <v-list-item dense class="pl-2">
-              <v-list-item-title
-                >What is the job title<br />of this position?</v-list-item-title
-              >
-              <v-list-item-subtitle
-                ><v-text-field
-                  hide-details
-                  flat
-                  dense
-                  outlined
-                  required
-                ></v-text-field
-              ></v-list-item-subtitle>
-            </v-list-item>
-
-            <v-list-item dense class="pl-2 mt-6">
-              <v-list-item-title>Company name</v-list-item-title>
-
-              <v-list-item-subtitle
-                ><v-text-field
-                  hide-details
-                  dense
-                  outlined
-                  flat
-                  required
-                ></v-text-field
-              ></v-list-item-subtitle>
-            </v-list-item>
-
-            <v-list-item dense class="pl-2 mt-6">
-              <v-list-item-title>Start date</v-list-item-title>
-              <v-row class="ma-0 pa-0">
-                <v-col cols="6" class="ma-0 pa-0 pr-1">
-                  <v-list-item-subtitle>
-                    <v-select
-                      required
+          <v-form v-model="Valid">
+            <v-list class="mb-4" max-width="500px" dense>
+              <v-list-item class="pl-2">
+                <v-row>
+                  <v-col cols="12" class="subtitle-2">
+                    <span>What is the job title of this position?</span>
+                    <v-text-field
                       flat
                       dense
-                      hide-details
                       outlined
-                      placeholder="Month"
-                    ></v-select>
-                  </v-list-item-subtitle>
-                </v-col>
-                <v-col cols="6" class="ma-0 pa-0 pl-1">
-                  <v-list-item-subtitle>
-                    <v-select
                       required
-                      flat
+                      v-model="JobTitle"
+                      :rules="nameRules"
+                      class="mt-2"
+                    >
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+              </v-list-item>
+              <v-list-item class="pl-2">
+                <v-row>
+                  <v-col cols="12" class="subtitle-2">
+                    <span>Company name</span>
+                    <v-text-field
                       dense
-                      hide-details
                       outlined
-                      placeholder="Year"
-                    ></v-select>
-                  </v-list-item-subtitle>
-                </v-col>
-              </v-row>
-            </v-list-item>
-            <v-list-item dense class="pl-2 mt-6">
-              <v-list-item-title>End date</v-list-item-title>
-
-              <v-row class="ma-0 pa-0 pl-3">
-                <v-col cols="12" class="ma-0 pa-0 mb-4">
-                  <v-checkbox v-model="checkbox" flat hide-details></v-checkbox>
-                </v-col>
-                <v-col cols="6" class="ma-0 pa-0 pr-1">
-                  <v-list-item-subtitle>
-                    <v-select
+                      flat
                       required
-                      flat
-                      dense
-                      hide-details
-                      outlined
-                      placeholder="Month"
-                    ></v-select>
-                  </v-list-item-subtitle>
-                </v-col>
-                <v-col cols="6" class="ma-0 pa-0 pl-1">
-                  <v-list-item-subtitle>
-                    <v-select
-                      required
-                      flat
-                      dense
-                      hide-details
-                      outlined
-                      placeholder="Year"
-                    ></v-select>
-                  </v-list-item-subtitle>
-                </v-col>
-              </v-row>
-            </v-list-item>
+                      v-model="CompName"
+                      :rules="nameRules"
+                      class="mt-2"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-list-item>
 
-            <v-list-item dense class="pl-2 mt-6">
-              <v-list-item-title>Job Location</v-list-item-title>
+              <v-list-item dense class="pl-2">
+                <v-row>
+                  <v-col cols="12" class="subtitle-2">
+                    <span>Start date</span>
+                    <v-dialog
+                      ref="dialog"
+                      v-model="modal"
+                      :return-value.sync="date"
+                      persistent
+                      width="290px"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="date"
+                          readonly
+                          outlined
+                          flat
+                          dense
+                          v-bind="attrs"
+                          v-on="on"
+                          class="mt-3"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="date" scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn text color="primary" @click="modal = false">
+                          Cancel
+                        </v-btn>
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="$refs.dialog.save(date)"
+                        >
+                          OK
+                        </v-btn>
+                      </v-date-picker>
+                    </v-dialog>
+                  </v-col>
+                </v-row>
+              </v-list-item>
+              
+              <v-list-item dense class="pl-2">
+                <v-row>
+                  <v-col cols="12" class="subtitle-2">
+                    <span>End date</span>
+                    <v-checkbox v-model="checkbox" flat label="Till Now"></v-checkbox>
+                    <v-dialog
+                      ref="dialog2"
+                      v-model="endmodal"
+                      :return-value.sync="Enddate"
+                      persistent
+                      width="290px"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="Enddate"
+                          readonly
+                          outlined
+                          flat
+                          dense
+                          v-bind="attrs"
+                          v-on="on"
+                          class="mt-3"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="Enddate" scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn text color="primary" @click="endmodal = false">
+                          Cancel
+                        </v-btn>
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="$refs.dialog2.save(Enddate)"
+                        >
+                          OK
+                        </v-btn>
+                      </v-date-picker>
+                    </v-dialog>
+                  </v-col>
+                </v-row>
+              </v-list-item>
 
-              <v-list-item-subtitle>
-                <v-combobox
-                  clearable
-                  hide-details
-                  flat
-                  required
-                  dense
-                  outlined
-                  solo
-                ></v-combobox>
-              </v-list-item-subtitle>
-            </v-list-item>
+              <v-list-item dense class="pl-2">
+                <v-row>
+                  <v-col cols="12" class="subtitle-2">
+                <span>Job Location</span>
 
-            <v-list-item dense class="pl-2 mt-6">
-              <v-list-item-title
-                >Which job field does<br />
-                this title fall under?
-              </v-list-item-title>
+                  <v-combobox
+                    clearable
+                    flat
+                    required
+                    dense
+                    outlined
+                    solo
+                    v-model="JobLoc"
+                    :rules="nameRules"
+                    class="mt-3"
+                  ></v-combobox>
+                  </v-col>
+                </v-row>
+              </v-list-item>
+              <v-list-item dense class="pl-2">
+                <v-row>
+                  <v-col cols="12" class="subtitle-2">
+                <span>Company Industry</span>
 
-              <v-list-item-subtitle>
-                <v-combobox
-                  clearable
-                  hide-details
-                  flat
-                  required
-                  dense
-                  outlined
-                  solo
-                ></v-combobox>
-              </v-list-item-subtitle>
-            </v-list-item>
-
-            <v-list-item dense class="pl-2 mt-6">
-              <v-list-item-title>Company Industry</v-list-item-title>
-
-              <v-list-item-subtitle>
-                <v-combobox
-                  clearable
-                  hide-details
-                  flat
-                  required
-                  dense
-                  outlined
-                  solo
-                ></v-combobox>
-              </v-list-item-subtitle>
-            </v-list-item>
-          </v-list>
+                  <v-combobox
+                    clearable
+                    flat
+                    required
+                    dense
+                    outlined
+                    solo
+                    v-model="Industry"
+                    :rules="CompRules"
+                    class="mt-3"
+                  ></v-combobox>
+                  </v-col>
+                </v-row>
+              </v-list-item>
+            </v-list>
+          </v-form>
           <v-col cols="12" class="ma-0 pa-0 mb-5 ml-2">
-            <v-btn color="primary" @click="e6 = 2"> Continue </v-btn>
+            <v-btn :disabled="!Valid" color="primary" @click="e6 = 2">
+              Continue
+            </v-btn>
           </v-col>
           <v-col cols="12" class="ma-0 pa-0 ml-2">
             <p>I have no experience / still studying</p>
@@ -171,23 +188,16 @@
             <v-list-item dense class="pl-2">
               <v-list-item-title>Job title(s)</v-list-item-title>
               <v-list-item-subtitle
-                ><v-text-field
-                  hide-details
-                  flat
-                  dense
-                  outlined
-                  required
-                ></v-text-field
+                ><v-text-field flat dense outlined required></v-text-field
               ></v-list-item-subtitle>
             </v-list-item>
 
-            <v-list-item dense class="pl-2 mt-6">
+            <v-list-item dense class="pl-2">
               <v-list-item-title>Preferred job role</v-list-item-title>
 
               <v-list-item-subtitle>
                 <v-combobox
                   clearable
-                  hide-details
                   flat
                   required
                   dense
@@ -196,7 +206,7 @@
                 ></v-combobox>
               </v-list-item-subtitle>
             </v-list-item>
-            <v-list-item dense class="pl-2 mt-6">
+            <v-list-item dense class="pl-2">
               <v-list-item-title>Job Location</v-list-item-title>
               <v-row class="ma-0 pa-0">
                 <v-col cols="6" class="ma-0 pa-0 pr-1">
@@ -205,7 +215,6 @@
                       required
                       flat
                       dense
-                      hide-details
                       outlined
                       placeholder="Location"
                     ></v-select>
@@ -217,7 +226,6 @@
                       required
                       flat
                       dense
-                      hide-details
                       outlined
                       placeholder="Visa"
                     ></v-select>
@@ -226,13 +234,12 @@
               </v-row>
             </v-list-item>
 
-            <v-list-item dense class="pl-2 mt-6">
+            <v-list-item dense class="pl-2">
               <v-list-item-title>Job Level </v-list-item-title>
 
               <v-list-item-subtitle>
                 <v-combobox
                   clearable
-                  hide-details
                   flat
                   required
                   dense
@@ -257,7 +264,6 @@
               <v-list-item-subtitle
                 ><v-combobox
                   clearable
-                  hide-details
                   flat
                   required
                   dense
@@ -267,13 +273,12 @@
               ></v-list-item-subtitle>
             </v-list-item>
 
-            <v-list-item dense class="pl-2 mt-6">
+            <v-list-item dense class="pl-2">
               <v-list-item-title>University or institution</v-list-item-title>
 
               <v-list-item-subtitle>
                 <v-combobox
                   clearable
-                  hide-details
                   flat
                   required
                   dense
@@ -282,13 +287,12 @@
                 ></v-combobox>
               </v-list-item-subtitle>
             </v-list-item>
-            <v-list-item dense class="pl-2 mt-6">
+            <v-list-item dense class="pl-2">
               <v-list-item-title>Country</v-list-item-title>
 
               <v-list-item-subtitle>
                 <v-combobox
                   clearable
-                  hide-details
                   flat
                   required
                   dense
@@ -297,13 +301,12 @@
                 ></v-combobox>
               </v-list-item-subtitle>
             </v-list-item>
-            <v-list-item dense class="pl-2 mt-6">
+            <v-list-item dense class="pl-2">
               <v-list-item-title>City</v-list-item-title>
 
               <v-list-item-subtitle>
                 <v-combobox
                   clearable
-                  hide-details
                   flat
                   required
                   dense
@@ -312,13 +315,12 @@
                 ></v-combobox>
               </v-list-item-subtitle>
             </v-list-item>
-            <v-list-item dense class="pl-2 mt-6">
+            <v-list-item dense class="pl-2">
               <v-list-item-title>Field of study (Major)</v-list-item-title>
 
               <v-list-item-subtitle>
                 <v-combobox
                   clearable
-                  hide-details
                   flat
                   required
                   dense
@@ -327,7 +329,7 @@
                 ></v-combobox>
               </v-list-item-subtitle>
             </v-list-item>
-            <v-list-item dense class="pl-2 mt-6">
+            <v-list-item dense class="pl-2">
               <v-list-item-title>Graduation Date</v-list-item-title>
               <v-row class="ma-0 pa-0">
                 <v-col cols="6" class="ma-0 pa-0 pr-1">
@@ -336,7 +338,6 @@
                       required
                       flat
                       dense
-                      hide-details
                       outlined
                       placeholder="Month"
                     ></v-select>
@@ -348,7 +349,6 @@
                       required
                       flat
                       dense
-                      hide-details
                       outlined
                       placeholder="Year"
                     ></v-select>
@@ -383,7 +383,6 @@
                       readonly
                       outlined
                       flat
-                      hide-details
                       dense
                       v-bind="attrs"
                       v-on="on"
@@ -406,13 +405,12 @@
               >
             </v-list-item>
 
-            <v-list-item dense class="pl-2 mt-6">
+            <v-list-item dense class="pl-2">
               <v-list-item-title>Your nationality</v-list-item-title>
 
               <v-list-item-subtitle>
                 <v-combobox
                   clearable
-                  hide-details
                   flat
                   required
                   dense
@@ -421,13 +419,12 @@
                 ></v-combobox>
               </v-list-item-subtitle>
             </v-list-item>
-            <v-list-item dense class="pl-2 mt-6">
+            <v-list-item dense class="pl-2">
               <v-list-item-title>Residence country</v-list-item-title>
 
               <v-list-item-subtitle>
                 <v-combobox
                   clearable
-                  hide-details
                   flat
                   required
                   dense
@@ -436,13 +433,12 @@
                 ></v-combobox>
               </v-list-item-subtitle>
             </v-list-item>
-            <v-list-item dense class="pl-2 mt-6">
+            <v-list-item dense class="pl-2">
               <v-list-item-title>City</v-list-item-title>
 
               <v-list-item-subtitle>
                 <v-combobox
                   clearable
-                  hide-details
                   flat
                   required
                   dense
@@ -451,13 +447,12 @@
                 ></v-combobox>
               </v-list-item-subtitle>
             </v-list-item>
-            <v-list-item dense class="pl-2 mt-6">
+            <v-list-item dense class="pl-2">
               <v-list-item-title>Visa Status in Country</v-list-item-title>
 
               <v-list-item-subtitle>
                 <v-combobox
                   clearable
-                  hide-details
                   flat
                   required
                   dense
@@ -466,13 +461,12 @@
                 ></v-combobox>
               </v-list-item-subtitle>
             </v-list-item>
-            <v-list-item dense class="pl-2 mt-6">
+            <v-list-item dense class="pl-2">
               <v-list-item-title>Phone Number</v-list-item-title>
 
               <v-list-item-subtitle>
                 <v-combobox
                   clearable
-                  hide-details
                   flat
                   required
                   dense
@@ -495,6 +489,21 @@ export default {
   data() {
     return {
       e6: 1,
+      JobTitle: "",
+      CompName: "",
+      JobLoc: "",
+      Industry: "",
+      Valid: false,
+      modal: false,
+      endmodal:false,
+      date: null,
+      Enddate:null,
+      checkbox: false,
+      nameRules: [(v) => !!v || "Field is required"],
+      CompRules: [
+        (v) => !!v || "Field is required",
+        (v) => (!!v && isNaN(v)) || "Can't include numbers",
+      ],
     };
   },
 };
