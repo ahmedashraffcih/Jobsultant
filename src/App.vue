@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <AppBar />
+    <EmpAppBar />
     <v-main>
       <v-container class="ma-0 pa-0" fluid>
         <v-row align="center" justify="center">
@@ -15,13 +15,15 @@
 </template>
 
 <script>
-import AppBar from "./components/General/AppBar.vue";
+//import AppBar from "./components/General/AppBar.vue";
+import EmpAppBar from "./components/General/EmpAppBar.vue";
 import Footer from "./components/General/Footer.vue";
 export default {
   name: "App",
 
   components: {
-    AppBar,
+    EmpAppBar,
+    //AppBar,
     Footer
   },
 
