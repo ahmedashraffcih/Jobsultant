@@ -14,7 +14,8 @@
     >
     <v-btn class="buttoncase" to="/user/My_CV" text >My CV</v-btn>
     <v-spacer></v-spacer>
-    <v-btn icon>
+    <SearchBar v-if="DISPLAY_SEARCH"/>
+    <v-btn icon @click.prevent="toggleSearch()">
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
 
@@ -42,10 +43,22 @@
 </template>
 
 <script>
+import SearchBar from './SearchBar.vue';
+import { mapGetters } from "vuex";
+
 export default {
   data: () => ({
     group: null
-  })
+  }),
+  components:{SearchBar},
+  computed:{
+    ...mapGetters(['DISPLAY_SEARCH'])
+  },
+  methods:{
+    toggleSearch(){
+      this.$store.commit("SET_DISPLAY_SEARCH",!this.DISPLAY_SEARCH);
+    }
+  }
 };
 </script>
 <style scoped>

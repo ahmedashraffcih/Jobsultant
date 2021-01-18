@@ -8,6 +8,9 @@
         <v-card-subtitle class="text-center"
           >Don't have an account yet? Register here</v-card-subtitle
         >
+        <v-alert color="error" :value="error" icon="close"
+          >The username or password wrong</v-alert
+        >
         <v-card-text>
           <v-form v-model="Valid">
             <v-row justify="center">
@@ -20,7 +23,8 @@
                   v-model="email"
                   :rules="emailRules"
                   required
-                ></v-text-field>
+                >
+                </v-text-field>
                 <v-text-field
                   dense
                   outlined
@@ -31,7 +35,8 @@
                   :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
                   @click:append="() => (value = !value)"
                   :type="value ? 'password' : 'text'"
-                ></v-text-field>
+                >
+                </v-text-field>
               </v-col>
               <v-col cols="10" style="height: 50px">
                 <v-btn
@@ -40,7 +45,7 @@
                   block
                   :disabled="!Valid"
                   color="success"
-                  @click="validate"
+                  @click.prevent="login()"
                 >
                   Log in
                 </v-btn>
@@ -49,26 +54,12 @@
                 <v-card-text class="text-center">OR</v-card-text>
               </v-col>
               <v-col cols="10">
-                <v-btn
-                  rounded-4
-                  large
-                  block
-                  :disabled="!valid"
-                  color="success"
-                  @click="validate"
-                >
+                <v-btn rounded-4 large block color="success">
                   Log in With Google
                 </v-btn>
               </v-col>
               <v-col cols="10">
-                <v-btn
-                  rounded-4
-                  large
-                  block
-                  :disabled="!valid"
-                  color="success"
-                  @click="validate"
-                >
+                <v-btn rounded-4 large block color="success">
                   Log in With Facebook
                 </v-btn>
               </v-col>
@@ -81,25 +72,41 @@
 </template>
 
 <script>
-//import Constants from "../components/constants.js"
-
 export default {
   name: "Login",
+
   data() {
     return {
+      Valid: false, //validation flag
       email: null,
       emailRules: [
-        v => !!v || "E-mail is required",
-        v => /.+@.+\..+/.test(v) || "E-mail must be valid",
+        (v) => !!v || "E-mail is required",
+        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],
       password: null,
       passRules: [
-        v => !!v || "Password is required",
-        v => (v && v.length >= 8) || "Name must be more than 8 characters",
+        (v) => !!v || "Password is required",
+        (v) => (v && v.length >= 8) || "Name must be more than 8 characters",
       ],
-      value: String,
-      Valid: false,
+      value: String, // for password view
+      error: false,
     };
+  },
+  methods: {
+    login() {
+      console.log(this.$store);
+      this.$store
+        .dispatch("LOGIN", {
+          email: this.email,
+          password: this.password,
+        })
+        .then((success) => {
+          this.$router.push("/");
+        })
+        .catch((error) => {
+          this.error = true;
+        });
+    },
   },
   /* methods: {
     onSubmit(email, password) {

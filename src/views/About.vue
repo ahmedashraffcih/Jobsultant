@@ -20,7 +20,7 @@
           <v-card-title>Career Level</v-card-title>
           <v-card-text>
             <v-chip-group
-              v-model="selection"
+              
               active-class="deep-purple accent-4 white--text"
               column
             >
@@ -56,7 +56,7 @@
             outlined
             v-for="(job, i) in 5"
             :key="i"
-            @click="report = true"
+            @click="OpenJob()"
           >
             <v-list>
               <v-list-item three-line>
@@ -87,7 +87,7 @@
             </v-list>
           </v-card>
           <div class="text-center">
-            <v-pagination v-model="page" :length="3"></v-pagination>
+            <v-pagination  :length="3"></v-pagination>
           </div>
         </v-card>
       </v-col>
@@ -98,7 +98,7 @@
         <v-card flat>
           <v-list>
             <v-row class="justify-end mr-3">
-              <v-icon @click="report = false">mdi-close</v-icon>
+              <v-icon @click="CloseJob()">mdi-close</v-icon>
             </v-row>
             <v-list-item three-line>
               <v-list-item-content>
@@ -209,9 +209,26 @@
 export default {
   mounted() {},
   data: () => ({
-    report: false
+    //report: false
   }),
-  methods: {}
+  methods: {
+    OpenJob(){
+      this.$store.commit("SET_JOB",true)
+    },
+    CloseJob(){
+      this.$store.commit("SET_JOB",false)
+    }
+  },
+  computed: {
+    report: {
+      get () {
+        return this.$store.getters.JOB;
+      },
+      set(value) {
+        this.$store.commit("SET_JOB",value)
+      }
+    }
+  },
 };
 </script>
 

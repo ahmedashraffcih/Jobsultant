@@ -16,7 +16,6 @@
                   dense
                   outlined
                   label="First Name"
-                  v-model="firstname"
                   required
                   :rules="nameRules"
                   height="50px"
@@ -27,7 +26,6 @@
                   dense
                   outlined
                   label="Last Name"
-                  v-model="lastname"
                   required
                   :rules="nameRules"
                   height="50px"
@@ -60,24 +58,25 @@
                   :type="value ? 'password' : 'text'"
                 ></v-text-field>
               </v-col>
-              <!-- <v-col cols="10" style="height: 75px">
-            <v-text-field
-              dense
-              outlined
-              label="Target Job Title"
-              v-model="jobtitle"
-              height="50px"
-            ></v-text-field>
-          </v-col> -->
-
+              <v-col cols="10" style="height: 90px">
+                <v-text-field
+                  dense
+                  outlined
+                  label="Confirm Password"
+                  v-model="confirm_password"
+                  required
+                  :rules="passRules"
+                  type="password"
+                  height="50px"
+                ></v-text-field>
+              </v-col>
               <v-col cols="10">
                 <v-btn
                   rounded-4
                   color="success"
                   large
                   block
-                  :disabled="!Valid"
-                  to="/user/Build_CV"
+                  @click.prevent="register()"
                 >
                   Proceed to build your CV
                 </v-btn>
@@ -102,40 +101,50 @@ export default {
     return {
       FirstName: "",
       LastName: "",
+      Valid: false,
       //Rule
       nameRules: [
-        v => !!v || "Field is required",
-        v => (v && v.length <= 10) || "Name must be less than 10 characters",
-        v => (!!v && isNaN(v)) || "Can't include numbers"
+        (v) => !!v || "Field is required",
+        (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+        (v) => (!!v && isNaN(v)) || "Can't include numbers",
       ],
       email: "",
       emailRules: [
-        v => !!v || "E-mail is required",
-        v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+        (v) => !!v || "E-mail is required",
+        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],
       password: "",
       passRules: [
-        v => !!v || "Password is required",
-        v => (v && v.length >= 8) || "Name must be more than 8 characters"
+        (v) => !!v || "Password is required",
+        (v) => (v && v.length >= 8) || "Name must be more than 8 characters",
       ],
       JobTitle: "",
+      confirm_password:"",
       value: String,
-      Valid: false
+      userExists: false
     };
-  } /*
+  },
   methods: {
-    onSubmit() {
-      this.$store
-        .dispatch(REGISTER, {
-          email: this.email,
-          password: this.password,
-          FirstName: this.firstname,
-          LastName: this.lastname,
-          JobTitle: this.jobtitle
+    register() {
+      if (this.ValidPass()){
+        this.$store.dispatch('REGISTER', {
+          email : this.email,
+          firstname : this.FirstName,
+          lastname : this.LastName,
+          passowrd : this.password
         })
-        .then(() => this.$router.push({ name: "home" }));
+        .then((status) => {
+          this.$router.push("/user/Build_CV");
+        })
+        .catch((error) => {
+          this.userExists = true;
+        });
+      }
+    },
+    ValidPass(){
+      return this.password === this.confirm_password
     }
-  }*/
+  },
 };
 </script>
 <style scoped>
