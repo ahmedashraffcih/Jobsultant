@@ -121,16 +121,17 @@ export default {
       JobTitle: "",
       confirm_password:"",
       value: String,
-      userExists: false
+      userExists: false,
+      error: false,
     };
   },
   methods: {
     register() {
       if (this.ValidPass()){
         this.$store.dispatch('REGISTER', {
-          email : this.email,
           firstname : this.FirstName,
           lastname : this.LastName,
+          email : this.email,
           passowrd : this.password
         })
         .then((status) => {

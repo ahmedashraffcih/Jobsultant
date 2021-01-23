@@ -3,6 +3,8 @@
   <v-app-bar class="nav" app color="#2C3C5B" dark flat>
     <!-- 3 dashes
     <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>-->
+    <v-btn @click='log' >Logged in</v-btn>
+
     <v-avatar size="160px">
       <img :src="require('@/assets/Logo_on_blue.png')"/>
     </v-avatar>
@@ -44,23 +46,33 @@
 
 <script>
 import SearchBar from './SearchBar.vue';
-import { mapGetters } from "vuex";
+import { mapGetters,mapActions } from "vuex";
+
 
 export default {
   data: () => ({
-    group: null
+    group: null,
   }),
+
   components:{SearchBar},
+
   computed:{
-    ...mapGetters(['DISPLAY_SEARCH'])
+    ...mapGetters('ui',['DISPLAY_SEARCH']),
+    ...mapGetters('user',['IsLoggedIn'])
+   // ...mapActions(['DISPLAY_SEARCH'])
   },
+  
   methods:{
+    log(){
+      console.log(this.IsloggedIn);
+    },
     toggleSearch(){
       this.$store.commit("SET_DISPLAY_SEARCH",!this.DISPLAY_SEARCH);
     }
-  }
+  },
 };
 </script>
+
 <style scoped>
 .buttoncase {
   text-transform: none;

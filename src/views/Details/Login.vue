@@ -108,20 +108,9 @@ export default {
         });
     },
   },
-  /* methods: {
-    onSubmit(email, password) {
-      this.$store
-        .dispatch(LOGIN, { email, password })
-        .then(() => this.$router.push({ name: "home" }));
-    }
-  },
-  computed: {
-    ...mapState({
-      errors: state => state.auth.errors
-    })
-  }*/
 };
 </script>
+
 <style scoped>
 .div {
   background-color: #006064;
