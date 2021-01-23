@@ -72,6 +72,7 @@
 </template>
 
 <script>
+import { mapGetters,mapActions,mapMutations } from "vuex";
 export default {
   name: "Login",
 
@@ -93,13 +94,11 @@ export default {
     };
   },
   methods: {
+    ...mapActions('user',['LOGIN']),
+    
     login() {
-      console.log(this.$store);
-      this.$store
-        .dispatch("LOGIN", {
-          email: this.email,
-          password: this.password,
-        })
+      console.log(this.LOGIN);
+      this.LOGIN({email: this.email,password: this.password})
         .then((success) => {
           this.$router.push("/");
         })

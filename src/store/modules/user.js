@@ -10,15 +10,20 @@ const getters = {
     return state.IsLogged;
   },
 }
-const mutations = {}
+const mutations = {
+  SET_LOGGED_IN_STATUS: (state) => {
+    state.IsLogged = true;
+  },
+}
 
 const actions = {
-  LOGIN: ({ commit }, payload) => {
+  LOGIN: ({ commit }, {email,password}) => {
     return new Promise((resolve, reject) => {
       axios
-        .post("Login", payload)
+        .post("Login", {email,password})
         .then(({ data, status }) => {
           if (status === 200) {
+            commit('SET_LOGGED_IN_STATUS');
             resolve(true);
           }
         })

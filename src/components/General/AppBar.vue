@@ -3,7 +3,6 @@
   <v-app-bar class="nav" app color="#2C3C5B" dark flat>
     <!-- 3 dashes
     <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>-->
-    <v-btn @click='log' >Logged in</v-btn>
 
     <v-avatar size="160px">
       <img :src="require('@/assets/Logo_on_blue.png')"/>
@@ -11,9 +10,7 @@
     <v-toolbar-title class="title"></v-toolbar-title>
     <v-btn to="/" class="buttoncase ml-10" text >Home</v-btn>
     <v-btn class="buttoncase" to="/about" text >Find Jobs</v-btn>
-    <v-btn class="buttoncase" to="/user/account_settings" text 
-      >My Account</v-btn
-    >
+    <v-btn class="buttoncase" to="/user/account_settings" text> My Account </v-btn>
     <v-btn class="buttoncase" to="/user/My_CV" text >My CV</v-btn>
     <v-spacer></v-spacer>
     <SearchBar v-if="DISPLAY_SEARCH"/>
@@ -46,7 +43,7 @@
 
 <script>
 import SearchBar from './SearchBar.vue';
-import { mapGetters,mapActions } from "vuex";
+import { mapGetters,mapActions,mapMutations } from "vuex";
 
 
 export default {
@@ -58,16 +55,17 @@ export default {
 
   computed:{
     ...mapGetters('ui',['DISPLAY_SEARCH']),
-    ...mapGetters('user',['IsLoggedIn'])
+    ...mapGetters('user',['IsLoggedIn']),
+    
    // ...mapActions(['DISPLAY_SEARCH'])
   },
-  
   methods:{
     log(){
-      console.log(this.IsloggedIn);
+      console.log(this.IsLoggedIn);
     },
+    ...mapMutations('ui',['SET_DISPLAY_SEARCH']),
     toggleSearch(){
-      this.$store.commit("SET_DISPLAY_SEARCH",!this.DISPLAY_SEARCH);
+      this.SET_DISPLAY_SEARCH(!this.DISPLAY_SEARCH)
     }
   },
 };
