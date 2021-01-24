@@ -38,14 +38,14 @@
                 >
                 </v-text-field>
               </v-col>
+              <!-- to make the button disabled until verify validations :disabled="!Valid" -->
               <v-col cols="10" style="height: 50px">
                 <v-btn
                   rounded-4
                   large
                   block
-                  :disabled="!Valid"
                   color="success"
-                  @click.prevent="login()"
+                  @click="tryLogin" :loading="loading"
                 >
                   Log in
                 </v-btn>
@@ -68,6 +68,9 @@
         </v-card-text>
       </v-card>
     </v-row>
+    <v-snackbar v-model="snackbar1" timeout = "3000"> Fill Required Fields</v-snackbar>
+    <v-snackbar v-model="snackbar2" timeout = "5000"> Wrong Email or Password </v-snackbar>
+    <v-snackbar v-model="snackbar3" timeout = "1000"> Signed In </v-snackbar>
   </div>
 </template>
 
@@ -75,38 +78,65 @@
 import { mapGetters,mapActions,mapMutations } from "vuex";
 export default {
   name: "Login",
-
   data() {
     return {
+      email: "",
+      password: "",
+      value: String, // for password view
       Valid: false, //validation flag
-      email: null,
-      emailRules: [
-        (v) => !!v || "E-mail is required",
-        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-      ],
-      password: null,
+      error: false,
+      loading:false,
+      snackbar1:false,
+      snackbar2:false,
+      snackbar3:false,
+      timeout:1000,
       passRules: [
         (v) => !!v || "Password is required",
         (v) => (v && v.length >= 8) || "Name must be more than 8 characters",
       ],
-      value: String, // for password view
-      error: false,
+      emailRules: [
+        (v) => !!v || "E-mail is required",
+        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      ],
     };
   },
   methods: {
-    ...mapActions('user',['LOGIN']),
-    
-    login() {
-      console.log(this.LOGIN);
-      this.LOGIN({email: this.email,password: this.password})
-        .then((success) => {
-          this.$router.push("/");
-        })
-        .catch((error) => {
-          this.error = true;
-        });
-    },
+    // ...mapActions('user',['LOGIN']),
+    // login() {
+    //   console.log(this.LOGIN);
+    //   this.LOGIN({email: this.email,password: this.password})
+    //     .then((success) => {
+    //       this.$router.push("/");
+    //     })
+    //     .catch((error) => {
+    //       this.error = true;
+    //     });
+    // },
+    ...mapActions('auth', ['login']),
+        tryLogin() {
+          this.loading = true
+            // Perform a simple validation that email and password have been typed in
+            if (this.email != '' && this.password != '') {
+                this.login({email: this.email, password: this.password}).then(r => {
+                  if(!r){
+                    this.snackbar2 = true
+                    this.loading = false
+                  }
+                })
+            }else{
+              this.snackbar1 = true
+              this.loading = false
+            }
+        }
   },
+  computed:{
+    ...mapGetters('auth', [
+            'authenticating',
+            'authenticationError',
+            'authenticationErrorCode',
+            'authenticationSuccess'
+        ])
+  }
 };
 </script>
 

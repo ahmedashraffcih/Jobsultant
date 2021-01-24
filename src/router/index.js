@@ -1,12 +1,16 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
 import Home from "../views/Home.vue";
-import About from "../views/About.vue";
-import Login from "../views/Details/Login.vue";
-import Register from "../views/Details/Register.vue";
+import Jobs from "../views/Jobs.vue";
+import Login from "../views/Authentication/Login.vue";
+import Register from "../views/Authentication/Register.vue";
 import Account_Settings from "../views/User/Account_Settings.vue";
 import MyCV from "../views/User/My_CV.vue";
 import BuildCV from "../views/User/Build_CV.vue";
+
+import { TokenService } from "../services/storage.service";
+//The vue router defines all of the routes for the application, and contains a function that runs before each route change to prevent unauthenticated users from accessing restricted routes.
 
 Vue.use(VueRouter);
 
@@ -14,44 +18,85 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home
+    component: Home,
   },
   {
-    path: "/about",
-    name: "About",
-    component: About
+    path: "/jobs",
+    name: "Jobs",
+    component: Jobs,
   },
   {
-    path: "/Details/Login",
+    path: "/Authentication/Login",
     name: "Login",
-    component: Login
+    component: function() {
+      return import("../views/Authentication/Login.vue");
+    },
+    meta: {
+      public: true, // Allow access to even if not logged in
+      onlyWhenLoggedOut: true,
+    },
   },
   {
-    path: "/Details/Register",
+    path: "/Authentication/Register",
     name: "Register",
-    component: Register
+    component: function() {
+      return import('../views/Authentication/Register.vue')
+
+    },
+    meta: {
+      public: true,  // Allow access to even if not logged in
+      onlyWhenLoggedOut: true
+    }
   },
   {
     path: "/User/Account_Settings",
     name: "Account_Settings",
-    component: Account_Settings
+    component: Account_Settings,
   },
   {
     path: "/User/My_CV",
     name: "My_CV",
-    component: MyCV
+    component: MyCV,
   },
   {
     path: "/User/Build_CV",
     name: "Build_CV",
-    component: BuildCV
-  }
+    component: BuildCV,
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
+
+// router.beforeEach((to, from, next) => {
+//   const isPublic = to.matched.some(record => record.meta.public)
+//   const onlyWhenLoggedOut = to.matched.some(record => record.meta.onlyWhenLoggedOut)
+//   const loggedIn = !!TokenService.getToken();
+
+//   if (!isPublic && !loggedIn) {
+//     if(to.fullPath == "/register"){
+//       return next({
+//         path:'/register'
+//       });
+//     }else{
+//       return next({
+//         path:'/login',
+//         query: {redirect: to.fullPath}  // Store the full path to redirect the user to after login
+//       });
+//     }
+//     //console.log(to.fullPath)
+    
+//   }
+
+//   // Do not allow user to visit login page or register page if they are logged in
+//   if (loggedIn && onlyWhenLoggedOut) {
+//     return next('/')
+//   }
+
+//   next();
+// })
 
 export default router;

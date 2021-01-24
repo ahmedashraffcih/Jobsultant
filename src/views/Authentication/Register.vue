@@ -76,7 +76,7 @@
                   color="success"
                   large
                   block
-                  @click.prevent="register()"
+                  @click="tryRegister":loading="loading"
                 >
                   Proceed to build your CV
                 </v-btn>
@@ -91,60 +91,92 @@
         </v-card-text>
       </v-card>
     </v-row>
+    <v-snackbar v-model="snackbar1" timeout="3000">
+      Complete You Information as needed
+    </v-snackbar>
+    <v-snackbar v-model="snackbar2" timeout="1000"> Registered </v-snackbar>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Register",
   data() {
     return {
       FirstName: "",
       LastName: "",
+      email: "",
+      password: "",
+      confirm_password: "",
       Valid: false,
-      //Rule
+      value: String, //eye passowrd reveal
+      userExists: false,
+      error: false,
+      snackbar1: false,
+      snackbar2: false,
+      loading:false,
+      //Validation Rules
       nameRules: [
         (v) => !!v || "Field is required",
         (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
         (v) => (!!v && isNaN(v)) || "Can't include numbers",
       ],
-      email: "",
       emailRules: [
         (v) => !!v || "E-mail is required",
         (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],
-      password: "",
       passRules: [
         (v) => !!v || "Password is required",
         (v) => (v && v.length >= 8) || "Name must be more than 8 characters",
       ],
-      JobTitle: "",
-      confirm_password:"",
-      value: String,
-      userExists: false,
-      error: false,
     };
   },
   methods: {
+    /*
     register() {
-      if (this.ValidPass()){
-        this.$store.dispatch('REGISTER', {
-          firstname : this.FirstName,
-          lastname : this.LastName,
-          email : this.email,
-          passowrd : this.password
-        })
-        .then((status) => {
-          this.$router.push("/user/Build_CV");
-        })
-        .catch((error) => {
-          this.userExists = true;
+      if (this.ValidPass()) {
+        this.$store
+          .dispatch("REGISTER", {
+            firstname: this.FirstName,
+            lastname: this.LastName,
+            email: this.email,
+            passowrd: this.password,
+          })
+          .then((status) => {
+            this.$router.push("/user/Build_CV");
+          })
+          .catch((error) => {
+            this.userExists = true;
+          });
+      }
+    },*/
+    ValidPass() {
+      return this.password === this.confirm_password;
+    },
+    ...mapActions("auth", ["register"]),
+    tryRegister() {
+      this.loading = true
+      if (this.$refs.form.validate() && this.ValidPass()) {
+        //Success
+        this.snackbar2 = true;
+        this.register({
+          email: this.email,
+          password: this.password,
+          firstname: this.firstName,
+          lastname: this.lastName,
+        }).then((r) => {
+          if (!r) {
+            this.snackbar = true;
+            this.loading = false;
+          }
         });
+      } else {
+        //Validation Error
+        this.snackbar1 = true;
+        this.loading = false
       }
     },
-    ValidPass(){
-      return this.password === this.confirm_password
-    }
   },
 };
 </script>
