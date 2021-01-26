@@ -2,15 +2,14 @@
   <div class="div">
     <v-row justify="center">
       <v-card class="mt-10 mb-10" width="600px">
-        <v-card-title class="justify-center"
-          >Create a Free Account</v-card-title
-        >
-        <v-card-subtitle class="text-center"
-          >Already have an account? Log In</v-card-subtitle
-        >
+        <!-- ======================================================================= -->
+        <v-card-title class="justify-center">Create a Free Account</v-card-title>
+        <v-card-subtitle class="text-center">Already have an account? Log In</v-card-subtitle>
+        <!-- ======================================================================= -->
         <v-card-text>
           <v-form v-model="Valid">
             <v-row justify="center" style="height: 90px">
+              <!-- FirstName -->
               <v-col cols="5">
                 <v-text-field
                   dense
@@ -19,8 +18,10 @@
                   required
                   :rules="nameRules"
                   height="50px"
-                ></v-text-field>
+                >
+                </v-text-field>
               </v-col>
+              <!-- Last Name -->
               <v-col cols="5">
                 <v-text-field
                   dense
@@ -29,11 +30,14 @@
                   required
                   :rules="nameRules"
                   height="50px"
-                ></v-text-field>
+                >
+                </v-text-field>
               </v-col>
             </v-row>
+            <!-- ======================================================================= -->
             <v-row justify="center">
               <v-col cols="10" style="height: 90px">
+                <!-- Email -->
                 <v-text-field
                   dense
                   outlined
@@ -42,9 +46,11 @@
                   required
                   :rules="emailRules"
                   height="50px"
-                ></v-text-field>
+                >
+                </v-text-field>
               </v-col>
               <v-col cols="10" style="height: 90px">
+                <!-- Password -->
                 <v-text-field
                   dense
                   outlined
@@ -56,9 +62,11 @@
                   :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
                   @click:append="() => (value = !value)"
                   :type="value ? 'password' : 'text'"
-                ></v-text-field>
+                >
+                </v-text-field>
               </v-col>
               <v-col cols="10" style="height: 90px">
+                <!-- Confirm Password -->
                 <v-text-field
                   dense
                   outlined
@@ -71,6 +79,7 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="10">
+                <!-- Register Button -->
                 <v-btn
                   rounded-4
                   color="success"
@@ -80,6 +89,7 @@
                 >
                   Proceed to build your CV
                 </v-btn>
+                <!-- ======================================================================= -->
                 <p class="text-center mt-3">
                   By registering, you confirm that you have read and agree to
                   Jobsultant.com's Terms and Conditions of Use and Privacy
@@ -91,10 +101,10 @@
         </v-card-text>
       </v-card>
     </v-row>
-    <v-snackbar v-model="snackbar1" timeout="3000">
-      Complete You Information as needed
-    </v-snackbar>
+    <!-- ======================================================================= -->
+    <v-snackbar v-model="snackbar1" timeout="3000">Complete You Information as needed</v-snackbar>
     <v-snackbar v-model="snackbar2" timeout="1000"> Registered </v-snackbar>
+    <!-- ======================================================================= -->
   </div>
 </template>
 
@@ -104,18 +114,22 @@ export default {
   name: "Register",
   data() {
     return {
+      //Intinate the variables that will store user's data
       FirstName: "",
       LastName: "",
       email: "",
       password: "",
       confirm_password: "",
-      Valid: false,
+      //=====================
+      Valid: false, //Form Validation flag
       value: String, //eye passowrd reveal
       userExists: false,
       error: false,
+      //=====================
       snackbar1: false,
       snackbar2: false,
-      loading:false,
+      loading:false,//loading till user registerd
+      
       //Validation Rules
       nameRules: [
         (v) => !!v || "Field is required",
@@ -152,11 +166,13 @@ export default {
       }
     },*/
     ValidPass() {
+      // check if user passowrd matches or not
       return this.password === this.confirm_password;
     },
-    ...mapActions("auth", ["register"]),
+    ...mapActions("auth", ["register"]),//Apply Register function from auth module
     tryRegister() {
-      this.loading = true
+      this.loading = true //apply login animation
+      //check if user meets input rules and both password are the same
       if (this.$refs.form.validate() && this.ValidPass()) {
         //Success
         this.snackbar2 = true;
@@ -168,6 +184,7 @@ export default {
         }).then((r) => {
           if (!r) {
             this.snackbar = true;
+            //set the loading off and register the user
             this.loading = false;
           }
         });

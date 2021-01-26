@@ -3,17 +3,15 @@ It contains actions for logging in and out of the tutorial application, and muta
 import { UserService, AuthenticationError } from '../../services/user.service'
 import { TokenService } from '../../services/storage.service'
 import router from '../../router'
-/*The initial logged in state of the user is set by checking if the user is saved in local storage, 
-which keeps the user logged in if the browser is refreshed and between browser sessions.*/
 const state =  {
   authenticating: false,
   accessToken: TokenService.getToken(),
   authenticationErrorCode: 0,
   authenticationError: '',
   authenticationSuccess: false,
-
 }
-
+/*The initial logged in state of the user is set by checking if the user is saved in local storage, 
+which keeps the user logged in if the browser is refreshed and between browser sessions.*/
 const getters = {
   loggedIn: (state) => {
       return state.accessToken ? true : false

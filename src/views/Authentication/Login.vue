@@ -2,15 +2,9 @@
   <div class="div">
     <v-row justify="center">
       <v-card class="mt-10 mb-10" width="500px">
-        <v-card-title class="justify-center"
-          >Log in to your account</v-card-title
-        >
-        <v-card-subtitle class="text-center"
-          >Don't have an account yet? Register here</v-card-subtitle
-        >
-        <v-alert color="error" :value="error" icon="close"
-          >The username or password wrong</v-alert
-        >
+        <v-card-title class="justify-center">Log in to your account</v-card-title>
+        <v-card-subtitle class="text-center">Don't have an account yet? Register here</v-card-subtitle>
+        <v-alert color="error" :value="error" icon="close">The username or password wrong</v-alert>
         <v-card-text>
           <v-form v-model="Valid">
             <v-row justify="center">
@@ -46,22 +40,17 @@
                   block
                   color="success"
                   @click="tryLogin" :loading="loading"
-                >
-                  Log in
+                >Log in
                 </v-btn>
               </v-col>
               <v-col cols="10" style="height: 60px">
                 <v-card-text class="text-center">OR</v-card-text>
               </v-col>
               <v-col cols="10">
-                <v-btn rounded-4 large block color="success">
-                  Log in With Google
-                </v-btn>
+                <v-btn rounded-4 large block color="success">Log in With Google</v-btn>
               </v-col>
               <v-col cols="10">
-                <v-btn rounded-4 large block color="success">
-                  Log in With Facebook
-                </v-btn>
+                <v-btn rounded-4 large block color="success">Log in With Facebook</v-btn>
               </v-col>
             </v-row>
           </v-form>
@@ -80,16 +69,19 @@ export default {
   name: "Login",
   data() {
     return {
+      //Intinate the variables that will store user's data
       email: "",
       password: "",
-      value: String, // for password view
-      Valid: false, //validation flag
+      value: String, //eye passowrd reveal
+      Valid: false, //Form Validation flag
       error: false,
-      loading:false,
+      loading:false,//loading till user logged flag
       snackbar1:false,
       snackbar2:false,
       snackbar3:false,
       timeout:1000,
+
+      //Validation Rules
       passRules: [
         (v) => !!v || "Password is required",
         (v) => (v && v.length >= 8) || "Name must be more than 8 characters",
@@ -112,14 +104,16 @@ export default {
     //       this.error = true;
     //     });
     // },
-    ...mapActions('auth', ['login']),
+    ...mapActions('auth', ['login']),//Apply login function from auth module
         tryLogin() {
+          //apply login animation
           this.loading = true
             // Perform a simple validation that email and password have been typed in
             if (this.email != '' && this.password != '') {
                 this.login({email: this.email, password: this.password}).then(r => {
                   if(!r){
                     this.snackbar2 = true
+                    //set the loading off and logged the user
                     this.loading = false
                   }
                 })
@@ -130,6 +124,7 @@ export default {
         }
   },
   computed:{
+    //get the authentication states from auth module
     ...mapGetters('auth', [
             'authenticating',
             'authenticationError',

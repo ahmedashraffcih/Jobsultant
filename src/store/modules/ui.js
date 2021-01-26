@@ -2,7 +2,7 @@ const state = {
     job: false,
     displaySearch: false
 }
-
+/*The initial job state is set by checking if the user viewing the job that he want to apply for or not*/
 const getters = {
   JOB: (state) => {
     return state.job;

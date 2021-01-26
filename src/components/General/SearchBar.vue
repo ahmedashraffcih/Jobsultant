@@ -1,20 +1,23 @@
 <template>
+    <!-- need to style this -->
     <input outlined color="white" dark  placeholder="Search" v-on:input="search()" v-model.trim="input" ref="input" @blur="closeSearchBar()">
 </template>
 
 
 <script>
+import { mapGetters, mapActions, mapMutations } from "vuex";
 export default {
     data :() =>({
         input:'',
     }),
     methods:{
+        ...mapMutations("ui", ["SET_DISPLAY_SEARCH"]),//get set display function from ui module
         search(){
             //TODO : SEARCH THROUGH DATA
             console.log(this.input)
         },
         closeSearchBar(){
-            this.$store.commit("SET_DISPLAY_SEARCH",false);
+            this.SET_DISPLAY_SEARCH(false);
         }
     }
 };
