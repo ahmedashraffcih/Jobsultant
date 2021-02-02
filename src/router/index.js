@@ -9,6 +9,7 @@ import MyCV from "../views/User/My_CV.vue";
 import BuildCV from "../views/User/Build_CV.vue";
 import Emp_Register from "../views/Employer/Emp_Register.vue";
 import Emp_Profile from "../views/Employer/Emp_Profile.vue";
+import Emp_Edit_Profile from "../views/Employer/Emp_Edit_Profile.vue"
 
 Vue.use(VueRouter);
 
@@ -57,6 +58,11 @@ const routes = [
     path: "/Employer/Emp_Profile",
     name: "Emp_Profile",
     component: Emp_Profile
+  },
+  {
+    path: "/Employer/Emp_Edit_Profile",
+    name: "Emp_Edit_Profile",
+    component: Emp_Edit_Profile
   }
 ];
 

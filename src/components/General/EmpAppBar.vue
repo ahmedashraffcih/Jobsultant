@@ -30,8 +30,7 @@
       </template>
 
       <v-list>
-        <v-list-item @click="() => {}">Account Settings</v-list-item>
-        <v-list-item @click="() => {}">For Employers</v-list-item>
+        <v-list-item to="/Employer/Emp_Profile">View Profile</v-list-item>
         <v-divider></v-divider>
         <v-list-item @click="() => {}">Log Out</v-list-item>
       </v-list>

@@ -54,18 +54,42 @@
 
             <div class="ProfileSection row">
                 <div class="background col col-6" >
-                  <h3>Company Profile!</h3>
-                  <v-btn
-                    class="ma-2"
-                    x-small
-                    color="primary"
-                    dark
-                    >
-                    Edit
-                        <v-icon x-small dark right>
-                            mdi-fountain-pen
-                        </v-icon>
-                  </v-btn>
+                  <h3>About {{Name}}</h3>
+                        <v-row>
+                            <div class="col col-6">
+                                <h5 :title="Name"> Name:  </h5>
+                                <h5 :title="Phone"> Phone:</h5>
+                                <h5 :title="Industry"> Industry:</h5>
+                                <h5 :title="Website"> Website:</h5>
+                                <h5 :title="Size"> Company Size:</h5>
+                                <h5 :title="Headquarters"> Headquarters: </h5>
+                                <h5 :title="Year">Founded: </h5> 
+                            </div> 
+
+                            <div class="col col-6">
+                                <h5>{{Name}}</h5>
+                                <h5>{{Phone}}</h5>
+                                <h5>{{Industry}}</h5>
+                                <h5>{{Website}}</h5>
+                                <h5>{{Size}} employees</h5>
+                                <h5>{{Headquarters}}</h5>
+                                <h5>{{Year}}</h5>
+                            </div>
+                            
+                        </v-row>
+                        
+                        <v-btn
+                            
+                            x-small
+                            color="primary"
+                            dark
+                            to="/Employer/Emp_Edit_Profile"
+                            >
+                            Edit
+                                <v-icon x-small dark right>
+                                    mdi-fountain-pen
+                                </v-icon>
+                        </v-btn>
                 </div>
 
                 <v-spacer></v-spacer>
@@ -73,6 +97,7 @@
                 <v-card
                     class="mx-auto"
                     max-width="344"
+                    max-height="120"
                     outlined
                 >
                     <v-list-item two-line>
@@ -101,7 +126,7 @@
 
             <div class="JopSection row">
                 <div class="background col col-6">
-                    <h3>Open Vacancies at $Company!</h3>
+                    <h3 :title="Name">Open Vacancies at {{Name}}!</h3>
                     <v-btn
                         x-small
                         color="primary"
@@ -122,11 +147,19 @@
 </template>
 
 <script>
-export default {
-  data: () => ({
-    icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
-  }),
-};
+    export default {   
+    data: () => ({
+        Name:'Vodafone Egypt',
+        Phone:'01012347575',
+        Industry:'Telecom Service',
+        Overview:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu mi bibendum neque egestas congue quisque.',
+        Website:'www.vodafoneEg.com',
+        Size:'200-300',
+        Headquarters:'Cairo,Egypt',
+        Year:'1990',
+        icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
+        }),
+    };
 </script>
 
 <style scoped>
