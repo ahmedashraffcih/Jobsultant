@@ -1,39 +1,62 @@
 import axios from "axios";
 
-export default {
-  state: {},
-  getters: {},
-  mutations: {},
-  actions: {
-    LOGIN: ({commit}, payload ) => {
-      return new Promise((resolve, reject) => {
-        axios
-          .post("Login", payload)
-          .then(({ data, status }) => {
-            if (status === 200) {
-              resolve(true);
-            }
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      });
-    },
-    REGISTER: ({commit},{email,firstname,lastname,password}) =>{
-      return new Promise((resolve, reject) =>{
-        axios
-          .post("Register", {
-            email,firstname,lastname,password
-          })
-          .then(({ data, status }) => {
-            if (status === 201) {
-              resolve(true);
-            }
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      });
-    },
+const state = {
+  IsLogged: false,
+  UserName: "",
+}
+
+const getters = {
+  IsLoggedIn: (state) => {
+    return state.IsLogged;
   },
-};
+}
+const mutations = {
+  SET_LOGGED_IN_STATUS: (state) => {
+    state.IsLogged = true;
+  },
+}
+
+const actions = {
+  LOGIN: ({ commit }, {email,password}) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .post("Login", {email,password})
+        .then(({ data, status }) => {
+          if (status === 200) {
+            commit('SET_LOGGED_IN_STATUS');
+            resolve(true);
+          }
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  },
+  REGISTER: ({ commit }, { firstname, lastname, email, password }) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .post("Register", {
+          firstname,
+          lastname,
+          email,
+          password,
+        })
+        .then(({ data, status }) => {
+          if (status === 201) {
+            resolve(true);
+          }
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  },
+}
+
+export const user = {
+  namespaced: true,
+  state,
+  getters,
+  actions,
+  mutations
+}

@@ -4,11 +4,17 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import axios from "axios";
-
+import ApiService from './services/api.service'
+import {TokenService} from './services/storage.service'
 Vue.config.productionTip = false;
 
 axios.defaults.baseURL = 'http://localhost:3000/'
-
+// Set the base URL of the API
+ApiService.init(process.env.VUE_APP_ROOT_API)
+// If token exists set header
+if (TokenService.getToken()) {
+  ApiService.setHeader()
+}
 new Vue({
   router,
   store,

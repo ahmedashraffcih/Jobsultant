@@ -12,18 +12,13 @@
               class="searchbar"
               outlined
               label="Search"
-              rounded-0
-            >
+              rounded-0>
             </v-text-field>
           </v-col>
           <v-card-text> Filter Your Search </v-card-text>
           <v-card-title>Career Level</v-card-title>
           <v-card-text>
-            <v-chip-group
-              
-              active-class="deep-purple accent-4 white--text"
-              column
-            >
+            <v-chip-group active-class="deep-purple accent-4 white--text" column>
               <v-chip>Intern</v-chip>
               <v-chip>Mid-level</v-chip>
               <v-chip>Senior-level</v-chip>
@@ -56,24 +51,22 @@
             outlined
             v-for="(job, i) in 5"
             :key="i"
-            @click="OpenJob()"
-          >
+            @click.prevent="OpenJob()">
             <v-list>
               <v-list-item three-line>
                 <v-list-item-content>
                   <v-list-item-title class="title">Job Title</v-list-item-title>
-                  <v-list-item-subtitle class="subtitle-1"
-                    >Company</v-list-item-subtitle
-                  >
+                  <v-list-item-subtitle class="subtitle-1">Company
+                  </v-list-item-subtitle>
                   <v-list-item-subtitle class="subtitle-2 mt-5"
-                    >Career Level</v-list-item-subtitle
-                  >
+                    >Career Level
+                  </v-list-item-subtitle>
                   <v-list-item-subtitle class="caption mt-5">
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut
                     atque, quos porro ea velit possimus in nisi dicta nemo
                     voluptatem sequi esse deleniti obcaecati. Voluptatibus
-                    deleniti error sint hic sequi.</v-list-item-subtitle
-                  >
+                    deleniti error sint hic sequi.
+                  </v-list-item-subtitle>
                   <v-list-item-subtitle class="caption mt-5"
                     >1/1/2020</v-list-item-subtitle
                   >
@@ -81,8 +74,8 @@
                 <v-list-item-avatar
                   tile
                   size="60"
-                  color="grey"
-                ></v-list-item-avatar>
+                  color="grey">
+                </v-list-item-avatar>
               </v-list-item>
             </v-list>
           </v-card>
@@ -103,48 +96,41 @@
             <v-list-item three-line>
               <v-list-item-content>
                 <v-list-item-title class="title">Job Title</v-list-item-title>
-                <v-list-item-subtitle class="subtitle-1"
-                  >Company</v-list-item-subtitle
-                >
-                <v-list-item-subtitle class="subtitle-2 mt-5"
-                  >Career Level</v-list-item-subtitle
-                >
+                <v-list-item-subtitle class="subtitle-1">Company</v-list-item-subtitle>
+                <v-list-item-subtitle class="subtitle-2 mt-5">Career Level</v-list-item-subtitle>
                 <v-list-item-subtitle class="caption mt-5">
                   Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut
                   atque, quos porro ea velit possimus in nisi dicta nemo
                   voluptatem sequi esse deleniti obcaecati. Voluptatibus
-                  deleniti error sint hic sequi.</v-list-item-subtitle
-                >
-                <v-list-item-subtitle class="caption mt-5"
-                  >1/1/2020</v-list-item-subtitle
-                >
+                  deleniti error sint hic sequi.
+                </v-list-item-subtitle>
+                <v-list-item-subtitle class="caption mt-5">1/1/2020</v-list-item-subtitle>
               </v-list-item-content>
 
               <v-list-item-avatar
                 tile
                 size="60"
-                color="grey"
-              ></v-list-item-avatar>
+                color="grey">
+              </v-list-item-avatar>
             </v-list-item>
           </v-list>
           <v-btn class="ml-3 mb-3" outlined>Apply</v-btn>
           <v-divider></v-divider>
 
           <v-card-title class="title">Job Description</v-card-title>
-          <v-card-text
-            >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta
+          <v-card-text>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta
             accusantium maiores vel possimus quasi necessitatibus magni iusto
             doloribus? Illum necessitatibus repellat rerum sed nemo
-            exercitationem reiciendis a illo laborum neque.</v-card-text
-          >
+            exercitationem reiciendis a illo laborum neque.
+          </v-card-text>
 
           <v-card-title class="title">Skills</v-card-title>
-          <v-card-text
-            >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta
+          <v-card-text>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta
             accusantium maiores vel possimus quasi necessitatibus magni iusto
             doloribus? Illum necessitatibus repellat rerum sed nemo
-            exercitationem reiciendis a illo laborum neque.</v-card-text
-          >
+            exercitationem reiciendis a illo laborum neque.
+          </v-card-text>
           <v-card-title class="title">Job Details</v-card-title>
         </v-card>
       </v-col>
@@ -157,21 +143,15 @@
             <v-list-item three-line>
               <v-list-item-content>
                 <v-list-item-title class="title">User Name</v-list-item-title>
-                <v-list-item-subtitle class="subtitle-2 mt-10"
-                  >Last CV Refresh Date: 2020-11-03</v-list-item-subtitle
-                >
-                <v-list-item-subtitle class="subtitle-2 mt-5"
-                  >Preferred job title</v-list-item-subtitle
-                >
-                <v-list-item-subtitle class="caption mt-2"
-                  >Data Engineer</v-list-item-subtitle
-                >
+                <v-list-item-subtitle class="subtitle-2 mt-10">Last CV Refresh Date: 2020-11-03</v-list-item-subtitle>
+                <v-list-item-subtitle class="subtitle-2 mt-5">Preferred job title</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption mt-2">Data Engineer</v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-avatar
                 tile
                 size="60"
-                color="blue"
-              ></v-list-item-avatar>
+                color="blue">
+              </v-list-item-avatar>
             </v-list-item>
           </v-list>
         </v-card>
@@ -179,25 +159,15 @@
           <v-list>
             <v-list-item three-line>
               <v-list-item-content>
-                <v-list-item-title class="title"
-                  >Save this search and receive similar jobs:</v-list-item-title
-                >
-                <v-list-item-subtitle class="subtitle-2 mt-7"
-                  >Keywords</v-list-item-subtitle
-                >
-                <v-list-item-subtitle class="subtitle-2 mt-5"
-                  >Job Location</v-list-item-subtitle
-                >
-                <v-list-item-subtitle class="subtitle-2 mt-5"
-                  >Alert Frequency</v-list-item-subtitle
-                >
+                <v-list-item-title class="title">Save this search and receive similar jobs:</v-list-item-title>
+                <v-list-item-subtitle class="subtitle-2 mt-7">Keywords</v-list-item-subtitle>
+                <v-list-item-subtitle class="subtitle-2 mt-5">Job Location</v-list-item-subtitle>
+                <v-list-item-subtitle class="subtitle-2 mt-5">Alert Frequency</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-list>
           <v-row class="justify-end mr-3">
-            <v-btn class="ml-3 mb-3" small right outlined
-              >Create Job Alert</v-btn
-            >
+            <v-btn class="ml-3 mb-3" small right outlined>Create Job Alert</v-btn>
           </v-row>
         </v-card>
       </v-col>
@@ -206,27 +176,27 @@
 </template>
 
 <script>
+import { mapGetters,mapActions,mapMutations } from "vuex";
 export default {
   mounted() {},
   data: () => ({
     //report: false
   }),
   methods: {
+    ...mapMutations("ui", ["SET_JOB"]),
     OpenJob(){
-      this.$store.commit("SET_JOB",true)
+      this.SET_JOB(!this.JOB,true)
     },
     CloseJob(){
-      this.$store.commit("SET_JOB",false)
+       this.SET_JOB(!this.JOB,false)
     }
   },
   computed: {
-    report: {
-      get () {
-        return this.$store.getters.JOB;
+    ...mapGetters("ui",['JOB']),
+    report:{
+      get(){
+        return this.JOB
       },
-      set(value) {
-        this.$store.commit("SET_JOB",value)
-      }
     }
   },
 };
