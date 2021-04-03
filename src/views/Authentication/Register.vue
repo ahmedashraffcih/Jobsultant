@@ -173,7 +173,8 @@ export default {
     tryRegister() {
       this.loading = true //apply login animation
       //check if user meets input rules and both password are the same
-      if (this.$refs.form.validate() && this.ValidPass()) {
+      //this.$refs.form.validate() &&
+      if (this.email != '' && this.password != ''&& this.firstname != '' && this.lastname != '' && this.ValidPass()) {
         //Success
         this.snackbar2 = true;
         this.register({
