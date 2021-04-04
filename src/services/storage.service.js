@@ -1,7 +1,7 @@
 const TOKEN_KEY = 'access_token'
 const REFRESH_TOKEN_KEY = 'refresh_token'
 const USER_ID_KEY = 'access_user_id'
-
+const USER = 'UserData'
 /**
  * Manage the how Access Tokens are being stored and retreived from storage.
  *
@@ -9,6 +9,9 @@ const USER_ID_KEY = 'access_user_id'
  * accessed through this instace.
 **/
 const TokenService = {
+    
+    //USER SIDE
+
     getUserId() {
         return localStorage.getItem(USER_ID_KEY)
     },
@@ -21,6 +24,21 @@ const TokenService = {
         localStorage.removeItem(USER_ID_KEY)
     },
 
+    StoreUser(payload) {
+        localStorage.setItem(USER, payload)
+    },
+    
+    getUser() {
+        return localStorage.getItem(USER)
+    },
+
+    removeUser() {
+        localStorage.removeItem(USER)
+    },
+
+    //-----------------------------
+    //TOKEN SIDE
+
     getToken() {
         return localStorage.getItem(TOKEN_KEY)
     },
@@ -28,6 +46,7 @@ const TokenService = {
     saveToken(accessToken) {
         localStorage.setItem(TOKEN_KEY, accessToken)
     },
+
     removeToken() {
         localStorage.removeItem(TOKEN_KEY)
     },

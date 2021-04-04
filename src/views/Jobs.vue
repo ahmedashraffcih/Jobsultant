@@ -42,58 +42,23 @@
       <!-- jobs card -->
 
       <v-col cols="3">
-        <!-- <v-card flat>
-          <v-card-title>X in Jobs</v-card-title>
-          <v-divider></v-divider>
-          <v-card
-            flat
-            rounded="0"
-            outlined
-            v-for="(job, i) in 5"
-            :key="i"
-            @click.prevent="OpenJob()">
-            <v-list>
-              <v-list-item three-line>
-                <v-list-item-content>
-                  <v-list-item-title class="title">Job Title</v-list-item-title>
-                  <v-list-item-subtitle class="subtitle-1">Company
-                  </v-list-item-subtitle>
-                  <v-list-item-subtitle class="subtitle-2 mt-5"
-                    >Career Level
-                  </v-list-item-subtitle>
-                  <v-list-item-subtitle class="caption mt-5">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut
-                    atque, quos porro ea velit possimus in nisi dicta nemo
-                    voluptatem sequi esse deleniti obcaecati. Voluptatibus
-                    deleniti error sint hic sequi.
-                  </v-list-item-subtitle>
-                  <v-list-item-subtitle class="caption mt-5"
-                    >1/1/2020</v-list-item-subtitle
-                  >
-                </v-list-item-content>
-                <v-list-item-avatar
-                  tile
-                  size="60"
-                  color="grey">
-                </v-list-item-avatar>
-              </v-list-item>
-            </v-list>
-          </v-card>
-          <div class="text-center">
-            <v-pagination  :length="3"></v-pagination>
-          </div>
-        </v-card> -->
         <v-card flat>
           <v-card-title>X in Jobs</v-card-title>
-          <v-divider></v-divider>
+          <v-progress-linear
+            absolute
+            v-if="loading"
+            color="blue"
+            indeterminate
+          >     
+          </v-progress-linear>
           
           <v-card
             flat
             rounded="0"
             outlined
             v-for="job in jobs"
-            :key="job.id"
-            @click.prevent="OpenJob()">
+            :key="job._id"
+            @click="cardcondition=true; GetJob(job._id);">
             
             <v-list>
               <v-list-item three-line>
@@ -121,23 +86,20 @@
 
       <!-- Apply Card -->
 
-      <v-col cols="3" v-if="report">
-        <v-card flat>
+      <v-col cols="3" v-if="cardcondition">
+        
+        <v-card flat >
+          
           <v-list>
             <v-row class="justify-end mr-3">
-              <v-icon @click="CloseJob()">mdi-close</v-icon>
+              <v-icon @click="cardcondition=false">mdi-close</v-icon>
             </v-row>
             <v-list-item three-line>
               <v-list-item-content>
-                <v-list-item-title class="title">Job Title</v-list-item-title>
-                <v-list-item-subtitle class="subtitle-1">Company</v-list-item-subtitle>
-                <v-list-item-subtitle class="subtitle-2 mt-5">Career Level</v-list-item-subtitle>
-                <v-list-item-subtitle class="caption mt-5">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut
-                  atque, quos porro ea velit possimus in nisi dicta nemo
-                  voluptatem sequi esse deleniti obcaecati. Voluptatibus
-                  deleniti error sint hic sequi.
-                </v-list-item-subtitle>
+                <v-list-item-title class="title">{{oneJob.title}}</v-list-item-title>
+                <v-list-item-subtitle class="subtitle-1">{{oneJob.Company}}</v-list-item-subtitle>
+                <v-list-item-subtitle class="subtitle-2 mt-5">{{oneJob.career_level}}</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption mt-5">{{oneJob.description}}</v-list-item-subtitle>
                 <v-list-item-subtitle class="caption mt-5">1/1/2020</v-list-item-subtitle>
               </v-list-item-content>
 
@@ -152,26 +114,20 @@
           <v-divider></v-divider>
 
           <v-card-title class="title">Job Description</v-card-title>
-          <v-card-text>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta
-            accusantium maiores vel possimus quasi necessitatibus magni iusto
-            doloribus? Illum necessitatibus repellat rerum sed nemo
-            exercitationem reiciendis a illo laborum neque.
-          </v-card-text>
+          <v-card-text>{{oneJob.description}}</v-card-text>
 
           <v-card-title class="title">Skills</v-card-title>
-          <v-card-text>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta
-            accusantium maiores vel possimus quasi necessitatibus magni iusto
-            doloribus? Illum necessitatibus repellat rerum sed nemo
-            exercitationem reiciendis a illo laborum neque.
-          </v-card-text>
+          <ul class="ml-3">
+            <li v-for="skill in oneJob.skills">{{skill}}</li>
+          </ul>
+          
           <v-card-title class="title">Job Details</v-card-title>
         </v-card>
       </v-col>
 
       <!-- Profile Card -->
 
-      <v-col cols="3" v-if="report != true">
+      <v-col cols="3" v-if="cardcondition != true">
         <v-card v-if="loggedIn" class="mb-5">
           <v-list>
             <v-list-item three-line>
@@ -230,20 +186,13 @@ export default {
     jobs:[],
     result:[],
     job:"",
-    pageOfItems: []
+    oneJob:{},
+    pageOfItems: [],
+    cardcondition:false,
+    loading:false,
   }),
   methods: {
-    ...mapMutations("ui", ["SET_JOB"]),
-    OpenJob()
-    {
-      this.SET_JOB(!this.JOB,true)
-    },
-
-    CloseJob()
-    {
-       this.SET_JOB(!this.JOB,false)
-    },
-
+   
     GetJobs()
     {
       if(this.job){
@@ -258,22 +207,25 @@ export default {
         });
       }
     },
-    GetDetails(id){
-      ApiService.get(`http://localhost:3000/jobs/list/${id}`)
-      .then((r)=>{
 
-      });
+    GetJob(id)
+    {
+      this.loading=true
+       ApiService.get(`http://localhost:3000/jobs/list/${id}`)
+        .then((r)=>{
+          if(r.status==200){
+            this.oneJob=r.data;
+            this.loading=false
+          }
+          else{
+            console.log(r);
+          }
+        });
     }
   },
   computed: {
-    ...mapGetters("ui",['JOB']),
     ...mapGetters("auth", ["loggedIn"]),
     ...mapGetters("auth", ["userdata"]),
-    report:{
-      get(){
-        return this.JOB
-      },
-    }
   },
 };
 </script>

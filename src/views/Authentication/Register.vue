@@ -4,7 +4,7 @@
       <v-card class="mt-10 mb-10" width="600px">
         <!-- ======================================================================= -->
         <v-card-title class="justify-center">Create a Free Account</v-card-title>
-        <v-card-subtitle class="text-center">Already have an account? Log In</v-card-subtitle>
+        <v-card-subtitle class="text-center">Already have an account? <a style="text-decoration: none;" href="/Authentication/login">Log In</a></v-card-subtitle>
         <!-- ======================================================================= -->
         <v-card-text>
           <v-form v-model="Valid">

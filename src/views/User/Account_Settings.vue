@@ -107,7 +107,6 @@ export default {
   data: () => ({
     group: null,
   }),
-
   components: {  },
 
   computed: {

@@ -48,6 +48,8 @@ const UserService = {
                 throw new AuthenticationError(response.data.status, response.data.message)
             }
             const user = response.data
+            TokenService.StoreUser(JSON.stringify(user))
+            //console.log(JSON.stringify(user))
             //return the whole response to store it as the user's data
             return user
         } 
@@ -128,6 +130,7 @@ const UserService = {
     logout() {
         // Remove the token and remove Authorization header from Api Service as well 
         TokenService.removeToken()
+        TokenService.removeUser()
         ApiService.removeHeader()
         // NOTE: Again, we'll cover the 401 Interceptor a bit later. 
     }

@@ -10,7 +10,8 @@ const state =  {
   authenticationErrorCode: 0,
   authenticationError: '',
   authenticationSuccess: false,
-  user:{}
+  //store user info in user's object
+  user:TokenService.getUser()
 }
 /*The initial logged in state of the user is set by checking if the user is saved in local storage, 
 which keeps the user logged in if the browser is refreshed and between browser sessions.*/
@@ -23,7 +24,7 @@ const getters =
 
         userdata: (state) => 
         {
-            return state.user;
+            return JSON.parse(state.user);
         },
 
         authenticationErrorCode: (state) => 
@@ -70,10 +71,10 @@ const mutations =
         state.authenticationError = errorMessage
     },
     
-    SetUser(state,user) 
-    {
-        state.user = user
-    },
+    // SetUser(state,user) 
+    // {
+    //     state.user = user
+    // },
 
     registerRequest(state) 
     {
@@ -112,10 +113,12 @@ const actions = {
           //console.log(data)
           //store user token in local storage
           commit('loginSuccess', data.token)
-          //store user info in user's object
-          commit('SetUser', data)
+          //store user info in user's object EDIT: We stored it directly from token service and so no need for mutation
+          //commit('SetUser', data)
+
           // Redirect the user to the page he first tried to visit or to the home view
           //router.push(router.history.current.query.redirect || '/');
+          console.log(TokenService.getUser())
 
           return true
       } 
@@ -140,8 +143,10 @@ const actions = {
           // Register user token into the system (NOTE: not in the local storage)
           commit('registerSuccess', token.token)
           //Console.log(token.token)
-          //store user info in user's object
-          commit('SetUser', token)
+
+          //store user info in user's object EDIT: We stored it directly from token service and so no need for mutation
+          //commit('SetUser', token)
+
           // Redirect the user to the page he first tried to visit or to the home view
           router.push(router.history.current.query.redirect || '/User/build_cv');
 
