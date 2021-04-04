@@ -1,6 +1,6 @@
 <template>
   <!-- flat to remove shadow-->
-  <v-app-bar class="nav" app color="#2C3C5B" dark flat>
+  <v-app-bar class="nav" app color="#24305E" dark flat>
     <!-- 3 dashes
     <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>-->
     <!-- ======================================================================= -->
@@ -42,7 +42,7 @@
       </template>
 
       <v-list>
-        <v-list-item @click="() => {}">Account Settings</v-list-item>
+        <v-list-item v-if="loggedIn" @click="() => {}">Account Settings</v-list-item>
         <v-list-item @click="() => {}">For Employers</v-list-item>
         <v-divider></v-divider>
         <v-list-item v-if="loggedIn" @click="TryLogout">Log Out</v-list-item>

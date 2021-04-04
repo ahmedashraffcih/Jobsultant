@@ -26,6 +26,7 @@
                   v-model="password"
                   required
                   :rules="passRules"
+                  
                   :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
                   @click:append="() => (value = !value)"
                   :type="value ? 'password' : 'text'"
@@ -39,8 +40,10 @@
                   large
                   block
                   color="success"
-                  @click="tryLogin" :loading="loading"
-                >Log in
+                  :disabled="!Valid"
+                  @click="tryLogin" :loading="loading">
+                  
+                  Log in
                 </v-btn>
               </v-col>
               <v-col cols="10" style="height: 60px">
@@ -72,9 +75,10 @@ export default {
       //Intinate the variables that will store user's data
       email: "",
       password: "",
+      //---------//
       value: String, //eye passowrd reveal
       Valid: false, //Form Validation flag
-      error: false,
+      error: false, //snackbars flag
       loading:false,//loading till user logged flag
       snackbar1:false,
       snackbar2:false,
@@ -82,34 +86,28 @@ export default {
       timeout:1000,
 
       //Validation Rules
-      passRules: [
+      passRules: 
+      [
         (v) => !!v || "Password is required",
         (v) => (v && v.length >= 8) || "Name must be more than 8 characters",
       ],
-      emailRules: [
+
+      emailRules: 
+      [
         (v) => !!v || "E-mail is required",
         (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],
+
     };
   },
   methods: {
-    // ...mapActions('user',['LOGIN']),
-    // login() {
-    //   console.log(this.LOGIN);
-    //   this.LOGIN({email: this.email,password: this.password})
-    //     .then((success) => {
-    //       this.$router.push("/");
-    //     })
-    //     .catch((error) => {
-    //       this.error = true;
-    //     });
-    // },
     ...mapActions('auth', ['login']),//Apply login function from auth module
         tryLogin() {
           //apply login animation
           this.loading = true
             // Perform a simple validation that email and password have been typed in
-            if (this.email != '' && this.password != '') {
+            if (this.email != '' && this.password != '') 
+            {
                 this.login({email: this.email, password: this.password}).then(r => {
                   if(!r){
                     this.snackbar2 = true
@@ -117,7 +115,9 @@ export default {
                     this.loading = false
                   }
                 })
-            }else{
+            }
+            else
+            {
               this.snackbar1 = true
               this.loading = false
             }
@@ -137,7 +137,7 @@ export default {
 
 <style scoped>
 .div {
-  background-color: #006064;
+  background-color: #a8d0e6;
   width: 100%;
 }
 </style>

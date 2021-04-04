@@ -85,6 +85,7 @@
                 <v-btn
                   rounded-4
                   color="success"
+                  :disabled="!Valid"
                   large
                   block
                   @click="tryRegister":loading="loading"
@@ -149,24 +150,6 @@ export default {
     };
   },
   methods: {
-    /*
-    register() {
-      if (this.ValidPass()) {
-        this.$store
-          .dispatch("REGISTER", {
-            firstname: this.FirstName,
-            lastname: this.LastName,
-            email: this.email,
-            passowrd: this.password,
-          })
-          .then((status) => {
-            this.$router.push("/user/Build_CV");
-          })
-          .catch((error) => {
-            this.userExists = true;
-          });
-      }
-    },*/
     ValidPass() {
       // check if user passowrd matches or not
       return this.password === this.confirm_password;
@@ -205,7 +188,7 @@ export default {
 </script>
 <style scoped>
 .div {
-  background-color: #006064;
+  background-color: #a8d0e6;
   width: 100%;
 }
 </style>

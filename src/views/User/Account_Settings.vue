@@ -125,7 +125,7 @@ export default {
 
 <style scoped>
 .div {
-  background-color: #006064;
+  background-color: #a8d0e6;
   width: 100%;
 }
 </style>

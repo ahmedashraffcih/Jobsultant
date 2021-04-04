@@ -35,10 +35,12 @@ const UserService = {
             const response = await ApiService.customRequest(requestData)
             if (response.data.token) 
             {
+                //Sending the token for the token service to save it into local storage
                 TokenService.saveToken(response.data.token)
                 //TokenService.saveUserId(response.data.id)
                 
                 ApiService.setHeader()
+                //redirecting user after logging to Home page
                 router.push(router.history.current.query.redirect || '/');
             }
             else
@@ -46,6 +48,7 @@ const UserService = {
                 throw new AuthenticationError(response.data.status, response.data.message)
             }
             const user = response.data
+            //return the whole response to store it as the user's data
             return user
         } 
         catch (error) 
@@ -74,6 +77,8 @@ const UserService = {
         try {
             const response = await ApiService.customRequest(requestData)
             //console.log(response.data)
+            /* Sending the token for the token service to save it into local storage however,
+            we returns the response data to save the user's info by the store's login function*/
             TokenService.saveToken(response.data.token)
             return response.data
         } catch (error) {
@@ -124,8 +129,6 @@ const UserService = {
         // Remove the token and remove Authorization header from Api Service as well 
         TokenService.removeToken()
         ApiService.removeHeader()
-        
-        
         // NOTE: Again, we'll cover the 401 Interceptor a bit later. 
     }
 }

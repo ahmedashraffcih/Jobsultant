@@ -14,75 +14,92 @@ const state =  {
 }
 /*The initial logged in state of the user is set by checking if the user is saved in local storage, 
 which keeps the user logged in if the browser is refreshed and between browser sessions.*/
-const getters = {
-  loggedIn: (state) => {
-      return state.accessToken ? true : false
-  },
+const getters = 
+    {
+        loggedIn: (state) => 
+        {
+            return state.accessToken ? true : false
+        },
 
-  userdata: (state) => {
-    return state.user;
-  },
+        userdata: (state) => 
+        {
+            return state.user;
+        },
 
-  authenticationErrorCode: (state) => {
-      return state.authenticationErrorCode
-  },
+        authenticationErrorCode: (state) => 
+        {
+            return state.authenticationErrorCode
+        },
 
-  authenticationError: (state) => {
-      return state.authenticationError
-  },
+        authenticationError: (state) => 
+        {
+            return state.authenticationError
+        },
 
-  authenticating: (state) => {
-      return state.authenticating
-  },
-  authenticationSuccess: (state) => {
-      return state.authenticationSuccess
-  }
-}
+        authenticating: (state) => 
+        {
+            return state.authenticating
+        },
 
-const mutations = {
-  loginRequest(state) {
-      state.authenticating = true;
-      state.authenticationError = ''
-      state.authenticationErrorCode = 0
-  },
+        authenticationSuccess: (state) => 
+        {
+            return state.authenticationSuccess
+        }
+    }
 
-  loginSuccess(state, accessToken) {
-      state.accessToken = accessToken
-      state.authenticationSuccess = true;
-      state.authenticating = false;
-  },
+const mutations = 
+{
+    loginRequest(state) 
+    {
+        state.authenticating = true;
+        state.authenticationError = ''
+        state.authenticationErrorCode = 0
+    },
 
-  loginError(state, {errorCode, errorMessage}) {
-      state.authenticating = false
-      state.authenticationErrorCode = errorCode
-      state.authenticationError = errorMessage
-  },
-  
-  SetUser(state,user) {
-      state.user = user
-  },
+    loginSuccess(state, accessToken) 
+    {
+        state.accessToken = accessToken
+        state.authenticationSuccess = true;
+        state.authenticating = false;
+    },
 
-  registerRequest(state) {
-      state.authenticating = true;
-      state.authenticationError = ''
-      state.authenticationErrorCode = 0
-  },
+    loginError(state, {errorCode, errorMessage}) 
+    {
+        state.authenticating = false
+        state.authenticationErrorCode = errorCode
+        state.authenticationError = errorMessage
+    },
+    
+    SetUser(state,user) 
+    {
+        state.user = user
+    },
 
-  registerSuccess(state, accessToken) {
-      state.accessToken = accessToken
-      state.authenticationSuccess = true;
-      state.authenticating = false;
-  },
+    registerRequest(state) 
+    {
+        state.authenticating = true;
+        state.authenticationError = ''
+        state.authenticationErrorCode = 0
+    },
 
-  registerError(state, {errorCode, errorMessage}) {
-      state.authenticating = false
-      state.authenticationErrorCode = errorCode
-      state.authenticationError = errorMessage
-  },
+    registerSuccess(state, accessToken) 
+    {
+        state.accessToken = accessToken
+        state.authenticationSuccess = true;
+        state.authenticating = false;
+    },
 
-  logoutSuccess(state) {
-      state.accessToken = ''
-  }
+    registerError(state, {errorCode, errorMessage}) 
+    {
+        state.authenticating = false
+        state.authenticationErrorCode = errorCode
+        state.authenticationError = errorMessage
+    },
+
+    logoutSuccess(state) 
+    {
+        state.accessToken = ''
+    }
 }
 
 const actions = {
@@ -93,7 +110,9 @@ const actions = {
           const data = await UserService.login(email, password);
           //console.log(data.token)
           //console.log(data)
+          //store user token in local storage
           commit('loginSuccess', data.token)
+          //store user info in user's object
           commit('SetUser', data)
           // Redirect the user to the page he first tried to visit or to the home view
           //router.push(router.history.current.query.redirect || '/');
@@ -109,14 +128,19 @@ const actions = {
           return false
       }
   },
+
   async register({ commit }, {email, password, firstname, lastname}) {
       commit('registerRequest');
 
       try {
           const token = await UserService.register(email, password, firstname, lastname);
+          // we need to log in the user directly after he register to fill his cv form 
+          // so we store the same user token he would use to log in 
           commit('loginSuccess',token.token)
+          // Register user token into the system (NOTE: not in the local storage)
           commit('registerSuccess', token.token)
           //Console.log(token.token)
+          //store user info in user's object
           commit('SetUser', token)
           // Redirect the user to the page he first tried to visit or to the home view
           router.push(router.history.current.query.redirect || '/User/build_cv');
@@ -131,6 +155,7 @@ const actions = {
       }
   },
   logout({ commit }) {
+      //logout function removes the token from the local storage
       UserService.logout()
       commit('logoutSuccess')
       router.push('/Authentication/login')
