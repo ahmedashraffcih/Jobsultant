@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center">
     <v-col cols="4">
-      <h1>Welcome to Jobsultant.com, Username!</h1>
+      <h1>Welcome to Jobsultant.com, {{userdata.firstName}}!</h1>
       <p>Let's go ahead and build your CV. It will only take 3 minutes.</p>
       <v-stepper v-model="e6" vertical>
         <v-stepper-step :complete="e6 > 1" step="1">
@@ -485,6 +485,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -505,6 +506,11 @@ export default {
         (v) => (!!v && isNaN(v)) || "Can't include numbers",
       ],
     };
+  },
+  computed: {
+    //Get states from store
+    ...mapGetters("auth", ["userdata"]),
+    // ...mapActions(['DISPLAY_SEARCH'])
   },
 };
 </script>

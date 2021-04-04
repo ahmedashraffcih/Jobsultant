@@ -11,11 +11,11 @@
     <!-- ======================================================================= -->
     <v-toolbar-title class="title"></v-toolbar-title>
     <!-- Website Tabs -->
-    <v-tabs optional >
+    <v-tabs optional>
       <v-tab light to="/">Home</v-tab>
-      <v-tab text to="/jobs">Find Jobs</v-tab>
+      <v-tab text to="/jobs">Jobs</v-tab>
       <v-tab v-if="!loggedIn" text to="/Authentication/Register">Create Your CV</v-tab>
-      <v-tab v-if="!loggedIn" text to="/jobs">Blogs</v-tab>
+      <v-tab v-if="!loggedIn" text to="/Authentication/login">Blogs</v-tab>
       <v-tab v-if="loggedIn" to="/user/account_settings">My Account</v-tab>
       <v-tab v-if="loggedIn" to="/user/My_CV">My CV</v-tab>
     </v-tabs>
@@ -36,8 +36,8 @@
     <v-btn class="buttoncase" outlined>For Employers</v-btn>
     <v-menu left bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on">
-          <v-icon>mdi-dots-vertical</v-icon>
+        <v-btn icon v-bind="attrs" v-on="on" >
+          <v-icon >mdi-dots-vertical</v-icon>
         </v-btn>
       </template>
 
@@ -66,7 +66,6 @@ export default {
   computed: {
     //Get states from store
     ...mapGetters("ui", ["DISPLAY_SEARCH"]),
-    ...mapGetters("user", ["IsLoggedIn"]),
     ...mapGetters("auth", ["loggedIn"]),
 
     // ...mapActions(['DISPLAY_SEARCH'])
@@ -74,9 +73,9 @@ export default {
   methods: {
     ...mapActions("auth", ["logout"]),//get logout function from auth module
     ...mapMutations("ui", ["SET_DISPLAY_SEARCH"]),//get set display function from ui module
-    log() {
-      console.log(this.IsLoggedIn);
-    },
+    // log() {
+    //   console.log(this.IsLoggedIn);
+    // },
     toggleSearch() {
       this.SET_DISPLAY_SEARCH(!this.DISPLAY_SEARCH);
     },

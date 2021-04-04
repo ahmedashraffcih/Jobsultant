@@ -29,21 +29,27 @@ const UserService = {
             }
         }
 
-        try {
+        try 
+        {
 
             const response = await ApiService.customRequest(requestData)
-            console.log(response)
-            if (response.data.token) {
+            if (response.data.token) 
+            {
                 TokenService.saveToken(response.data.token)
-                TokenService.saveUserId(response.data.id)
+                //TokenService.saveUserId(response.data.id)
+                
                 ApiService.setHeader()
-                    router.push(router.history.current.query.redirect || '/');
+                router.push(router.history.current.query.redirect || '/');
             }
-            else{
+            else
+            {
                 throw new AuthenticationError(response.data.status, response.data.message)
             }
-            return response.data.token
-        } catch (error) {
+            const user = response.data
+            return user
+        } 
+        catch (error) 
+        {
             console.log(error)
             console.log("Login Fail")
             throw new AuthenticationError(error.response.status, error.response.data.title)
@@ -58,16 +64,17 @@ const UserService = {
             method: 'post',
             url: "http://localhost:3000/Register",
             data: {
+                fname: firstname,
+                lname: lastname,
                 Email: email,
                 password: password,
-                firstName: firstname,
-                lastName: lastname,
             }
         }
 
         try {
             const response = await ApiService.customRequest(requestData)
-            console.log(response)
+            //console.log(response.data)
+            TokenService.saveToken(response.data.token)
             return response.data
         } catch (error) {
             console.log("Register Failed")

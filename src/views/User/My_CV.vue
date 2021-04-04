@@ -5,10 +5,9 @@
       <v-card>
         <v-card-title>Improve Your Profile</v-card-title>
         <v-divider></v-divider>
-        <v-card-text
-          >Reach profile strength of 80% to be in the top 10% of highly visible
-          users.</v-card-text
-        >
+        <v-card-text>Reach profile strength of 80% to be in the top 10% of highly visible
+          users.
+        </v-card-text>
       </v-card>
     </v-col>
 
@@ -25,7 +24,7 @@
         <v-list class="ml-4" max-width="500px" dense>
           <v-list-item>
             <v-list-item-title>Name</v-list-item-title>
-            <v-list-item-subtitle>Ahmed Ashraf</v-list-item-subtitle>
+            <v-list-item-subtitle>{{userdata.firstName}} {{userdata.lastName}}</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Birth date</v-list-item-title>
@@ -56,9 +55,7 @@
         <v-list class="ml-4" max-width="500px" dense>
           <v-list-item>
             <v-list-item-title>Email</v-list-item-title>
-            <v-list-item-subtitle
-              >ahmedashraffcih@gmail.com</v-list-item-subtitle
-            >
+            <v-list-item-subtitle>{{userdata.email}}</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Mobile phone</v-list-item-title>
@@ -148,3 +145,27 @@
     </v-col>
   </v-row>
 </template>
+
+<script>
+
+import { mapGetters, mapActions, mapMutations } from "vuex";
+
+export default {
+  data: () => ({
+    group: null,
+  }),
+
+  components: {  },
+
+  computed: {
+    //Get states from store
+    ...mapGetters("auth", ["userdata"]),
+    // ...mapActions(['DISPLAY_SEARCH'])
+  },
+  methods: {
+    log() {
+      console.log(this.userdata);
+    },
+  },
+};
+</script>

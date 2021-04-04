@@ -1,6 +1,7 @@
 const TOKEN_KEY = 'access_token'
 const REFRESH_TOKEN_KEY = 'refresh_token'
 const USER_ID_KEY = 'access_user_id'
+
 /**
  * Manage the how Access Tokens are being stored and retreived from storage.
  *
@@ -12,10 +13,10 @@ const TokenService = {
         return localStorage.getItem(USER_ID_KEY)
     },
    
-
     saveUserId(userId) {
         localStorage.setItem(USER_ID_KEY, userId)
     },
+
     removeUserId() {
         localStorage.removeItem(USER_ID_KEY)
     },

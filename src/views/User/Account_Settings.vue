@@ -7,26 +7,26 @@
           <v-row>
             <v-card-title class="ml-13">Personal Information</v-card-title>
             <v-row justify="end" class="mr-15">
-              <v-icon>mdi-pencil</v-icon>
+              <v-icon @click="log">mdi-pencil</v-icon>
             </v-row>
           </v-row>
           <v-divider></v-divider>
           <v-list class="ml-10" max-width="500px">
             <v-list-item>
               <v-list-item-title>Name</v-list-item-title>
-              <v-list-item-subtitle>Ahmed Ashraf</v-list-item-subtitle>
+              <v-list-item-subtitle>{{userdata.firstName}} {{userdata.lastName}}</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Birth date</v-list-item-title>
-              <v-list-item-subtitle>01/01/2000</v-list-item-subtitle>
+              <v-list-item-subtitle>-</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Gender</v-list-item-title>
-              <v-list-item-subtitle>Male</v-list-item-subtitle>
+              <v-list-item-subtitle>-</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Residence Location</v-list-item-title>
-              <v-list-item-subtitle>Egypt - Cairo</v-list-item-subtitle>
+              <v-list-item-subtitle>-</v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-card>
@@ -42,13 +42,11 @@
           <v-list class="ml-10" max-width="500px">
             <v-list-item>
               <v-list-item-title>Email</v-list-item-title>
-              <v-list-item-subtitle
-                >ahmedashraffcih@gmail.com</v-list-item-subtitle
-              >
+              <v-list-item-subtitle>{{userdata.email}}</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Mobile phone</v-list-item-title>
-              <v-list-item-subtitle>‎+20-1028281233</v-list-item-subtitle>
+              <v-list-item-subtitle>-</v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-card>
@@ -100,6 +98,30 @@
     </v-row>
   </div>
 </template>
+
+<script>
+
+import { mapGetters, mapActions, mapMutations } from "vuex";
+
+export default {
+  data: () => ({
+    group: null,
+  }),
+
+  components: {  },
+
+  computed: {
+    //Get states from store
+    ...mapGetters("auth", ["userdata"]),
+    // ...mapActions(['DISPLAY_SEARCH'])
+  },
+  methods: {
+    log() {
+      console.log(this.userdata);
+    },
+  },
+};
+</script>
 
 <style scoped>
 .div {

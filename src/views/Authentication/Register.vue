@@ -15,6 +15,7 @@
                   dense
                   outlined
                   label="First Name"
+                  v-model="firstname"
                   required
                   :rules="nameRules"
                   height="50px"
@@ -27,6 +28,7 @@
                   dense
                   outlined
                   label="Last Name"
+                  v-model="lastname"
                   required
                   :rules="nameRules"
                   height="50px"
@@ -115,8 +117,8 @@ export default {
   data() {
     return {
       //Intinate the variables that will store user's data
-      FirstName: "",
-      LastName: "",
+      firstname: "",
+      lastname: "",
       email: "",
       password: "",
       confirm_password: "",
@@ -174,25 +176,28 @@ export default {
       this.loading = true //apply login animation
       //check if user meets input rules and both password are the same
       //this.$refs.form.validate() &&
-      if (this.email != '' && this.password != ''&& this.firstname != '' && this.lastname != '' && this.ValidPass()) {
-        //Success
+      if (this.email != '' && this.password != ''&& this.firstname != '' && this.lastname != '' && this.ValidPass()) 
+      {
+        //Success  
         this.snackbar2 = true;
         this.register({
           email: this.email,
           password: this.password,
-          firstname: this.firstName,
-          lastname: this.lastName,
+          firstname: this.firstname,
+          lastname: this.lastname,
         }).then((r) => {
-          if (!r) {
+          if (!r) 
+          {
             this.snackbar = true;
             //set the loading off and register the user
             this.loading = false;
           }
         });
-      } else {
-        //Validation Error
-        this.snackbar1 = true;
-        this.loading = false
+      } 
+      else {
+      //Validation Error
+      this.snackbar1 = true;
+      this.loading = false
       }
     },
   },

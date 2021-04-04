@@ -10,12 +10,17 @@ const state =  {
   authenticationErrorCode: 0,
   authenticationError: '',
   authenticationSuccess: false,
+  user:{}
 }
 /*The initial logged in state of the user is set by checking if the user is saved in local storage, 
 which keeps the user logged in if the browser is refreshed and between browser sessions.*/
 const getters = {
   loggedIn: (state) => {
       return state.accessToken ? true : false
+  },
+
+  userdata: (state) => {
+    return state.user;
   },
 
   authenticationErrorCode: (state) => {
@@ -52,6 +57,10 @@ const mutations = {
       state.authenticationErrorCode = errorCode
       state.authenticationError = errorMessage
   },
+  
+  SetUser(state,user) {
+      state.user = user
+  },
 
   registerRequest(state) {
       state.authenticating = true;
@@ -79,19 +88,24 @@ const mutations = {
 const actions = {
   async login({ commit }, {email, password}) {
       commit('loginRequest');
-
-      try {
-          const token = await UserService.login(email, password);
-          commit('loginSuccess', token)
+      try 
+      {
+          const data = await UserService.login(email, password);
+          //console.log(data.token)
+          //console.log(data)
+          commit('loginSuccess', data.token)
+          commit('SetUser', data)
           // Redirect the user to the page he first tried to visit or to the home view
           //router.push(router.history.current.query.redirect || '/');
 
           return true
-      } catch (e) {
-          if (e instanceof AuthenticationError) {
+      } 
+      catch (e) 
+      {
+          if (e instanceof AuthenticationError) 
+          {
               commit('loginError', {errorCode: e.errorCode, errorMessage: e.message})
           }
-
           return false
       }
   },
@@ -100,8 +114,10 @@ const actions = {
 
       try {
           const token = await UserService.register(email, password, firstname, lastname);
-          commit('registerSuccess', token)
-
+          commit('loginSuccess',token.token)
+          commit('registerSuccess', token.token)
+          //Console.log(token.token)
+          commit('SetUser', token)
           // Redirect the user to the page he first tried to visit or to the home view
           router.push(router.history.current.query.redirect || '/User/build_cv');
 

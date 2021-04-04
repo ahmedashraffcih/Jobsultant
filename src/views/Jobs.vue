@@ -86,7 +86,7 @@
         <v-card flat>
           <v-card-title>X in Jobs</v-card-title>
           <v-divider></v-divider>
-
+          
           <v-card
             flat
             rounded="0"
@@ -94,6 +94,7 @@
             v-for="job in jobs"
             :key="job.id"
             @click.prevent="OpenJob()">
+            
             <v-list>
               <v-list-item three-line>
                 <v-list-item-content>
@@ -113,7 +114,7 @@
           </v-card>
 
           <div class="text-center">
-            <v-pagination :length="3"></v-pagination>
+            <v-pagination  :length="3"></v-pagination>
           </div>
         </v-card>
       </v-col>
@@ -171,11 +172,11 @@
       <!-- Profile Card -->
 
       <v-col cols="3" v-if="report != true">
-        <v-card>
+        <v-card v-if="loggedIn" class="mb-5">
           <v-list>
             <v-list-item three-line>
               <v-list-item-content>
-                <v-list-item-title class="title">User Name</v-list-item-title>
+                <v-list-item-title class="title">{{userdata.firstName}} {{userdata.lastName}}</v-list-item-title>
                 <v-list-item-subtitle class="subtitle-2 mt-10">Last CV Refresh Date: 2020-11-03</v-list-item-subtitle>
                 <v-list-item-subtitle class="subtitle-2 mt-5">Preferred job title</v-list-item-subtitle>
                 <v-list-item-subtitle class="caption mt-2">Data Engineer</v-list-item-subtitle>
@@ -188,7 +189,7 @@
             </v-list-item>
           </v-list>
         </v-card>
-        <v-card class="mt-5">
+        <v-card >
           <v-list>
             <v-list-item three-line>
               <v-list-item-content>
@@ -229,16 +230,22 @@ export default {
     jobs:[],
     result:[],
     job:"",
+    pageOfItems: []
   }),
   methods: {
     ...mapMutations("ui", ["SET_JOB"]),
-    OpenJob(){
+    OpenJob()
+    {
       this.SET_JOB(!this.JOB,true)
     },
-    CloseJob(){
+
+    CloseJob()
+    {
        this.SET_JOB(!this.JOB,false)
     },
-    GetJobs(){
+
+    GetJobs()
+    {
       if(this.job){
         ApiService.get('http://localhost:3000/jobs/list')
         .then((r)=>{
@@ -260,6 +267,8 @@ export default {
   },
   computed: {
     ...mapGetters("ui",['JOB']),
+    ...mapGetters("auth", ["loggedIn"]),
+    ...mapGetters("auth", ["userdata"]),
     report:{
       get(){
         return this.JOB
