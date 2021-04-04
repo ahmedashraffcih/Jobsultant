@@ -14,8 +14,10 @@
     <v-tabs optional >
       <v-tab light to="/">Home</v-tab>
       <v-tab text to="/jobs">Find Jobs</v-tab>
-      <v-tab to="/user/account_settings">My Account</v-tab>
-      <v-tab to="/user/My_CV">My CV</v-tab>
+      <v-tab v-if="!loggedIn" text to="/Authentication/Register">Create Your CV</v-tab>
+      <v-tab v-if="!loggedIn" text to="/jobs">Blogs</v-tab>
+      <v-tab v-if="loggedIn" to="/user/account_settings">My Account</v-tab>
+      <v-tab v-if="loggedIn" to="/user/My_CV">My CV</v-tab>
     </v-tabs>
     <v-spacer></v-spacer>
     <!-- ======================================================================= -->
@@ -24,10 +26,13 @@
     <v-btn icon @click.prevent="toggleSearch()">
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
+    <v-btn class="mr-4" v-if="loggedIn" icon>
+      <v-icon>mdi-email</v-icon>
+    </v-btn>
     <!-- ======================================================================= -->
     <!-- Default App Bar & Authentication -->
-    <v-btn class="buttoncase mr-4" to="/Authentication/login" outlined>Log in</v-btn>
-    <v-btn class="buttoncase mr-4" to="/Authentication/Register" outlined>Register</v-btn>
+    <v-btn v-if="!loggedIn" class="buttoncase mr-4" to="/Authentication/login" outlined>Log in</v-btn>
+    <v-btn v-if="!loggedIn" class="buttoncase mr-4" to="/Authentication/Register" outlined>Register</v-btn>
     <v-btn class="buttoncase" outlined>For Employers</v-btn>
     <v-menu left bottom>
       <template v-slot:activator="{ on, attrs }">
@@ -40,7 +45,7 @@
         <v-list-item @click="() => {}">Account Settings</v-list-item>
         <v-list-item @click="() => {}">For Employers</v-list-item>
         <v-divider></v-divider>
-        <v-list-item @click="TryLogout">Log Out</v-list-item>
+        <v-list-item v-if="loggedIn" @click="TryLogout">Log Out</v-list-item>
       </v-list>
     </v-menu>
   </v-app-bar>

@@ -42,7 +42,7 @@
       <!-- jobs card -->
 
       <v-col cols="3">
-        <v-card flat>
+        <!-- <v-card flat>
           <v-card-title>X in Jobs</v-card-title>
           <v-divider></v-divider>
           <v-card
@@ -81,6 +81,39 @@
           </v-card>
           <div class="text-center">
             <v-pagination  :length="3"></v-pagination>
+          </div>
+        </v-card> -->
+        <v-card flat>
+          <v-card-title>X in Jobs</v-card-title>
+          <v-divider></v-divider>
+
+          <v-card
+            flat
+            rounded="0"
+            outlined
+            v-for="job in jobs"
+            :key="job.id"
+            @click.prevent="OpenJob()">
+            <v-list>
+              <v-list-item three-line>
+                <v-list-item-content>
+                  <v-list-item-title class="title">{{job.title}}</v-list-item-title>
+                  <v-list-item-subtitle class="subtitle-1">{{job.Company}}</v-list-item-subtitle>
+                  <v-list-item-subtitle class="subtitle-2 mt-5">{{job.career_level}}</v-list-item-subtitle>
+                  <v-list-item-subtitle class="caption mt-5">{{job.description}}</v-list-item-subtitle>
+                  <v-list-item-subtitle class="caption mt-5">1/1/2020</v-list-item-subtitle>
+                </v-list-item-content>
+                <v-list-item-avatar
+                  tile
+                  size="60"
+                  color="grey">
+                </v-list-item-avatar>
+              </v-list-item>
+            </v-list>
+          </v-card>
+
+          <div class="text-center">
+            <v-pagination :length="3"></v-pagination>
           </div>
         </v-card>
       </v-col>
@@ -176,11 +209,26 @@
 </template>
 
 <script>
+import ApiService from "../services/api.service";
 import { mapGetters,mapActions,mapMutations } from "vuex";
 export default {
-  mounted() {},
+  mounted() {
+    ApiService.get('http://localhost:3000/jobs/list')
+    .then((r)=>{
+      if(r.status==200){
+        this.jobs= r.data;
+      }
+      else{
+        console.log(r);
+      }
+      console.log(this.jobs);
+    });
+  },
   data: () => ({
     //report: false
+    jobs:[],
+    result:[],
+    job:"",
   }),
   methods: {
     ...mapMutations("ui", ["SET_JOB"]),
@@ -189,6 +237,25 @@ export default {
     },
     CloseJob(){
        this.SET_JOB(!this.JOB,false)
+    },
+    GetJobs(){
+      if(this.job){
+        ApiService.get('http://localhost:3000/jobs/list')
+        .then((r)=>{
+          if(r.status==200){
+            this.jobs=r.data;
+          }
+          else{
+            console.log(r);
+          }
+        });
+      }
+    },
+    GetDetails(id){
+      ApiService.get(`http://localhost:3000/jobs/list/${id}`)
+      .then((r)=>{
+
+      });
     }
   },
   computed: {

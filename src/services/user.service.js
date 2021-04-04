@@ -24,29 +24,27 @@ const UserService = {
             method: 'post',
             url: "http://localhost:3000/Login",
             data: {
-                email: email,
+                Email: email,
                 password: password
             }
         }
 
         try {
+
             const response = await ApiService.customRequest(requestData)
-            if (response.data.response.token) {
-                TokenService.saveToken(response.data.response.token)
-                TokenService.saveUserId(response.data.response.user.id)
+            console.log(response)
+            if (response.data.token) {
+                TokenService.saveToken(response.data.token)
+                TokenService.saveUserId(response.data.id)
                 ApiService.setHeader()
-                if(response.data.response.rated == true)
-                {
-                    router.push(router.history.current.query.redirect || '/jobs');
-                }
-                else if(response.data.response.rated == false) {
                     router.push(router.history.current.query.redirect || '/');
-                }
-            }else{
-                throw new AuthenticationError(response.data.response.status, response.data.response.message)
             }
-            return response.data.response.token
+            else{
+                throw new AuthenticationError(response.data.status, response.data.message)
+            }
+            return response.data.token
         } catch (error) {
+            console.log(error)
             console.log("Login Fail")
             throw new AuthenticationError(error.response.status, error.response.data.title)
         }
@@ -69,6 +67,7 @@ const UserService = {
 
         try {
             const response = await ApiService.customRequest(requestData)
+            console.log(response)
             return response.data
         } catch (error) {
             console.log("Register Failed")

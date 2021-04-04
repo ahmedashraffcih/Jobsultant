@@ -3,6 +3,7 @@ It contains actions for logging in and out of the tutorial application, and muta
 import { UserService, AuthenticationError } from '../../services/user.service'
 import { TokenService } from '../../services/storage.service'
 import router from '../../router'
+
 const state =  {
   authenticating: false,
   accessToken: TokenService.getToken(),
@@ -102,7 +103,7 @@ const actions = {
           commit('registerSuccess', token)
 
           // Redirect the user to the page he first tried to visit or to the home view
-          router.push(router.history.current.query.redirect || '/login');
+          router.push(router.history.current.query.redirect || '/User/build_cv');
 
           return true
       } catch (e) {
@@ -116,7 +117,7 @@ const actions = {
   logout({ commit }) {
       UserService.logout()
       commit('logoutSuccess')
-      router.push('/')
+      router.push('/Authentication/login')
   }
 }
 
