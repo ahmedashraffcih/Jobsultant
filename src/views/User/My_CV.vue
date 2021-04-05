@@ -5,9 +5,7 @@
       <v-card>
         <v-card-title>Improve Your Profile</v-card-title>
         <v-divider></v-divider>
-        <v-card-text>Reach profile strength of 80% to be in the top 10% of highly visible
-          users.
-        </v-card-text>
+        <v-card-text>Reach profile strength of 80% to be in the top 10% of highly visibleusers.</v-card-text>
       </v-card>
     </v-col>
 
@@ -28,15 +26,18 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Birth date</v-list-item-title>
-            <v-list-item-subtitle>01/01/2000</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="userdata.BirthDate">{{userdata.BirthDate}}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="!userdata.BirthDate">-</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Gender</v-list-item-title>
-            <v-list-item-subtitle>Male</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="userdata.Gender">{{userdata.Gender}}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="!userdata.Gender">-</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Nationality</v-list-item-title>
-            <v-list-item-subtitle>Egypt</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="userdata.Nationality">{{userdata.Nationality}}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="!userdata.Nationality">-</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Residence Location</v-list-item-title>
@@ -59,7 +60,8 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Mobile phone</v-list-item-title>
-            <v-list-item-subtitle>‎+20-1028281233</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="userdata.Mobile">{{userdata.Mobile}}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="!userdata.Mobile">-</v-list-item-subtitle>
           </v-list-item>
         </v-list>
       </v-card>
@@ -88,9 +90,7 @@
 
         <v-card elevation="0 " v-for="(edu, i) in 2" :key="i">
           <v-row>
-            <v-card-title class="ml-7"
-              >Bachelor's degree, Computer Science</v-card-title
-            >
+            <v-card-title class="ml-7">Bachelor's degree, Computer Science</v-card-title>
             <v-row justify="end" class="mr-10">
               <v-icon dense>mdi-pencil</v-icon>
               <v-icon class="ml-2" dense>mdi-close</v-icon>

@@ -88,9 +88,7 @@
             </v-row>
           </v-row>
           <v-list-item>
-            <v-list-item-title class="ml-10"
-              >Permanently remove your account from Jobsultant.com
-            </v-list-item-title>
+            <v-list-item-title class="ml-10">Permanently remove your account from Jobsultant.com</v-list-item-title>
           </v-list-item>
           <v-btn class="ml-14 mb-3" outlined>Delete My Account</v-btn>
         </v-card>

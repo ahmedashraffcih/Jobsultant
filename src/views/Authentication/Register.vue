@@ -106,7 +106,7 @@
     </v-row>
     <!-- ======================================================================= -->
     <v-snackbar v-model="snackbar1" timeout="3000">Complete You Information as needed</v-snackbar>
-    <v-snackbar v-model="snackbar2" timeout="1000"> Registered </v-snackbar>
+    <v-snackbar v-model="snackbar2" timeout="1000" color="success" outlined dark> Registered </v-snackbar>
     <!-- ======================================================================= -->
   </div>
 </template>

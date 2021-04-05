@@ -44,14 +44,15 @@
       <v-col cols="3">
         <v-card flat>
           <v-card-title>X in Jobs</v-card-title>
+
+
           <v-progress-linear
             absolute
-            v-if="loading"
+            v-if="loadingjobs"
             color="blue"
             indeterminate
           >     
           </v-progress-linear>
-          
           <v-card
             flat
             rounded="0"
@@ -87,9 +88,14 @@
       <!-- Apply Card -->
 
       <v-col cols="3" v-if="cardcondition">
-        
         <v-card flat >
-          
+          <v-progress-linear
+            absolute
+            v-if="loading"
+            color="blue"
+            indeterminate
+          >     
+          </v-progress-linear>
           <v-list>
             <v-row class="justify-end mr-3">
               <v-icon @click="cardcondition=false">mdi-close</v-icon>
@@ -170,10 +176,12 @@ import ApiService from "../services/api.service";
 import { mapGetters,mapActions,mapMutations } from "vuex";
 export default {
   mounted() {
+    this.loadingjobs=true
     ApiService.get('http://localhost:3000/jobs/list')
     .then((r)=>{
       if(r.status==200){
         this.jobs= r.data;
+        this.loadingjobs=false
       }
       else{
         console.log(r);
@@ -190,6 +198,7 @@ export default {
     pageOfItems: [],
     cardcondition:false,
     loading:false,
+    loadingjobs:false
   }),
   methods: {
    

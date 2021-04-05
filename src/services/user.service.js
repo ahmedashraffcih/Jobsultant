@@ -78,10 +78,11 @@ const UserService = {
 
         try {
             const response = await ApiService.customRequest(requestData)
-            //console.log(response.data)
+            console.log(response.data)
             /* Sending the token for the token service to save it into local storage however,
             we returns the response data to save the user's info by the store's login function*/
             TokenService.saveToken(response.data.token)
+            TokenService.StoreUser(JSON.stringify(response.data))
             return response.data
         } catch (error) {
             console.log("Register Failed")

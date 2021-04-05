@@ -59,9 +59,9 @@
         </v-card-text>
       </v-card>
     </v-row>
-    <v-snackbar v-model="snackbar1" timeout = "3000"> Fill Required Fields</v-snackbar>
-    <v-snackbar v-model="snackbar2" timeout = "5000"> Wrong Email or Password </v-snackbar>
-    <v-snackbar v-model="snackbar3" timeout = "1000"> Signed In </v-snackbar>
+    <v-snackbar v-model="snackbar1" timeout = "3000" color="error" outlined dark> Fill Required Fields</v-snackbar>
+    <v-snackbar v-model="snackbar2" timeout = "5000" color="error" outlined dark> Wrong Email or Password </v-snackbar>
+    <v-snackbar v-model="snackbar3" timeout = "1000" color="success" outlined dark> Signed In </v-snackbar>
   </div>
 </template>
 
@@ -107,13 +107,15 @@ export default {
             // Perform a simple validation that email and password have been typed in
             if (this.email != '' && this.password != '') 
             {
-                this.login({email: this.email, password: this.password}).then(r => {
-                  if(!r){
-                    this.snackbar2 = true
-                    //set the loading off and logged the user
-                    this.loading = false
-                  }
-                })
+              this.snackbar3 = true
+              this.login({email: this.email, password: this.password}).then(r => {
+                if(!r){
+                  this.snackbar2 = true
+                  this.snackbar3 = true
+                  //set the loading off and logged the user
+                  this.loading = false
+                }
+              })
             }
             else
             {
