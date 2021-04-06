@@ -20,7 +20,7 @@
         </v-text-field>
       </v-col>
       <v-col cols="1">
-        <v-btn large height="55" color="teal accent-3">Search Jobs</v-btn>
+        <v-btn large height="55" color="#a8d0e6">Search Jobs</v-btn>
       </v-col>
     </v-row>
   </div>
@@ -31,7 +31,6 @@
 
 export default {
   name: "Home",
-  components: {}
 };
 </script>
 <style scoped>

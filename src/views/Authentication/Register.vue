@@ -4,7 +4,7 @@
       <v-card class="mt-10 mb-10" width="600px">
         <!-- ======================================================================= -->
         <v-card-title class="justify-center">Create a Free Account</v-card-title>
-        <v-card-subtitle class="text-center">Already have an account? Log In</v-card-subtitle>
+        <v-card-subtitle class="text-center">Already have an account? <a style="text-decoration: none;" href="/Authentication/login">Log In</a></v-card-subtitle>
         <!-- ======================================================================= -->
         <v-card-text>
           <v-form v-model="Valid">
@@ -15,6 +15,7 @@
                   dense
                   outlined
                   label="First Name"
+                  v-model="firstname"
                   required
                   :rules="nameRules"
                   height="50px"
@@ -27,6 +28,7 @@
                   dense
                   outlined
                   label="Last Name"
+                  v-model="lastname"
                   required
                   :rules="nameRules"
                   height="50px"
@@ -83,6 +85,7 @@
                 <v-btn
                   rounded-4
                   color="success"
+                  :disabled="!Valid"
                   large
                   block
                   @click="tryRegister":loading="loading"
@@ -103,7 +106,7 @@
     </v-row>
     <!-- ======================================================================= -->
     <v-snackbar v-model="snackbar1" timeout="3000">Complete You Information as needed</v-snackbar>
-    <v-snackbar v-model="snackbar2" timeout="1000"> Registered </v-snackbar>
+    <v-snackbar v-model="snackbar2" timeout="1000" color="success" outlined dark> Registered </v-snackbar>
     <!-- ======================================================================= -->
   </div>
 </template>
@@ -115,8 +118,8 @@ export default {
   data() {
     return {
       //Intinate the variables that will store user's data
-      FirstName: "",
-      LastName: "",
+      firstname: "",
+      lastname: "",
       email: "",
       password: "",
       confirm_password: "",
@@ -147,24 +150,6 @@ export default {
     };
   },
   methods: {
-    /*
-    register() {
-      if (this.ValidPass()) {
-        this.$store
-          .dispatch("REGISTER", {
-            firstname: this.FirstName,
-            lastname: this.LastName,
-            email: this.email,
-            passowrd: this.password,
-          })
-          .then((status) => {
-            this.$router.push("/user/Build_CV");
-          })
-          .catch((error) => {
-            this.userExists = true;
-          });
-      }
-    },*/
     ValidPass() {
       // check if user passowrd matches or not
       return this.password === this.confirm_password;
@@ -174,25 +159,28 @@ export default {
       this.loading = true //apply login animation
       //check if user meets input rules and both password are the same
       //this.$refs.form.validate() &&
-      if (this.email != '' && this.password != ''&& this.firstname != '' && this.lastname != '' && this.ValidPass()) {
-        //Success
+      if (this.email != '' && this.password != ''&& this.firstname != '' && this.lastname != '' && this.ValidPass()) 
+      {
+        //Success  
         this.snackbar2 = true;
         this.register({
           email: this.email,
           password: this.password,
-          firstname: this.firstName,
-          lastname: this.lastName,
+          firstname: this.firstname,
+          lastname: this.lastname,
         }).then((r) => {
-          if (!r) {
+          if (!r) 
+          {
             this.snackbar = true;
             //set the loading off and register the user
             this.loading = false;
           }
         });
-      } else {
-        //Validation Error
-        this.snackbar1 = true;
-        this.loading = false
+      } 
+      else {
+      //Validation Error
+      this.snackbar1 = true;
+      this.loading = false
       }
     },
   },
@@ -200,7 +188,7 @@ export default {
 </script>
 <style scoped>
 .div {
-  background-color: #006064;
+  background-color: #a8d0e6;
   width: 100%;
 }
 </style>

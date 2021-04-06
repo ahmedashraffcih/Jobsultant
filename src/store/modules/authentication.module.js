@@ -3,106 +3,159 @@ It contains actions for logging in and out of the tutorial application, and muta
 import { UserService, AuthenticationError } from '../../services/user.service'
 import { TokenService } from '../../services/storage.service'
 import router from '../../router'
+
 const state =  {
   authenticating: false,
   accessToken: TokenService.getToken(),
   authenticationErrorCode: 0,
   authenticationError: '',
   authenticationSuccess: false,
+  //store user info in user's object
+  user:TokenService.getUser(),
+  user_id:TokenService.getUserId()
+  
 }
 /*The initial logged in state of the user is set by checking if the user is saved in local storage, 
 which keeps the user logged in if the browser is refreshed and between browser sessions.*/
-const getters = {
-  loggedIn: (state) => {
-      return state.accessToken ? true : false
-  },
+const getters = 
+    {
+        loggedIn: (state) => 
+        {
+            return state.accessToken ? true : false
+        },
 
-  authenticationErrorCode: (state) => {
-      return state.authenticationErrorCode
-  },
+        userdata: (state) => 
+        {
+            return JSON.parse(state.user);
+        },
+        
+        user_id: (state) => 
+        {
+            return state.user_id;
+        },
 
-  authenticationError: (state) => {
-      return state.authenticationError
-  },
+        authenticationErrorCode: (state) => 
+        {
+            return state.authenticationErrorCode
+        },
 
-  authenticating: (state) => {
-      return state.authenticating
-  },
-  authenticationSuccess: (state) => {
-      return state.authenticationSuccess
-  }
-}
+        authenticationError: (state) => 
+        {
+            return state.authenticationError
+        },
 
-const mutations = {
-  loginRequest(state) {
-      state.authenticating = true;
-      state.authenticationError = ''
-      state.authenticationErrorCode = 0
-  },
+        authenticating: (state) => 
+        {
+            return state.authenticating
+        },
 
-  loginSuccess(state, accessToken) {
-      state.accessToken = accessToken
-      state.authenticationSuccess = true;
-      state.authenticating = false;
-  },
+        authenticationSuccess: (state) => 
+        {
+            return state.authenticationSuccess
+        }
+    }
 
-  loginError(state, {errorCode, errorMessage}) {
-      state.authenticating = false
-      state.authenticationErrorCode = errorCode
-      state.authenticationError = errorMessage
-  },
+const mutations = 
+{
+    loginRequest(state) 
+    {
+        state.authenticating = true;
+        state.authenticationError = ''
+        state.authenticationErrorCode = 0
+    },
 
-  registerRequest(state) {
-      state.authenticating = true;
-      state.authenticationError = ''
-      state.authenticationErrorCode = 0
-  },
+    loginSuccess(state, accessToken) 
+    {
+        state.accessToken = accessToken
+        state.authenticationSuccess = true;
+        state.authenticating = false;
+    },
 
-  registerSuccess(state, accessToken) {
-      state.accessToken = accessToken
-      state.authenticationSuccess = true;
-      state.authenticating = false;
-  },
+    loginError(state, {errorCode, errorMessage}) 
+    {
+        state.authenticating = false
+        state.authenticationErrorCode = errorCode
+        state.authenticationError = errorMessage
+    },
+    
+    // SetUser(state,user) 
+    // {
+    //     state.user = user
+    // },
 
-  registerError(state, {errorCode, errorMessage}) {
-      state.authenticating = false
-      state.authenticationErrorCode = errorCode
-      state.authenticationError = errorMessage
-  },
+    registerRequest(state) 
+    {
+        state.authenticating = true;
+        state.authenticationError = ''
+        state.authenticationErrorCode = 0
+    },
 
-  logoutSuccess(state) {
-      state.accessToken = ''
-  }
+    registerSuccess(state, accessToken) 
+    {
+        state.accessToken = accessToken
+        state.authenticationSuccess = true;
+        state.authenticating = false;
+    },
+
+    registerError(state, {errorCode, errorMessage}) 
+    {
+        state.authenticating = false
+        state.authenticationErrorCode = errorCode
+        state.authenticationError = errorMessage
+    },
+
+    logoutSuccess(state) 
+    {
+        state.accessToken = ''
+    }
 }
 
 const actions = {
   async login({ commit }, {email, password}) {
       commit('loginRequest');
+      try 
+      {
+          const data = await UserService.login(email, password);
+          //console.log(data.token)
+          //console.log(data)
+          //store user token in local storage
+          commit('loginSuccess', data.token)
+          //store user info in user's object EDIT: We stored it directly from token service and so no need for mutation
+          //commit('SetUser', data)
 
-      try {
-          const token = await UserService.login(email, password);
-          commit('loginSuccess', token)
           // Redirect the user to the page he first tried to visit or to the home view
           //router.push(router.history.current.query.redirect || '/');
+          console.log(TokenService.getUser())
 
           return true
-      } catch (e) {
-          if (e instanceof AuthenticationError) {
+      } 
+      catch (e) 
+      {
+          if (e instanceof AuthenticationError) 
+          {
               commit('loginError', {errorCode: e.errorCode, errorMessage: e.message})
           }
-
           return false
       }
   },
+
   async register({ commit }, {email, password, firstname, lastname}) {
       commit('registerRequest');
 
       try {
           const token = await UserService.register(email, password, firstname, lastname);
-          commit('registerSuccess', token)
+          // we need to log in the user directly after he register to fill his cv form 
+          // so we store the same user token he would use to log in 
+          commit('loginSuccess',token.token)
+          // Register user token into the system (NOTE: not in the local storage)
+          commit('registerSuccess', token.token)
+          //Console.log(token.token)
+
+          //store user info in user's object EDIT: We stored it directly from token service and so no need for mutation
+          //commit('SetUser', token)
 
           // Redirect the user to the page he first tried to visit or to the home view
-          router.push(router.history.current.query.redirect || '/login');
+          router.push(router.history.current.query.redirect || '/User/build_cv');
 
           return true
       } catch (e) {
@@ -114,9 +167,10 @@ const actions = {
       }
   },
   logout({ commit }) {
+      //logout function removes the token from the local storage
       UserService.logout()
       commit('logoutSuccess')
-      router.push('/')
+      router.push('/Authentication/login')
   }
 }
 

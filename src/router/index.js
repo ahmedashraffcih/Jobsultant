@@ -77,13 +77,13 @@ const router = new VueRouter({
 //   const loggedIn = !!TokenService.getToken();
 
 //   if (!isPublic && !loggedIn) {
-//     if(to.fullPath == "/register"){
+//     if(to.fullPath == "/Authentication/Register"){
 //       return next({
-//         path:'/register'
+//         path:'/Authentication/Register'
 //       });
 //     }else{
 //       return next({
-//         path:'/login',
+//         path:'/Authentication/login',
 //         query: {redirect: to.fullPath}  // Store the full path to redirect the user to after login
 //       });
 //     }

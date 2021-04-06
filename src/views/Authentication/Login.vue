@@ -3,7 +3,7 @@
     <v-row justify="center">
       <v-card class="mt-10 mb-10" width="500px">
         <v-card-title class="justify-center">Log in to your account</v-card-title>
-        <v-card-subtitle class="text-center">Don't have an account yet? Register here</v-card-subtitle>
+        <v-card-subtitle class="text-center">Don't have an account yet? <a style="text-decoration: none;" href="/Authentication/login">Register here</a></v-card-subtitle>
         <v-alert color="error" :value="error" icon="close">The username or password wrong</v-alert>
         <v-card-text>
           <v-form v-model="Valid">
@@ -26,7 +26,7 @@
                   v-model="password"
                   required
                   :rules="passRules"
-                  :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+                  :append-icon="value ? 'mdi-eye-off':'mdi-eye'"
                   @click:append="() => (value = !value)"
                   :type="value ? 'password' : 'text'"
                 >
@@ -39,8 +39,10 @@
                   large
                   block
                   color="success"
-                  @click="tryLogin" :loading="loading"
-                >Log in
+                  :disabled="!Valid"
+                  @click="tryLogin" :loading="loading">
+                  
+                  Log in
                 </v-btn>
               </v-col>
               <v-col cols="10" style="height: 60px">
@@ -57,9 +59,9 @@
         </v-card-text>
       </v-card>
     </v-row>
-    <v-snackbar v-model="snackbar1" timeout = "3000"> Fill Required Fields</v-snackbar>
-    <v-snackbar v-model="snackbar2" timeout = "5000"> Wrong Email or Password </v-snackbar>
-    <v-snackbar v-model="snackbar3" timeout = "1000"> Signed In </v-snackbar>
+    <v-snackbar v-model="snackbar1" timeout = "3000" color="error" outlined dark> Fill Required Fields</v-snackbar>
+    <v-snackbar v-model="snackbar2" timeout = "5000" color="error" outlined dark> Wrong Email or Password </v-snackbar>
+    <v-snackbar v-model="snackbar3" timeout = "1000" color="success" outlined dark> Logging </v-snackbar>
   </div>
 </template>
 
@@ -72,9 +74,10 @@ export default {
       //Intinate the variables that will store user's data
       email: "",
       password: "",
+      //---------//
       value: String, //eye passowrd reveal
       Valid: false, //Form Validation flag
-      error: false,
+      error: false, //snackbars flag
       loading:false,//loading till user logged flag
       snackbar1:false,
       snackbar2:false,
@@ -82,42 +85,39 @@ export default {
       timeout:1000,
 
       //Validation Rules
-      passRules: [
+      passRules: 
+      [
         (v) => !!v || "Password is required",
         (v) => (v && v.length >= 8) || "Name must be more than 8 characters",
       ],
-      emailRules: [
+
+      emailRules: 
+      [
         (v) => !!v || "E-mail is required",
         (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],
+
     };
   },
   methods: {
-    // ...mapActions('user',['LOGIN']),
-    // login() {
-    //   console.log(this.LOGIN);
-    //   this.LOGIN({email: this.email,password: this.password})
-    //     .then((success) => {
-    //       this.$router.push("/");
-    //     })
-    //     .catch((error) => {
-    //       this.error = true;
-    //     });
-    // },
     ...mapActions('auth', ['login']),//Apply login function from auth module
         tryLogin() {
           //apply login animation
           this.loading = true
             // Perform a simple validation that email and password have been typed in
-            if (this.email != '' && this.password != '') {
-                this.login({email: this.email, password: this.password}).then(r => {
-                  if(!r){
-                    this.snackbar2 = true
-                    //set the loading off and logged the user
-                    this.loading = false
-                  }
-                })
-            }else{
+            if (this.email != '' && this.password != '') 
+            {
+              this.snackbar3 = true
+              this.login({email: this.email, password: this.password}).then(r => {
+                if(!r){
+                  this.snackbar2 = true
+                  //set the loading off and logged the user
+                  this.loading = false
+                }
+              })
+            }
+            else
+            {
               this.snackbar1 = true
               this.loading = false
             }
@@ -137,7 +137,7 @@ export default {
 
 <style scoped>
 .div {
-  background-color: #006064;
+  background-color: #a8d0e6;
   width: 100%;
 }
 </style>

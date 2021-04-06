@@ -1,6 +1,6 @@
 <template>
     <!-- need to style this -->
-    <input outlined color="white" dark  placeholder="Search" v-on:input="search()" v-model.trim="input" ref="input" @blur="closeSearchBar()">
+    <input  color="white" style="background-color:white;" dark  placeholder="Search" v-on:input="search()" v-model.trim="input" ref="input" @blur="closeSearchBar()">
 </template>
 
 

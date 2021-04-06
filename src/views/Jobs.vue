@@ -44,32 +44,31 @@
       <v-col cols="3">
         <v-card flat>
           <v-card-title>X in Jobs</v-card-title>
-          <v-divider></v-divider>
+
+
+          <v-progress-linear
+            absolute
+            v-if="loadingjobs"
+            color="blue"
+            indeterminate
+          >     
+          </v-progress-linear>
           <v-card
             flat
             rounded="0"
             outlined
-            v-for="(job, i) in 5"
-            :key="i"
-            @click.prevent="OpenJob()">
+            v-for="job in jobs"
+            :key="job._id"
+            @click="cardcondition=true; GetJob(job._id);">
+            
             <v-list>
               <v-list-item three-line>
                 <v-list-item-content>
-                  <v-list-item-title class="title">Job Title</v-list-item-title>
-                  <v-list-item-subtitle class="subtitle-1">Company
-                  </v-list-item-subtitle>
-                  <v-list-item-subtitle class="subtitle-2 mt-5"
-                    >Career Level
-                  </v-list-item-subtitle>
-                  <v-list-item-subtitle class="caption mt-5">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut
-                    atque, quos porro ea velit possimus in nisi dicta nemo
-                    voluptatem sequi esse deleniti obcaecati. Voluptatibus
-                    deleniti error sint hic sequi.
-                  </v-list-item-subtitle>
-                  <v-list-item-subtitle class="caption mt-5"
-                    >1/1/2020</v-list-item-subtitle
-                  >
+                  <v-list-item-title class="title">{{job.title}}</v-list-item-title>
+                  <v-list-item-subtitle class="subtitle-1">{{job.Company}}</v-list-item-subtitle>
+                  <v-list-item-subtitle class="subtitle-2 mt-5">{{job.career_level}}</v-list-item-subtitle>
+                  <v-list-item-subtitle class="caption mt-5">{{job.description}}</v-list-item-subtitle>
+                  <v-list-item-subtitle class="caption mt-5">1/1/2020</v-list-item-subtitle>
                 </v-list-item-content>
                 <v-list-item-avatar
                   tile
@@ -79,6 +78,7 @@
               </v-list-item>
             </v-list>
           </v-card>
+
           <div class="text-center">
             <v-pagination  :length="3"></v-pagination>
           </div>
@@ -87,23 +87,25 @@
 
       <!-- Apply Card -->
 
-      <v-col cols="3" v-if="report">
-        <v-card flat>
+      <v-col cols="3" v-if="cardcondition">
+        <v-card flat >
+          <v-progress-linear
+            absolute
+            v-if="loading"
+            color="blue"
+            indeterminate
+          >     
+          </v-progress-linear>
           <v-list>
             <v-row class="justify-end mr-3">
-              <v-icon @click="CloseJob()">mdi-close</v-icon>
+              <v-icon @click="cardcondition=false">mdi-close</v-icon>
             </v-row>
             <v-list-item three-line>
               <v-list-item-content>
-                <v-list-item-title class="title">Job Title</v-list-item-title>
-                <v-list-item-subtitle class="subtitle-1">Company</v-list-item-subtitle>
-                <v-list-item-subtitle class="subtitle-2 mt-5">Career Level</v-list-item-subtitle>
-                <v-list-item-subtitle class="caption mt-5">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut
-                  atque, quos porro ea velit possimus in nisi dicta nemo
-                  voluptatem sequi esse deleniti obcaecati. Voluptatibus
-                  deleniti error sint hic sequi.
-                </v-list-item-subtitle>
+                <v-list-item-title class="title">{{oneJob.title}}</v-list-item-title>
+                <v-list-item-subtitle class="subtitle-1">{{oneJob.Company}}</v-list-item-subtitle>
+                <v-list-item-subtitle class="subtitle-2 mt-5">{{oneJob.career_level}}</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption mt-5">{{oneJob.description}}</v-list-item-subtitle>
                 <v-list-item-subtitle class="caption mt-5">1/1/2020</v-list-item-subtitle>
               </v-list-item-content>
 
@@ -118,31 +120,25 @@
           <v-divider></v-divider>
 
           <v-card-title class="title">Job Description</v-card-title>
-          <v-card-text>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta
-            accusantium maiores vel possimus quasi necessitatibus magni iusto
-            doloribus? Illum necessitatibus repellat rerum sed nemo
-            exercitationem reiciendis a illo laborum neque.
-          </v-card-text>
+          <v-card-text>{{oneJob.description}}</v-card-text>
 
           <v-card-title class="title">Skills</v-card-title>
-          <v-card-text>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta
-            accusantium maiores vel possimus quasi necessitatibus magni iusto
-            doloribus? Illum necessitatibus repellat rerum sed nemo
-            exercitationem reiciendis a illo laborum neque.
-          </v-card-text>
+          <ul class="ml-3">
+            <li v-for="skill in oneJob.skills">{{skill}}</li>
+          </ul>
+          
           <v-card-title class="title">Job Details</v-card-title>
         </v-card>
       </v-col>
 
       <!-- Profile Card -->
 
-      <v-col cols="3" v-if="report != true">
-        <v-card>
+      <v-col cols="3" v-if="cardcondition != true">
+        <v-card v-if="loggedIn" class="mb-5">
           <v-list>
             <v-list-item three-line>
               <v-list-item-content>
-                <v-list-item-title class="title">User Name</v-list-item-title>
+                <v-list-item-title class="title">{{userdata.firstName}} {{userdata.lastName}}</v-list-item-title>
                 <v-list-item-subtitle class="subtitle-2 mt-10">Last CV Refresh Date: 2020-11-03</v-list-item-subtitle>
                 <v-list-item-subtitle class="subtitle-2 mt-5">Preferred job title</v-list-item-subtitle>
                 <v-list-item-subtitle class="caption mt-2">Data Engineer</v-list-item-subtitle>
@@ -155,7 +151,7 @@
             </v-list-item>
           </v-list>
         </v-card>
-        <v-card class="mt-5">
+        <v-card >
           <v-list>
             <v-list-item three-line>
               <v-list-item-content>
@@ -176,35 +172,76 @@
 </template>
 
 <script>
+import ApiService from "../services/api.service";
 import { mapGetters,mapActions,mapMutations } from "vuex";
 export default {
-  mounted() {},
+  mounted() {
+    this.loadingjobs=true
+    ApiService.get('http://localhost:3000/jobs/list')
+    .then((r)=>{
+      if(r.status==200){
+        this.jobs= r.data;
+        this.loadingjobs=false
+      }
+      else{
+        console.log(r);
+      }
+      console.log(this.jobs);
+    });
+  },
   data: () => ({
     //report: false
+    jobs:[],
+    result:[],
+    job:"",
+    oneJob:{},
+    pageOfItems: [],
+    cardcondition:false,
+    loading:false,
+    loadingjobs:false
   }),
   methods: {
-    ...mapMutations("ui", ["SET_JOB"]),
-    OpenJob(){
-      this.SET_JOB(!this.JOB,true)
+   
+    GetJobs()
+    {
+      if(this.job){
+        ApiService.get('http://localhost:3000/jobs/list')
+        .then((r)=>{
+          if(r.status==200){
+            this.jobs=r.data;
+          }
+          else{
+            console.log(r);
+          }
+        });
+      }
     },
-    CloseJob(){
-       this.SET_JOB(!this.JOB,false)
+
+    GetJob(id)
+    {
+      this.loading=true
+       ApiService.get(`http://localhost:3000/jobs/list/${id}`)
+        .then((r)=>{
+          if(r.status==200){
+            this.oneJob=r.data;
+            this.loading=false
+          }
+          else{
+            console.log(r);
+          }
+        });
     }
   },
   computed: {
-    ...mapGetters("ui",['JOB']),
-    report:{
-      get(){
-        return this.JOB
-      },
-    }
+    ...mapGetters("auth", ["loggedIn"]),
+    ...mapGetters("auth", ["userdata"]),
   },
 };
 </script>
 
 <style scoped>
 .div {
-  background-color: #0ac5a8;
+  background-color: #a8d0e6;
   width: 100%;
 }
 </style>
