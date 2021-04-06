@@ -1,6 +1,6 @@
 const TOKEN_KEY = 'access_token'
 const REFRESH_TOKEN_KEY = 'refresh_token'
-const USER_ID_KEY = 'access_user_id'
+const USER_ID_KEY = 'user_id'
 const USER = 'UserData'
 /**
  * Manage the how Access Tokens are being stored and retreived from storage.

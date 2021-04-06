@@ -26,7 +26,7 @@
                   v-model="password"
                   required
                   :rules="passRules"
-                  :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+                  :append-icon="value ? 'mdi-eye-off':'mdi-eye'"
                   @click:append="() => (value = !value)"
                   :type="value ? 'password' : 'text'"
                 >
@@ -61,7 +61,7 @@
     </v-row>
     <v-snackbar v-model="snackbar1" timeout = "3000" color="error" outlined dark> Fill Required Fields</v-snackbar>
     <v-snackbar v-model="snackbar2" timeout = "5000" color="error" outlined dark> Wrong Email or Password </v-snackbar>
-    <v-snackbar v-model="snackbar3" timeout = "1000" color="success" outlined dark> Signed In </v-snackbar>
+    <v-snackbar v-model="snackbar3" timeout = "1000" color="success" outlined dark> Logging </v-snackbar>
   </div>
 </template>
 
@@ -111,7 +111,6 @@ export default {
               this.login({email: this.email, password: this.password}).then(r => {
                 if(!r){
                   this.snackbar2 = true
-                  this.snackbar3 = true
                   //set the loading off and logged the user
                   this.loading = false
                 }

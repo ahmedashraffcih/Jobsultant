@@ -35,7 +35,53 @@
           <v-row>
             <v-card-title class="ml-13">Contact Information</v-card-title>
             <v-row justify="end" class="mr-15">
-              <v-icon>mdi-pencil</v-icon>
+              <v-dialog
+                  transition="dialog-bottom-transition"
+                  max-width="600"
+                  v-model="dialog2"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon  v-bind="attrs" v-on="on">mdi-pencil</v-icon>
+                  </template>
+                  <template v-slot:default="dialog2">
+                    <v-card>
+                      <v-toolbar
+                        color="#24305E"
+                        dark>
+                        Change Your Email
+                      </v-toolbar>
+                      
+                      <v-card-text>
+                        <v-form v-model="Valid2">
+                          
+                          <v-text-field
+                            class="mt-5"
+                            dense
+                            outlined
+                            label="New Email"
+                            v-model="email"
+                            :rules="emailRules"
+                            required>
+                          </v-text-field>
+                        </v-form>
+                        <v-row class="justify-space-between">
+                          <v-btn
+                            class="ml-3 white--text"
+                            color="#24305E"
+                            :disabled="!Valid2"
+                            @click="editemail()":loading="loading">
+                            change email
+                          </v-btn>
+                          <v-btn
+                            text
+                            @click="dialog2.value = false">
+                            Close
+                          </v-btn>
+                        </v-row>
+                      </v-card-text>
+                    </v-card>
+                  </template>
+                </v-dialog>
             </v-row>
           </v-row>
           <v-divider></v-divider>
@@ -54,14 +100,73 @@
         <v-card class="mb-5">
           <v-row>
             <v-card-title class="ml-13">Password</v-card-title>
-            <v-row justify="end" class="mr-15">
-              <v-icon>mdi-pencil</v-icon>
-            </v-row>
+              <v-row justify="end" class="mr-15">
+                <v-dialog
+                  transition="dialog-bottom-transition"
+                  max-width="600"
+                  v-model="dialog"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon  v-bind="attrs" v-on="on">mdi-pencil</v-icon>
+                  </template>
+                  <template v-slot:default="dialog">
+                    <v-card>
+                      <v-toolbar
+                        color="#24305E"
+                        dark>
+                        Change Your Password
+                      </v-toolbar>
+                      
+                      <v-card-text>
+                        <v-form v-model="Valid">
+                          <v-text-field
+                            class="mt-5"
+                            dense
+                            outlined
+                            label="Old Password"
+                            v-model="oldpassword"
+                            :rules="passRules"
+                            :append-icon="value1 ? 'mdi-eye-off':'mdi-eye'"
+                            @click:append="() => (value1 = !value1)"
+                            :type="value1 ? 'password' : 'text'"
+                            required>
+                          </v-text-field>
+                          <v-text-field
+                            dense
+                            outlined
+                            label="New Password"
+                            v-model="newpassord"
+                            required
+                            :rules="passRules"
+                            :append-icon="value2 ? 'mdi-eye-off':'mdi-eye'"
+                            @click:append="() => (value2 = !value2)"
+                            :type="value2 ? 'password' : 'text'"
+                            required>
+                          </v-text-field>
+                        </v-form>
+                        <v-row class="justify-space-between">
+                          <v-btn
+                            class="ml-3 white--text"
+                            color="#24305E"
+                            
+                            :disabled="!Valid"
+                            @click="editpassword()":loading="loading">
+                            change password
+                          </v-btn>
+                          <v-btn
+                            text
+                            @click="dialog.value = false">
+                            Close
+                          </v-btn>
+                        </v-row>
+                      </v-card-text>
+                    </v-card>
+                  </template>
+                </v-dialog>
+              </v-row>
           </v-row>
           <v-list-item>
-            <v-list-item-title class="ml-10"
-              >Change your account password</v-list-item-title
-            >
+            <v-list-item-title class="ml-10">Change your account password</v-list-item-title>
           </v-list-item>
         </v-card>
 
@@ -73,10 +178,9 @@
             </v-row>
           </v-row>
           <v-list-item>
-            <v-list-item-title class="ml-10"
-              >Modify your Jobsultant.com email notifications
-              settings.</v-list-item-title
-            >
+            <v-list-item-title class="ml-10">
+              Modify your Jobsultant.com email notifications settings.
+            </v-list-item-title>
           </v-list-item>
         </v-card>
 
@@ -94,16 +198,50 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-snackbar v-model="snackbar1" timeout = "1000" color="success" outlined dark> Password Changed </v-snackbar>
+    <v-snackbar v-model="snackbar2" timeout = "1000" color="error" outlined dark> Fill the required fields </v-snackbar>
+    <v-snackbar v-model="snackbar3" timeout = "1000" color="error" outlined dark> Old password is wrong </v-snackbar>
+
+    <v-snackbar v-model="snackbar4" timeout = "1000" color="success" outlined dark> Email Changed </v-snackbar>
+    <v-snackbar v-model="snackbar5" timeout = "1000" color="error" outlined dark> Email is already used </v-snackbar>
+    <v-snackbar v-model="snackbar6" timeout = "1000" color="error" outlined dark> E-mail must be valid </v-snackbar>
   </div>
 </template>
 
 <script>
-
 import { mapGetters, mapActions, mapMutations } from "vuex";
-
+import ApiService from "../../services/api.service";
 export default {
   data: () => ({
     group: null,
+    //password variables and snackbars
+    value1: String, //eye passowrd reveal
+    value2: String, //eye passowrd reveal
+    oldpassword:"",
+    newpassord:"",
+    snackbar1:false,
+    snackbar2:false,
+    snackbar3:false,
+    // edit email snackbars
+    snackbar4:false,
+    snackbar5:false,
+    snackbar6:false,
+    loading:false,//loading till user change
+    Valid: false, //Password Form Validation flag
+    Valid2: false, //Email Form Validation flag
+    dialog:false, //Passwrod Dialog
+    dialog2:false, //Email Dialog
+    email:"",
+    emailRules: 
+    [
+      (v) => !!v || "E-mail is required",
+      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+    ],
+    passRules: 
+    [
+      (v) => !!v || "Password is required",
+      (v) => (v && v.length >= 8) || "Password must be more than 8 characters",
+    ],
   }),
   components: {  },
 
@@ -114,7 +252,79 @@ export default {
   },
   methods: {
     log() {
-      console.log(this.userdata);
+      console.log(this.oldpassword);
+      console.log(this.newpassord);
+      console.log(this.userdata.token);
+    },
+    editpassword()
+    {
+      this.loading = true
+      let data={
+        oldPassword: this.oldpassword,
+        password: this.newpassord,
+        token: this.userdata.token
+      }
+      if(this.oldpassword !="" && this.newpassord !="")
+      {
+        ApiService.put('http://localhost:3000/EditProfile/EditPassword',data)
+        .then((r)=>{
+          //console.log(r);
+          if(r.data!="Invalid Password !"){
+            this.snackbar1=true;
+            this.oldpassword="";
+            this.newpassord=""
+            this.loading = false
+            this.dialog = false
+          }
+          else
+          {
+            console.log(r);
+            this.loading = false
+            this.snackbar3 = true; 
+            this.oldpassword="";
+            this.newpassord=""
+          }
+        });
+      }
+      else
+      {
+        this.snackbar2 = true; 
+        this.loading = false
+      }
+    },
+    editemail()
+    {
+      this.loading = true
+      let data={
+        Email: this.email,
+        token: this.userdata.token
+      }
+      if(this.email !="")
+      {
+        ApiService.put('http://localhost:3000/EditProfile/EditEmail',data)
+        .then((r)=>{
+          //console.log(r);
+          // TODO: condition to change
+          if(r.data!="Invalid Password !"){
+            this.snackbar4=true;
+            this.loading = false
+            this.dialog = false
+          }
+          else
+          {
+            console.log(r);
+            this.loading = false
+            this.snackbar5 = true; 
+            this.snackbar6 = true; 
+
+          }
+        });
+      }
+      else
+      {
+        this.snackbar6 = true; 
+        this.loading = false
+      }
     },
   },
 };

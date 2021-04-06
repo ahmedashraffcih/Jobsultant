@@ -11,7 +11,9 @@ const state =  {
   authenticationError: '',
   authenticationSuccess: false,
   //store user info in user's object
-  user:TokenService.getUser()
+  user:TokenService.getUser(),
+  user_id:TokenService.getUserId()
+  
 }
 /*The initial logged in state of the user is set by checking if the user is saved in local storage, 
 which keeps the user logged in if the browser is refreshed and between browser sessions.*/
@@ -25,6 +27,11 @@ const getters =
         userdata: (state) => 
         {
             return JSON.parse(state.user);
+        },
+        
+        user_id: (state) => 
+        {
+            return state.user_id;
         },
 
         authenticationErrorCode: (state) => 

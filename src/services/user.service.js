@@ -37,7 +37,8 @@ const UserService = {
             {
                 //Sending the token for the token service to save it into local storage
                 TokenService.saveToken(response.data.token)
-                //TokenService.saveUserId(response.data.id)
+                //Saving user id
+                TokenService.saveUserId(response.data.docID)
                 
                 ApiService.setHeader()
                 //redirecting user after logging to Home page
@@ -78,11 +79,14 @@ const UserService = {
 
         try {
             const response = await ApiService.customRequest(requestData)
-            console.log(response.data)
+            //console.log(response.data)
             /* Sending the token for the token service to save it into local storage however,
             we returns the response data to save the user's info by the store's login function*/
             TokenService.saveToken(response.data.token)
+            //saving user as an object in local storage
             TokenService.StoreUser(JSON.stringify(response.data))
+            //saving user id
+            TokenService.saveUserId(response.data.docID)
             return response.data
         } catch (error) {
             console.log("Register Failed")
@@ -132,6 +136,7 @@ const UserService = {
         // Remove the token and remove Authorization header from Api Service as well 
         TokenService.removeToken()
         TokenService.removeUser()
+        TokenService.removeUserId()
         ApiService.removeHeader()
         // NOTE: Again, we'll cover the 401 Interceptor a bit later. 
     }
