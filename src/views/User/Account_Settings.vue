@@ -188,7 +188,7 @@
             <v-row justify="end" class="mr-15">
               <v-dialog
                   transition="dialog-bottom-transition"
-                  max-width="600"
+                  max-width="800"
                   v-model="dialog2"
                 >
                   <template v-slot:activator="{ on, attrs }">
@@ -199,29 +199,57 @@
                       <v-toolbar
                         color="#24305E"
                         dark>
-                        Change Your Email
+                        Edit Contact Information
                       </v-toolbar>
                       
                       <v-card-text>
                         <v-form v-model="Valid2">
-                          
-                          <v-text-field
-                            class="mt-5"
-                            dense
-                            outlined
-                            label="New Email"
-                            v-model="email"
-                            :rules="emailRules"
-                            required>
-                          </v-text-field>
+                          <v-row justify="center" class="mt-4">
+                            <v-col cols="3">
+                              <v-card-text>Email</v-card-text>
+                            </v-col>
+                            <v-col cols="9">
+                              <v-text-field
+                                dense
+                                outlined
+                                label="New Email"
+                                v-model="email"
+                                :rules="emailRules"
+                                clearable
+                                required>
+                              </v-text-field>
+                            </v-col>
+                          </v-row>
+
+                          <v-row justify="center" class="mb-10">
+                            <v-col cols="3">
+                              <v-card-text>Phone Number</v-card-text>
+                            </v-col>
+                            <v-col cols="9">
+                              <VuePhoneNumberInput 
+                              id="phoneNumber1" 
+                              class="mb-7"
+                              color="dodgerblue"
+                              valid-color="green"
+                              required
+                              :error="hasErrorActive" 
+                              :loader="hasLoaderActive" 
+                              v-model="phoneNumber" 
+                              :rules="phoneRules"
+                              clearable
+                              @update="onUpdate"/>
+                            </v-col>
+                          </v-row>
+
                         </v-form>
                         <v-row class="justify-space-between">
                           <v-btn
                             class="ml-3 white--text"
+                            width="150px"
                             color="#24305E"
                             :disabled="!Valid2"
                             @click="editemail()":loading="loading">
-                            change email
+                            Save
                           </v-btn>
                           <v-btn
                             text
@@ -366,9 +394,15 @@
 
 
 <script>
+import VuePhoneNumberInput from 'vue-phone-number-input';
+import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import ApiService from "../../services/api.service";
 export default {
+  
+  components:{
+      VuePhoneNumberInput
+  },
   data: () => ({
     //---------------
     //------------------------ Personal Information Section ------------------------\\
@@ -399,6 +433,11 @@ export default {
     snackbar4:false,
     snackbar5:false,
     snackbar6:false,
+    //------------------------ Phone Section ------------------------\\
+    phoneNumber:null,
+    results: {},
+    hasLoaderActive: false,
+    hasErrorActive: false,
     //##############################################################################\\
 
 
@@ -425,6 +464,10 @@ export default {
       (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
       (v) => (!!v && isNaN(v)) || "Can't include numbers",
     ],
+    phoneRules: 
+    [
+      (v) => !!v || "Field is required",
+    ],
     emailRules: 
     [
       (v) => !!v || "E-mail is required",
@@ -437,7 +480,6 @@ export default {
     ],
     //##############################################################################\\
   }),
-  components: {  },
 
   computed: {
     //Get states from store
@@ -449,6 +491,22 @@ export default {
       console.log(this.oldpassword);
       console.log(this.newpassord);
       console.log(this.userdata.email);
+    },
+    onUpdate (payload) 
+    {
+      this.results = payload
+      if(payload.isValid)
+      {
+        console.log(this.results)
+        // this.hasLoaderActive=false;
+        // this.hasErrorActive= false;
+      }
+      else
+      {
+        // this.hasLoaderActive=true;
+        // this.hasErrorActive= true;
+      }
+      
     },
     editpassword()
     {
