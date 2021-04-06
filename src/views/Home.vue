@@ -23,15 +23,58 @@
         <v-btn large height="55" color="#a8d0e6">Search Jobs</v-btn>
       </v-col>
     </v-row>
+    <v-row justify="center">
+      <div class="justify-center ml-20">
+      <vue-tel-input-vuetify
+        :error="hasErrorActive" 
+        :loader="hasLoaderActive" 
+        v-model="phoneNumber" 
+        outlined 
+        dark 
+        background-color="white"
+        :preferred-countries="['id', 'gb', 'ua', 'us']"
+        :valid-characters-only="true"
+        @input="onInput"
+       >
+       </vue-tel-input-vuetify>
+       <v-btn @click="ChangePhone()">Set phone</v-btn>
+    </div>
+    
+    </v-row>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-
+import VueTelInputVuetify from '../lib/vue-tel-input-vuetify.vue';
 export default {
   name: "Home",
-  components: {}
+  components: {
+    VueTelInputVuetify
+  },
+  data() {
+      return {
+        phoneNumber:"",
+        phone: {
+          number: '',
+          valid: false,
+          country: undefined,
+        },
+        hasLoaderActive: false,
+        hasErrorActive: false
+      }
+    },
+  methods: {
+    onInput(formattedNumber, { number, valid, country }) {
+      this.phone.number = number.international;
+      this.phone.valid = valid;
+      this.phone.country = country && country.name;
+    },
+    ChangePhone(){
+      console.log(this.phone);
+      console.log(this.country)
+    }
+  },
 };
 </script>
 <style scoped>
