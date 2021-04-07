@@ -82,7 +82,10 @@ const mutations =
     // {
     //     state.user = user
     // },
-
+    UpdateUser(state, payload)
+    {
+        state.user = payload
+    },
     registerRequest(state) 
     {
         state.authenticating = true;

@@ -227,17 +227,17 @@
                             </v-col>
                             <v-col cols="9">
                               <VuePhoneNumberInput 
-                              id="phoneNumber1" 
-                              class="mb-7"
-                              color="dodgerblue"
-                              valid-color="green"
-                              required
-                              :error="hasErrorActive" 
-                              :loader="hasLoaderActive" 
-                              v-model="phoneNumber" 
-                              :rules="phoneRules"
-                              clearable
-                              @update="onUpdate"/>
+                                id="phoneNumber1" 
+                                class="mb-7"
+                                color="dodgerblue"
+                                valid-color="green"
+                                required
+                                :error="hasErrorActive" 
+                                :loader="hasLoaderActive" 
+                                v-model="phoneNumber" 
+                                :rules="phoneRules"
+                                clearable
+                                @update="onUpdate"/>
                             </v-col>
                           </v-row>
 
@@ -487,6 +487,7 @@ export default {
     // ...mapActions(['DISPLAY_SEARCH'])
   },
   methods: {
+    ...mapMutations("auth", ["UpdateUser"]),
     log() {
       console.log(this.oldpassword);
       console.log(this.newpassord);
@@ -544,10 +545,17 @@ export default {
         this.loading = false
       }
     },
+    // saveContact(){
+    //   if(this.email!="")
+    //   {
+    //     editemail()
+    //   }
+    // },
     editemail()
     {
       this.loading = true
-      let data={
+      let data=
+      {
         Email: this.email,
         token: this.userdata.token
       }
@@ -556,8 +564,11 @@ export default {
         ApiService.put('http://localhost:3000/EditProfile/EditEmail',data)
         .then((r)=>{
           //console.log(r);
-          // TODO: condition to change
-          if(r.data!="Invalid Password !"){
+          //TODO: condition to change
+          if(r.status==200)
+          {
+            //this.UpdateUser(data)
+            console.log(r.data)
             this.snackbar4=true;
             this.loading = false
             this.dialog = false
