@@ -20,7 +20,9 @@
                       <v-toolbar
                         color="#24305E"
                         dark>
-                        Edit Personal Information
+                        <v-toolbar-title class="ml-5">Edit Personal Information</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-icon class="mr-2" @click="dialog3.value = false">mdi-close</v-icon>  
                       </v-toolbar>
                       
                       <v-card-text>
@@ -141,19 +143,14 @@
                             </v-col>
                           </v-row>
                         </v-form>
-                        <v-row class="justify-space-between">
+                        <v-row class="justify-end mr-1">
                           <v-btn
-                            width="120px"
-                            class="ml-6 white--text"
+                            class="white--text"
+                            width="150px"
                             color="#24305E"
-                            
+                            :disabled="!Valid"
                             @click="editemail()":loading="loading">
-                            Save
-                          </v-btn>
-                          <v-btn
-                            text
-                            @click="dialog3.value = false">
-                            Close
+                            Apply
                           </v-btn>
                         </v-row>
                       </v-card-text>
@@ -201,7 +198,9 @@
                       <v-toolbar
                         color="#24305E"
                         dark>
-                        Edit Contact Information
+                        <v-toolbar-title class="ml-5">Edit Contact Information</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-icon class="mr-2" @click="dialog2.value = false">mdi-close</v-icon>  
                       </v-toolbar>
                       
                       <v-card-text>
@@ -223,14 +222,13 @@
                             </v-col>
                           </v-row>
 
-                          <v-row justify="center" class="mb-10">
+                          <v-row justify="center" class="mb-3">
                             <v-col cols="3">
                               <v-card-text>Phone Number</v-card-text>
                             </v-col>
                             <v-col cols="9">
                               <VuePhoneNumberInput 
                                 id="phoneNumber1" 
-                                class="mb-7"
                                 color="dodgerblue"
                                 valid-color="green"
                                 required
@@ -244,19 +242,14 @@
                           </v-row>
 
                         </v-form>
-                        <v-row class="justify-space-between">
+                        <v-row class="justify-end mr-1">
                           <v-btn
-                            class="ml-3 white--text"
+                            class="white--text"
                             width="150px"
                             color="#24305E"
                             :disabled="!Valid2"
                             @click="editemail()":loading="loading">
-                            Save
-                          </v-btn>
-                          <v-btn
-                            text
-                            @click="dialog2.value = false">
-                            Close
+                            Apply
                           </v-btn>
                         </v-row>
                       </v-card-text>
@@ -296,7 +289,9 @@
                       <v-toolbar
                         color="#24305E"
                         dark>
-                        Change Your Password
+                        <v-toolbar-title class="ml-5">Change Your Password</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-icon class="mr-1" @click="dialog.value = false">mdi-close</v-icon> 
                       </v-toolbar>
                       
                       <v-card-text>
@@ -326,19 +321,14 @@
                             required>
                           </v-text-field>
                         </v-form>
-                        <v-row class="justify-space-between">
+                        <v-row class="justify-end ">
                           <v-btn
-                            class="ml-3 white--text"
+                            class="white--text mr-3"
+                            width="150px"
                             color="#24305E"
-                            
                             :disabled="!Valid"
                             @click="editpassword()":loading="loading">
-                            change password
-                          </v-btn>
-                          <v-btn
-                            text
-                            @click="dialog.value = false">
-                            Close
+                            Confirm
                           </v-btn>
                         </v-row>
                       </v-card-text>

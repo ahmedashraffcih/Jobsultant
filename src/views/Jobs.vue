@@ -117,7 +117,80 @@
               </v-list-item-avatar>
             </v-list-item>
           </v-list>
-          <v-btn class="ml-3 mb-3" outlined>Apply</v-btn>
+          <!-- @click="ApplyJob(job._id)" -->
+          <v-dialog
+            transition="dialog-bottom-transition"
+            max-width="800"
+            v-model="dialog"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn v-bind="attrs" v-on="on" class="ml-3 mb-3" outlined>Apply</v-btn>
+            </template>
+            <template v-slot:default="dialog">
+              <v-card>
+                <v-toolbar
+                  color="#24305E"
+                  dark>
+                  <v-toolbar-title class="ml-5">Apply to {{oneJob.Company}}</v-toolbar-title>
+                  <v-spacer></v-spacer>
+                  <v-icon @click="dialog.value = false">mdi-close</v-icon>
+                </v-toolbar>
+                <v-card-title class="ml-3">Contact Info</v-card-title>
+                <v-card-text>
+                  <v-form v-model="Valid">
+                    <v-row justify="center">
+                      <v-col cols="3">
+                        <v-card-text>Email address</v-card-text>
+                      </v-col>
+                      <v-col cols="9">
+                        <v-text-field
+                          dense
+                          outlined
+                          v-model="email"
+                          :rules="emailRules"
+                          clearable
+                          required>
+                        </v-text-field>
+                      </v-col>
+                    </v-row>
+
+                    <v-row justify="center" >
+                      <v-col cols="3">
+                        <v-card-text>Phone Number</v-card-text>
+                      </v-col>
+                      <v-col cols="9">
+                        <VuePhoneNumberInput 
+                          id="phoneNumber1" 
+                          class="mb-4"
+                          color="dodgerblue"
+                          valid-color="green"
+                          required
+                          :error="hasErrorActive" 
+                          :loader="hasLoaderActive" 
+                          v-model="phoneNumber" 
+                          :rules="phoneRules"
+                          clearable
+                          @update="onUpdate"/>
+                      </v-col>
+                    </v-row>
+
+                  </v-form>
+                  <v-card-text>Submitting this application won’t change your JobSultant profile.</v-card-text>
+                   <v-divider></v-divider>
+                  <v-row class="justify-end mt-4 mr-1">
+                    <v-btn
+                      class="white--text"
+                      width="150px"
+                      color="#24305E"
+                      :disabled="!Valid"
+                      @click="ApplyJob()":loading="loading">
+                      Apply
+                    </v-btn>
+                  </v-row>
+                </v-card-text>
+              </v-card>
+            </template>
+          </v-dialog>
           <v-divider></v-divider>
 
           <v-card-title class="title">Job Description</v-card-title>
@@ -175,7 +248,12 @@
 <script>
 import ApiService from "../services/api.service";
 import { mapGetters,mapActions,mapMutations } from "vuex";
+import VuePhoneNumberInput from 'vue-phone-number-input';
+import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 export default {
+  components:{
+      VuePhoneNumberInput
+  },
   mounted() {
     this.loadingjobs=true
     ApiService.get('http://localhost:3000/jobs/list')
@@ -197,12 +275,32 @@ export default {
     result:[],
     job:"",
     oneJob:{},
+    AppliedJob:{},
     pageOfItems: [],
     cardcondition:false,
     loading:false,
     loadingjobs:false,
     user:{},
     search:"",
+    dialog:"",
+    email:"",
+    Valid:"",
+    //------------------------ Phone Section ------------------------\\
+    phoneNumber:null,
+    results: {},
+    hasLoaderActive: false,
+    hasErrorActive: false,
+    //##############################################################################\\
+    //------------------------ Validation Rules ------------------------\\
+    phoneRules: 
+    [
+      (v) => !!v || "Field is required",
+    ],
+    emailRules: 
+    [
+      (v) => !!v || "E-mail is required",
+      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+    ],
   }),
   computed: {
     ...mapGetters("auth", ["loggedIn"]),
@@ -246,6 +344,11 @@ export default {
           }
         });
     },
+    ApplyJob()
+    {
+      this.AppliedJob = this.oneJob;
+      console.log(this.AppliedJob)
+    },
     getUser(){
         ApiService.get(`http://localhost:3000/users/${this.user_id}`)
         .then((r)=>{
@@ -259,6 +362,22 @@ export default {
             console.log(r);
           }
       });
+    },
+    onUpdate (payload) 
+    {
+      this.results = payload
+      if(payload.isValid)
+      {
+        console.log(this.results)
+        // this.hasLoaderActive=false;
+        // this.hasErrorActive= false;
+      }
+      else
+      {
+        // this.hasLoaderActive=true;
+        // this.hasErrorActive= true;
+      }
+      
     },
   },
 };
