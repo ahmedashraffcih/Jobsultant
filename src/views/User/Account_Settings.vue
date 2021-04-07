@@ -41,6 +41,7 @@
                                 v-model="firstname"
                                 required
                                 :rules="nameRules"
+                                clearable
                               >
                               </v-text-field>
                             </v-col>
@@ -53,6 +54,7 @@
                                 v-model="lastname"
                                 required
                                 :rules="nameRules"
+                                clearable
                               >
                               </v-text-field>
                             </v-col>
@@ -164,7 +166,7 @@
           <v-list class="ml-10" max-width="500px">
             <v-list-item>
               <v-list-item-title>Name</v-list-item-title>
-              <v-list-item-subtitle>{{userdata.firstName}} {{userdata.lastName}}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{user.fname}} {{user.lname}}</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Birth date</v-list-item-title>
@@ -267,7 +269,7 @@
           <v-list class="ml-10" max-width="500px">
             <v-list-item>
               <v-list-item-title>Email</v-list-item-title>
-              <v-list-item-subtitle>{{userdata.email}}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{user.Email}}</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Mobile phone</v-list-item-title>
@@ -398,15 +400,18 @@ import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import ApiService from "../../services/api.service";
+import TokenService from "../../services/storage.service";
 export default {
-  
+  mounted(){
+    this.getUser();
+  },
   components:{
       VuePhoneNumberInput
   },
   data: () => ({
     //---------------
     //------------------------ Personal Information Section ------------------------\\
-    
+    user:{},
     //------------------------ Name Section  ------------------------\\
     firstname:"",
     lastname:"",
@@ -483,15 +488,28 @@ export default {
 
   computed: {
     //Get states from store
-    ...mapGetters("auth", ["userdata"]),
+    ...mapGetters("auth", ["accessToken"]),
+    ...mapGetters("auth", ["user_id"]),
     // ...mapActions(['DISPLAY_SEARCH'])
   },
   methods: {
-    ...mapMutations("auth", ["UpdateUser"]),
+    getUser(){
+        ApiService.get(`http://localhost:3000/users/${this.user_id}`)
+        .then((r)=>{
+          if(r.status==200)
+          {
+            this.user=r.data;
+            console.log(this.user)
+          }
+          else
+          {
+            console.log(r);
+          }
+      });
+    },
     log() {
       console.log(this.oldpassword);
       console.log(this.newpassord);
-      console.log(this.userdata.email);
     },
     onUpdate (payload) 
     {
@@ -515,7 +533,7 @@ export default {
       let data={
         oldPassword: this.oldpassword,
         password: this.newpassord,
-        token: this.userdata.token
+        token: this.accessToken
       }
       if(this.oldpassword !="" && this.newpassord !="")
       {
@@ -557,7 +575,7 @@ export default {
       let data=
       {
         Email: this.email,
-        token: this.userdata.token
+        token: this.accessToken
       }
       if(this.email !="")
       {
@@ -571,7 +589,8 @@ export default {
             console.log(r.data)
             this.snackbar4=true;
             this.loading = false
-            this.dialog = false
+            this.dialog2 = false;
+            this.getUser();
           }
           else
           {

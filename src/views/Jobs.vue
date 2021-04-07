@@ -12,6 +12,7 @@
               class="searchbar"
               outlined
               label="Search"
+              v-model="search"
               rounded-0>
             </v-text-field>
           </v-col>
@@ -45,19 +46,19 @@
         <v-card flat>
           <v-card-title>X in Jobs</v-card-title>
 
-
+<!-- 
           <v-progress-linear
             absolute
             v-if="loadingjobs"
             color="blue"
             indeterminate
           >     
-          </v-progress-linear>
+          </v-progress-linear> -->
           <v-card
             flat
             rounded="0"
             outlined
-            v-for="job in jobs"
+            v-for="job in filteredJobs"
             :key="job._id"
             @click="cardcondition=true; GetJob(job._id);">
             
@@ -138,7 +139,7 @@
           <v-list>
             <v-list-item three-line>
               <v-list-item-content>
-                <v-list-item-title class="title">{{userdata.firstName}} {{userdata.lastName}}</v-list-item-title>
+                <v-list-item-title class="title">{{user.fname}} {{user.lname}}</v-list-item-title>
                 <v-list-item-subtitle class="subtitle-2 mt-10">Last CV Refresh Date: 2020-11-03</v-list-item-subtitle>
                 <v-list-item-subtitle class="subtitle-2 mt-5">Preferred job title</v-list-item-subtitle>
                 <v-list-item-subtitle class="caption mt-2">Data Engineer</v-list-item-subtitle>
@@ -188,6 +189,7 @@ export default {
       }
       console.log(this.jobs);
     });
+    this.getUser();
   },
   data: () => ({
     //report: false
@@ -198,8 +200,20 @@ export default {
     pageOfItems: [],
     cardcondition:false,
     loading:false,
-    loadingjobs:false
+    loadingjobs:false,
+    user:{},
+    search:"",
   }),
+  computed: {
+    ...mapGetters("auth", ["loggedIn"]),
+    ...mapGetters("auth", ["user_id"]),
+    //Search bar
+    filteredJobs: function () {
+      return this.jobs.filter((job)=>{
+        return job.title.toLowerCase().match(this.search.toLowerCase());
+      });
+    }
+  },
   methods: {
    
     GetJobs()
@@ -209,6 +223,7 @@ export default {
         .then((r)=>{
           if(r.status==200){
             this.jobs=r.data;
+            
           }
           else{
             console.log(r);
@@ -230,11 +245,21 @@ export default {
             console.log(r);
           }
         });
-    }
-  },
-  computed: {
-    ...mapGetters("auth", ["loggedIn"]),
-    ...mapGetters("auth", ["userdata"]),
+    },
+    getUser(){
+        ApiService.get(`http://localhost:3000/users/${this.user_id}`)
+        .then((r)=>{
+          if(r.status==200)
+          {
+            this.user=r.data;
+            //console.log(this.user)
+          }
+          else
+          {
+            console.log(r);
+          }
+      });
+    },
   },
 };
 </script>

@@ -23,6 +23,10 @@ const getters =
         {
             return state.accessToken ? true : false
         },
+        accessToken: (state) => 
+        {
+            return state.accessToken
+        },
 
         userdata: (state) => 
         {

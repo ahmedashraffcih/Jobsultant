@@ -27,7 +27,14 @@
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
     <v-btn class="mr-4" v-if="loggedIn" icon>
+      <v-badge
+        :content="messages"
+        :value="messages"
+        color="#a8d0e6"
+        overlap
+      >
       <v-icon>mdi-email</v-icon>
+      </v-badge>
     </v-btn>
     <!-- ======================================================================= -->
     <!-- Default App Bar & Authentication -->
@@ -59,6 +66,7 @@ import { mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   data: () => ({
     group: null,
+    messages: 1,
   }),
 
   components: { SearchBar },
