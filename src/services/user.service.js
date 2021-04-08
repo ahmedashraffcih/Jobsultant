@@ -36,11 +36,10 @@ const UserService = {
             if (response.data.token) 
             {
                 //Sending the token for the token service to save it into local storage
-                TokenService.saveToken(response.data.token)
+                TokenService.saveToken(response.data.token);
                 //Saving user id
-                TokenService.saveUserId(response.data.docID)
-                
-                ApiService.setHeader()
+                TokenService.saveUserId(response.data.docID);
+                ApiService.setHeader();
                 //redirecting user after logging to Home page
                 router.push(router.history.current.query.redirect || '/');
             }
@@ -82,11 +81,11 @@ const UserService = {
             //console.log(response.data)
             /* Sending the token for the token service to save it into local storage however,
             we returns the response data to save the user's info by the store's login function*/
-            TokenService.saveToken(response.data.token)
+            TokenService.saveToken(response.data.token);
+            TokenService.saveUserId(response.data.payload.id);
             //saving user as an object in local storage
             TokenService.StoreUser(JSON.stringify(response.data))
             //saving user id
-            TokenService.saveUserId(response.data.docID)
             return response.data
         } catch (error) {
             console.log("Register Failed")

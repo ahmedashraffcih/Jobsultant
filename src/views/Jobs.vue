@@ -138,7 +138,7 @@
                 <v-card-title class="ml-3">Contact Info</v-card-title>
                 <v-card-text>
                   <v-form v-model="Valid">
-                    <v-row justify="center">
+                    <v-row>
                       <v-col cols="3">
                         <v-card-text>Email address</v-card-text>
                       </v-col>
@@ -154,7 +154,7 @@
                       </v-col>
                     </v-row>
 
-                    <v-row justify="center" >
+                    <v-row>
                       <v-col cols="3">
                         <v-card-text>Phone Number</v-card-text>
                       </v-col>
@@ -225,21 +225,47 @@
             </v-list-item>
           </v-list>
         </v-card>
-        <v-card >
-          <v-list>
-            <v-list-item three-line>
-              <v-list-item-content>
-                <v-list-item-title class="title">Save this search and receive similar jobs:</v-list-item-title>
-                <v-list-item-subtitle class="subtitle-2 mt-7">Keywords</v-list-item-subtitle>
-                <v-list-item-subtitle class="subtitle-2 mt-5">Job Location</v-list-item-subtitle>
-                <v-list-item-subtitle class="subtitle-2 mt-5">Alert Frequency</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-          <v-row class="justify-end mr-3">
-            <v-btn class="ml-3 mb-3" small right outlined>Create Job Alert</v-btn>
-          </v-row>
+
+        <v-card>
+          <v-card-title>Save this search and receive similar jobs:</v-card-title>
+          <v-card-text>
+            <v-form>
+              <v-row>
+                <v-col cols="4">
+                  <v-card-text>Keywords</v-card-text>
+                </v-col>
+                <v-col cols="8">
+                  <v-text-field
+                    v-model="AlertKey"
+                    dense
+                    outlined
+                    clearable
+                    required>
+                  </v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="4">
+                  <v-card-text>Job Level</v-card-text>
+                </v-col>
+                <v-col cols="8">
+                  <v-text-field
+                    v-model="JobLevel"
+                    dense
+                    outlined
+                    clearable
+                    required>
+                  </v-text-field>
+                </v-col>
+              </v-row>
+              <v-row class="justify-end mr-1">
+                <v-btn class="mb-3" small right outlined>Create Job Alert</v-btn>
+              </v-row>
+            </v-form>
+          </v-card-text>
+          
         </v-card>
+
       </v-col>
     </v-row>
   </div>
@@ -285,6 +311,8 @@ export default {
     dialog:"",
     email:"",
     Valid:"",
+    AlertKey:"",
+    JobLevel:"",
     //------------------------ Phone Section ------------------------\\
     phoneNumber:null,
     results: {},
@@ -355,7 +383,7 @@ export default {
           if(r.status==200)
           {
             this.user=r.data;
-            //console.log(this.user)
+            console.log(this.user)
           }
           else
           {
