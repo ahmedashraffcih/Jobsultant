@@ -40,7 +40,7 @@
                                 dense
                                 outlined
                                 label="First Name"
-                                v-model="firstname"
+                                v-model="user.fname"
                                 required
                                 :rules="nameRules"
                                 clearable
@@ -53,7 +53,7 @@
                                 dense
                                 outlined
                                 label="Last Name"
-                                v-model="lastname"
+                                v-model="user.lname"
                                 required
                                 :rules="nameRules"
                                 clearable
@@ -144,12 +144,13 @@
                           </v-row>
                         </v-form>
                         <v-row class="justify-end mr-1">
+                          <!-- :disabled="!Valid" -->
                           <v-btn
                             class="white--text"
                             width="150px"
                             color="#24305E"
-                            :disabled="!Valid"
-                            @click="editemail()":loading="loading">
+                            
+                            @click="editProfile()":loading="loading">
                             Apply
                           </v-btn>
                         </v-row>
@@ -214,7 +215,7 @@
                                 dense
                                 outlined
                                 label="New Email"
-                                v-model="email"
+                                v-model="user.Email"
                                 :rules="emailRules"
                                 clearable
                                 required>
@@ -374,13 +375,12 @@
     </v-row>
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ///////////////////////------------------------Snackbars Section-------------------------////////////////////////// -->
-    <v-snackbar v-model="snackbar1" timeout = "1000" color="success" outlined dark> Password Changed </v-snackbar>
-    <v-snackbar v-model="snackbar2" timeout = "1000" color="error" outlined dark> Fill the required fields </v-snackbar>
-    <v-snackbar v-model="snackbar3" timeout = "1000" color="error" outlined dark> Old password is wrong </v-snackbar>
-
-    <v-snackbar v-model="snackbar4" timeout = "1000" color="success" outlined dark> Email Changed </v-snackbar>
-    <v-snackbar v-model="snackbar5" timeout = "1000" color="error" outlined dark> Email is already used </v-snackbar>
-    <v-snackbar v-model="snackbar6" timeout = "1000" color="error" outlined dark> E-mail must be valid </v-snackbar>
+    <v-snackbar v-model="snackbar1" timeout = "2000" color="success" outlined dark> Your password changed successfully</v-snackbar>
+    <v-snackbar v-model="snackbar2" timeout = "2000" color="error" outlined dark> Fill the required fields </v-snackbar>
+    <v-snackbar v-model="snackbar3" timeout = "2000" color="error" outlined dark> Old password is wrong </v-snackbar>
+    <v-snackbar v-model="snackbar4" timeout = "2000" color="error" outlined dark> There's no change </v-snackbar>
+    <v-snackbar v-model="snackbar5" timeout = "2000" color="error" outlined dark> Email is already used </v-snackbar>
+    <v-snackbar v-model="snackbar6" timeout = "2000" color="success" outlined dark> Your changes have been successfully saved </v-snackbar>
   </div>
 </template>
 
@@ -402,6 +402,9 @@ export default {
     //---------------
     //------------------------ Personal Information Section ------------------------\\
     user:{},
+    dialog3:false,
+    snackbar4:false,
+    snackbar6:false,
     //------------------------ Name Section  ------------------------\\
     firstname:"",
     lastname:"",
@@ -409,7 +412,6 @@ export default {
     //------------------------ Date Picker ------------------------\\
     modal: false, //date picker Dialog
     date: null,
-    dialog3:false,
     //------------------------
     //------------------------ Gender Section  ------------------------\\
     items: ['Male', 'Female'],
@@ -417,22 +419,32 @@ export default {
     Valid3:false,
     //------------------------
     //------------------------ Residence Location Section  ------------------------\\
+
+
+
+
     //##############################################################################\\
 
 
+
+
     //------------------------ Contact Information Section  ------------------------\\
+    
     //------------------------ Email Section ------------------------\\
     email:"",
     Valid2: false, //Email Form Validation flag
     dialog2:false, //Email Dialog
-    snackbar4:false,
+    
     snackbar5:false,
-    snackbar6:false,
+
     //------------------------ Phone Section ------------------------\\
     phoneNumber:null,
     results: {},
     hasLoaderActive: false,
     hasErrorActive: false,
+
+
+
     //##############################################################################\\
 
 
@@ -447,6 +459,8 @@ export default {
     snackbar2:false,
     snackbar3:false,
     //------------------------
+
+
     //##############################################################################\\
 
     loading:false,//loading till user change
@@ -485,6 +499,7 @@ export default {
   methods: {
     getUser(){
         ApiService.get(`http://localhost:3000/users/${this.user_id}`)
+        
         .then((r)=>{
           if(r.status==200)
           {
@@ -497,10 +512,38 @@ export default {
           }
       });
     },
+    editProfile(){
+      this.loading = true;
+      ApiService.put(`http://localhost:3000/users/${this.user_id}`,this.user)
+      .then((r)=>{
+        console.log(r);
+        if(r.status==204)
+        {
+          this.getUser();
+          this.loading = false;
+          this.dialog3 = false;
+          this.snackbar6=true;
+          console.log(r)
+        }
+        else
+        {
+          this.loading = false;
+          this.snackbar5 = true;
+          console.log(r);
+          console.log(this.user);
+        }
+      })
+      .catch(error=>{
+        this.loading = false;
+        this.snackbar4=true;
+      });
+    },
+
     log() {
       console.log(this.oldpassword);
       console.log(this.newpassord);
     },
+
     onUpdate (payload) 
     {
       this.results = payload
@@ -517,6 +560,7 @@ export default {
       }
       
     },
+
     editpassword()
     {
       this.loading = true
@@ -529,22 +573,20 @@ export default {
       {
         ApiService.put('http://localhost:3000/EditProfile/EditPassword',data)
         .then((r)=>{
-          //console.log(r);
-          if(r.data!="Invalid Password !"){
+          if(r.status==204){
             this.snackbar1=true;
             this.oldpassword="";
             this.newpassord=""
             this.loading = false
             this.dialog = false
           }
-          else
-          {
-            console.log(r);
-            this.loading = false
-            this.snackbar3 = true; 
-            this.oldpassword="";
-            this.newpassord=""
-          }
+        })
+        .catch(error=>{
+          console.log(error);
+          this.loading = false
+          this.snackbar3 = true; 
+          this.oldpassword="";
+          this.newpassord=""
         });
       }
       else
@@ -553,51 +595,7 @@ export default {
         this.loading = false
       }
     },
-    // saveContact(){
-    //   if(this.email!="")
-    //   {
-    //     editemail()
-    //   }
-    // },
-    editemail()
-    {
-      this.loading = true
-      let data=
-      {
-        Email: this.email,
-        token: this.accessToken
-      }
-      if(this.email !="")
-      {
-        ApiService.put('http://localhost:3000/EditProfile/EditEmail',data)
-        .then((r)=>{
-          //console.log(r);
-          //TODO: condition to change
-          if(r.status==200)
-          {
-            //this.UpdateUser(data)
-            console.log(r.data)
-            this.snackbar4=true;
-            this.loading = false
-            this.dialog2 = false;
-            this.getUser();
-          }
-          else
-          {
-            console.log(r);
-            this.loading = false
-            this.snackbar5 = true; 
-            this.snackbar6 = true; 
 
-          }
-        });
-      }
-      else
-      {
-        this.snackbar6 = true; 
-        this.loading = false
-      }
-    },
   },
 };
 </script>
