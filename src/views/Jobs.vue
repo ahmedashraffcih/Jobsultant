@@ -146,7 +146,7 @@
                         <v-text-field
                           dense
                           outlined
-                          v-model="email"
+                          v-model="user.Email"
                           :rules="emailRules"
                           clearable
                           required>
@@ -309,7 +309,6 @@ export default {
     user:{},
     search:"",
     dialog:"",
-    email:"",
     Valid:"",
     AlertKey:"",
     JobLevel:"",

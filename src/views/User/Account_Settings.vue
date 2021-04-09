@@ -249,7 +249,7 @@
                             width="150px"
                             color="#24305E"
                             :disabled="!Valid2"
-                            @click="editemail()":loading="loading">
+                            @click="editProfile()":loading="loading">
                             Apply
                           </v-btn>
                         </v-row>
@@ -292,7 +292,7 @@
                         dark>
                         <v-toolbar-title class="ml-5">Change Your Password</v-toolbar-title>
                         <v-spacer></v-spacer>
-                        <v-icon class="mr-1" @click="dialog.value = false">mdi-close</v-icon> 
+                        <v-icon class="mr-2" @click="dialog.value = false">mdi-close</v-icon> 
                       </v-toolbar>
                       
                       <v-card-text>
@@ -319,6 +319,18 @@
                             :append-icon="value2 ? 'mdi-eye-off':'mdi-eye'"
                             @click:append="() => (value2 = !value2)"
                             :type="value2 ? 'password' : 'text'"
+                            required>
+                          </v-text-field>
+                          <v-text-field
+                            dense
+                            outlined
+                            label="Confirm New Password"
+                            v-model="confirmnewpassord"
+                            required
+                            :rules="passRules"
+                            :append-icon="value3 ? 'mdi-eye-off':'mdi-eye'"
+                            @click:append="() => (value3 = !value3)"
+                            :type="value3 ? 'password' : 'text'"
                             required>
                           </v-text-field>
                         </v-form>
@@ -376,7 +388,7 @@
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ///////////////////////------------------------Snackbars Section-------------------------////////////////////////// -->
     <v-snackbar v-model="snackbar1" timeout = "2000" color="success" outlined dark> Your password changed successfully</v-snackbar>
-    <v-snackbar v-model="snackbar2" timeout = "2000" color="error" outlined dark> Fill the required fields </v-snackbar>
+    <v-snackbar v-model="snackbar2" timeout = "2000" color="error" outlined dark> Please enter the same new password twice in order to confirm it </v-snackbar>
     <v-snackbar v-model="snackbar3" timeout = "2000" color="error" outlined dark> Old password is wrong </v-snackbar>
     <v-snackbar v-model="snackbar4" timeout = "2000" color="error" outlined dark> There's no change </v-snackbar>
     <v-snackbar v-model="snackbar5" timeout = "2000" color="error" outlined dark> Email is already used </v-snackbar>
@@ -451,8 +463,10 @@ export default {
     //------------------------ Password Section ------------------------\\
     value1: String, //eye passowrd reveal
     value2: String, //eye passowrd reveal
+    value3: String,
     oldpassword:"",
     newpassord:"",
+    confirmnewpassord:"",
     Valid: false, //Password Form Validation flag
     dialog:false, //Passwrod Dialog
     snackbar1:false,
@@ -497,6 +511,10 @@ export default {
     // ...mapActions(['DISPLAY_SEARCH'])
   },
   methods: {
+    ValidPass() {
+      // check if user passowrd matches or not
+      return this.newpassord === this.confirmnewpassord;
+    },
     getUser(){
         ApiService.get(`http://localhost:3000/users/${this.user_id}`)
         
@@ -569,7 +587,7 @@ export default {
         password: this.newpassord,
         token: this.accessToken
       }
-      if(this.oldpassword !="" && this.newpassord !="")
+      if(this.oldpassword !="" && this.newpassord !="" && this.ValidPass())
       {
         ApiService.put('http://localhost:3000/EditProfile/EditPassword',data)
         .then((r)=>{
