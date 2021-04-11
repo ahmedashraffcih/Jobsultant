@@ -146,7 +146,7 @@
                         <v-text-field
                           dense
                           outlined
-                          v-model="user.Email"
+                          v-model="AppliedJob.applicantEmail"
                           :rules="emailRules"
                           clearable
                           required>
@@ -167,7 +167,7 @@
                           required
                           :error="hasErrorActive" 
                           :loader="hasLoaderActive" 
-                          v-model="phoneNumber" 
+                          v-model="AppliedJob.applicantPhone" 
                           :rules="phoneRules"
                           clearable
                           @update="onUpdate"/>
@@ -268,6 +268,7 @@
 
       </v-col>
     </v-row>
+    <v-snackbar v-model="snackbar1" timeout = "2000" color="success" outlined dark> Your Application placed successfully</v-snackbar>
   </div>
 </template>
 
@@ -301,7 +302,11 @@ export default {
     result:[],
     job:"",
     oneJob:{},
-    AppliedJob:{},
+    AppliedJob:{
+      jobID:"",
+      applicantEmail:"",
+      applicantPhone:"",
+    },
     pageOfItems: [],
     cardcondition:false,
     loading:false,
@@ -312,6 +317,7 @@ export default {
     Valid:"",
     AlertKey:"",
     JobLevel:"",
+    snackbar1:false,
     //------------------------ Phone Section ------------------------\\
     phoneNumber:null,
     results: {},
@@ -364,6 +370,7 @@ export default {
         .then((r)=>{
           if(r.status==200){
             this.oneJob=r.data;
+            console.log(this.oneJob._id);
             this.loading=false
           }
           else{
@@ -373,8 +380,24 @@ export default {
     },
     ApplyJob()
     {
-      this.AppliedJob = this.oneJob;
-      console.log(this.AppliedJob)
+      this.loading = true;
+      this.AppliedJob.jobID=this.oneJob._id
+      ApiService.post(`http://localhost:3000/users/${this.user_id}`,this.AppliedJob)
+        .then((r)=>{
+          if(r.status==204)
+          {
+            this.loading = false;
+            this.dialog = false;
+            this.snackbar1=true;
+            console.log(r)
+          }
+          else
+          {
+            this.loading = false;
+            console.log(r);
+          }
+      });
+      
     },
     getUser(){
         ApiService.get(`http://localhost:3000/users/${this.user_id}`)
@@ -392,15 +415,17 @@ export default {
     },
     onUpdate (payload) 
     {
-      this.results = payload
       if(payload.isValid)
       {
-        console.log(this.results)
+        this.Valid= true;
+        this.AppliedJob.applicantPhone=payload.formattedNumber;
+        console.log(this.AppliedJob.applicantPhone);
         // this.hasLoaderActive=false;
         // this.hasErrorActive= false;
       }
       else
       {
+        this.Valid= false;
         // this.hasLoaderActive=true;
         // this.hasErrorActive= true;
       }
