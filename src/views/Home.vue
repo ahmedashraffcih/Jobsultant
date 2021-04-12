@@ -4,7 +4,7 @@
       <h1 class="display-4 white--text mt-10">JobSultant</h1>
     </v-row>
     <v-row justify="center">
-      <h1 class="white--text mt-5">Find Jobs,Netowrk and Learn</h1>
+      <h1 class="white--text mt-5">Find Jobs, Netowrk and Learn</h1>
     </v-row>
     <v-row justify="center" class="mt-15">
       <v-col cols="4">

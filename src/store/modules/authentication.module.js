@@ -23,6 +23,10 @@ const getters =
         {
             return state.accessToken ? true : false
         },
+        accessToken: (state) => 
+        {
+            return state.accessToken
+        },
 
         userdata: (state) => 
         {
@@ -82,7 +86,10 @@ const mutations =
     // {
     //     state.user = user
     // },
-
+    UpdateUser(state, payload)
+    {
+        state.user = payload
+    },
     registerRequest(state) 
     {
         state.authenticating = true;

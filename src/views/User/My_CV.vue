@@ -22,22 +22,22 @@
         <v-list class="ml-4" max-width="500px" dense>
           <v-list-item>
             <v-list-item-title>Name</v-list-item-title>
-            <v-list-item-subtitle>{{userdata.firstName}} {{userdata.lastName}}</v-list-item-subtitle>
+            <v-list-item-subtitle>{{user.fname}} {{user.lname}}</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Birth date</v-list-item-title>
-            <v-list-item-subtitle v-if="userdata.BirthDate">{{userdata.BirthDate}}</v-list-item-subtitle>
-            <v-list-item-subtitle v-if="!userdata.BirthDate">-</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="user.BirthDate">{{user.BirthDate}}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="!user.BirthDate">-</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Gender</v-list-item-title>
-            <v-list-item-subtitle v-if="userdata.Gender">{{userdata.Gender}}</v-list-item-subtitle>
-            <v-list-item-subtitle v-if="!userdata.Gender">-</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="user.Gender">{{user.Gender}}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="!user.Gender">-</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Nationality</v-list-item-title>
-            <v-list-item-subtitle v-if="userdata.Nationality">{{userdata.Nationality}}</v-list-item-subtitle>
-            <v-list-item-subtitle v-if="!userdata.Nationality">-</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="user.Nationality">{{user.Nationality}}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="!user.Nationality">-</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Residence Location</v-list-item-title>
@@ -56,12 +56,12 @@
         <v-list class="ml-4" max-width="500px" dense>
           <v-list-item>
             <v-list-item-title>Email</v-list-item-title>
-            <v-list-item-subtitle>{{userdata.email}}</v-list-item-subtitle>
+            <v-list-item-subtitle>{{user.Email}}</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Mobile phone</v-list-item-title>
-            <v-list-item-subtitle v-if="userdata.Mobile">{{userdata.Mobile}}</v-list-item-subtitle>
-            <v-list-item-subtitle v-if="!userdata.Mobile">-</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="user.Mobile">{{user.Mobile}}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="!user.Mobile">-</v-list-item-subtitle>
           </v-list-item>
         </v-list>
       </v-card>
@@ -149,22 +149,39 @@
 <script>
 
 import { mapGetters, mapActions, mapMutations } from "vuex";
-
+import ApiService from "../../services/api.service";
 export default {
   data: () => ({
     group: null,
+    user:{}
   }),
-
+  mounted(){
+    this.getUser();
+  },
   components: {  },
 
   computed: {
     //Get states from store
-    ...mapGetters("auth", ["userdata"]),
+    ...mapGetters("auth", ["user_id"]),
     // ...mapActions(['DISPLAY_SEARCH'])
   },
   methods: {
     log() {
       console.log(this.userdata);
+    },
+    getUser(){
+        ApiService.get(`http://localhost:3000/users/${this.user_id}`)
+        .then((r)=>{
+          if(r.status==200)
+          {
+            this.user=r.data;
+            console.log(this.user)
+          }
+          else
+          {
+            console.log(r);
+          }
+      });
     },
   },
 };

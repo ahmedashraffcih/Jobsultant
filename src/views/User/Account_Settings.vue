@@ -20,7 +20,9 @@
                       <v-toolbar
                         color="#24305E"
                         dark>
-                        Edit Personal Information
+                        <v-toolbar-title class="ml-5">Edit Personal Information</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-icon class="mr-2" @click="dialog3.value = false">mdi-close</v-icon>  
                       </v-toolbar>
                       
                       <v-card-text>
@@ -38,9 +40,10 @@
                                 dense
                                 outlined
                                 label="First Name"
-                                v-model="firstname"
+                                v-model="user.fname"
                                 required
                                 :rules="nameRules"
+                                clearable
                               >
                               </v-text-field>
                             </v-col>
@@ -50,9 +53,10 @@
                                 dense
                                 outlined
                                 label="Last Name"
-                                v-model="lastname"
+                                v-model="user.lname"
                                 required
                                 :rules="nameRules"
+                                clearable
                               >
                               </v-text-field>
                             </v-col>
@@ -139,19 +143,15 @@
                             </v-col>
                           </v-row>
                         </v-form>
-                        <v-row class="justify-space-between">
+                        <v-row class="justify-end mr-1">
+                          <!-- :disabled="!Valid" -->
                           <v-btn
-                            width="120px"
-                            class="ml-6 white--text"
+                            class="white--text"
+                            width="150px"
                             color="#24305E"
                             
-                            @click="editemail()":loading="loading">
-                            Save
-                          </v-btn>
-                          <v-btn
-                            text
-                            @click="dialog3.value = false">
-                            Close
+                            @click="editProfile()":loading="loading">
+                            Apply
                           </v-btn>
                         </v-row>
                       </v-card-text>
@@ -164,7 +164,7 @@
           <v-list class="ml-10" max-width="500px">
             <v-list-item>
               <v-list-item-title>Name</v-list-item-title>
-              <v-list-item-subtitle>{{userdata.firstName}} {{userdata.lastName}}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{user.fname}} {{user.lname}}</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Birth date</v-list-item-title>
@@ -199,7 +199,9 @@
                       <v-toolbar
                         color="#24305E"
                         dark>
-                        Edit Contact Information
+                        <v-toolbar-title class="ml-5">Edit Contact Information</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-icon class="mr-2" @click="dialog2.value = false">mdi-close</v-icon>  
                       </v-toolbar>
                       
                       <v-card-text>
@@ -213,7 +215,7 @@
                                 dense
                                 outlined
                                 label="New Email"
-                                v-model="email"
+                                v-model="user.Email"
                                 :rules="emailRules"
                                 clearable
                                 required>
@@ -221,40 +223,34 @@
                             </v-col>
                           </v-row>
 
-                          <v-row justify="center" class="mb-10">
+                          <v-row justify="center" class="mb-3">
                             <v-col cols="3">
                               <v-card-text>Phone Number</v-card-text>
                             </v-col>
                             <v-col cols="9">
                               <VuePhoneNumberInput 
-                              id="phoneNumber1" 
-                              class="mb-7"
-                              color="dodgerblue"
-                              valid-color="green"
-                              required
-                              :error="hasErrorActive" 
-                              :loader="hasLoaderActive" 
-                              v-model="phoneNumber" 
-                              :rules="phoneRules"
-                              clearable
-                              @update="onUpdate"/>
+                                id="phoneNumber1" 
+                                color="dodgerblue"
+                                valid-color="green"
+                                required
+                                :error="hasErrorActive" 
+                                :loader="hasLoaderActive" 
+                                v-model="phoneNumber" 
+                                :rules="phoneRules"
+                                clearable
+                                @update="onUpdate"/>
                             </v-col>
                           </v-row>
 
                         </v-form>
-                        <v-row class="justify-space-between">
+                        <v-row class="justify-end mr-1">
                           <v-btn
-                            class="ml-3 white--text"
+                            class="white--text"
                             width="150px"
                             color="#24305E"
                             :disabled="!Valid2"
-                            @click="editemail()":loading="loading">
-                            Save
-                          </v-btn>
-                          <v-btn
-                            text
-                            @click="dialog2.value = false">
-                            Close
+                            @click="editProfile()":loading="loading">
+                            Apply
                           </v-btn>
                         </v-row>
                       </v-card-text>
@@ -267,7 +263,7 @@
           <v-list class="ml-10" max-width="500px">
             <v-list-item>
               <v-list-item-title>Email</v-list-item-title>
-              <v-list-item-subtitle>{{userdata.email}}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{user.Email}}</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Mobile phone</v-list-item-title>
@@ -294,7 +290,9 @@
                       <v-toolbar
                         color="#24305E"
                         dark>
-                        Change Your Password
+                        <v-toolbar-title class="ml-5">Change Your Password</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-icon class="mr-2" @click="dialog.value = false">mdi-close</v-icon> 
                       </v-toolbar>
                       
                       <v-card-text>
@@ -323,20 +321,27 @@
                             :type="value2 ? 'password' : 'text'"
                             required>
                           </v-text-field>
+                          <v-text-field
+                            dense
+                            outlined
+                            label="Confirm New Password"
+                            v-model="confirmnewpassord"
+                            required
+                            :rules="passRules"
+                            :append-icon="value3 ? 'mdi-eye-off':'mdi-eye'"
+                            @click:append="() => (value3 = !value3)"
+                            :type="value3 ? 'password' : 'text'"
+                            required>
+                          </v-text-field>
                         </v-form>
-                        <v-row class="justify-space-between">
+                        <v-row class="justify-end ">
                           <v-btn
-                            class="ml-3 white--text"
+                            class="white--text mr-3"
+                            width="150px"
                             color="#24305E"
-                            
                             :disabled="!Valid"
                             @click="editpassword()":loading="loading">
-                            change password
-                          </v-btn>
-                          <v-btn
-                            text
-                            @click="dialog.value = false">
-                            Close
+                            Confirm
                           </v-btn>
                         </v-row>
                       </v-card-text>
@@ -382,13 +387,12 @@
     </v-row>
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ///////////////////////------------------------Snackbars Section-------------------------////////////////////////// -->
-    <v-snackbar v-model="snackbar1" timeout = "1000" color="success" outlined dark> Password Changed </v-snackbar>
-    <v-snackbar v-model="snackbar2" timeout = "1000" color="error" outlined dark> Fill the required fields </v-snackbar>
-    <v-snackbar v-model="snackbar3" timeout = "1000" color="error" outlined dark> Old password is wrong </v-snackbar>
-
-    <v-snackbar v-model="snackbar4" timeout = "1000" color="success" outlined dark> Email Changed </v-snackbar>
-    <v-snackbar v-model="snackbar5" timeout = "1000" color="error" outlined dark> Email is already used </v-snackbar>
-    <v-snackbar v-model="snackbar6" timeout = "1000" color="error" outlined dark> E-mail must be valid </v-snackbar>
+    <v-snackbar v-model="snackbar1" timeout = "2000" color="success" outlined dark> Your password changed successfully</v-snackbar>
+    <v-snackbar v-model="snackbar2" timeout = "2000" color="error" outlined dark> Please enter the same new password twice in order to confirm it </v-snackbar>
+    <v-snackbar v-model="snackbar3" timeout = "2000" color="error" outlined dark> Old password is wrong </v-snackbar>
+    <v-snackbar v-model="snackbar4" timeout = "2000" color="error" outlined dark> There's no change </v-snackbar>
+    <v-snackbar v-model="snackbar5" timeout = "2000" color="error" outlined dark> Email is already used </v-snackbar>
+    <v-snackbar v-model="snackbar6" timeout = "2000" color="success" outlined dark> Your changes have been successfully saved </v-snackbar>
   </div>
 </template>
 
@@ -398,15 +402,21 @@ import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import ApiService from "../../services/api.service";
+import TokenService from "../../services/storage.service";
 export default {
-  
+  mounted(){
+    this.getUser();
+  },
   components:{
       VuePhoneNumberInput
   },
   data: () => ({
     //---------------
     //------------------------ Personal Information Section ------------------------\\
-    
+    user:{},
+    dialog3:false,
+    snackbar4:false,
+    snackbar6:false,
     //------------------------ Name Section  ------------------------\\
     firstname:"",
     lastname:"",
@@ -414,7 +424,6 @@ export default {
     //------------------------ Date Picker ------------------------\\
     modal: false, //date picker Dialog
     date: null,
-    dialog3:false,
     //------------------------
     //------------------------ Gender Section  ------------------------\\
     items: ['Male', 'Female'],
@@ -422,36 +431,50 @@ export default {
     Valid3:false,
     //------------------------
     //------------------------ Residence Location Section  ------------------------\\
+
+
+
+
     //##############################################################################\\
 
 
+
+
     //------------------------ Contact Information Section  ------------------------\\
+    
     //------------------------ Email Section ------------------------\\
     email:"",
     Valid2: false, //Email Form Validation flag
     dialog2:false, //Email Dialog
-    snackbar4:false,
+    
     snackbar5:false,
-    snackbar6:false,
+
     //------------------------ Phone Section ------------------------\\
     phoneNumber:null,
     results: {},
     hasLoaderActive: false,
     hasErrorActive: false,
+
+
+
     //##############################################################################\\
 
 
     //------------------------ Password Section ------------------------\\
     value1: String, //eye passowrd reveal
     value2: String, //eye passowrd reveal
+    value3: String,
     oldpassword:"",
     newpassord:"",
+    confirmnewpassord:"",
     Valid: false, //Password Form Validation flag
     dialog:false, //Passwrod Dialog
     snackbar1:false,
     snackbar2:false,
     snackbar3:false,
     //------------------------
+
+
     //##############################################################################\\
 
     loading:false,//loading till user change
@@ -483,15 +506,62 @@ export default {
 
   computed: {
     //Get states from store
-    ...mapGetters("auth", ["userdata"]),
+    ...mapGetters("auth", ["accessToken"]),
+    ...mapGetters("auth", ["user_id"]),
     // ...mapActions(['DISPLAY_SEARCH'])
   },
   methods: {
+    ValidPass() {
+      // check if user passowrd matches or not
+      return this.newpassord === this.confirmnewpassord;
+    },
+    getUser(){
+        ApiService.get(`http://localhost:3000/users/${this.user_id}`)
+        
+        .then((r)=>{
+          if(r.status==200)
+          {
+            this.user=r.data;
+            console.log(this.user)
+          }
+          else
+          {
+            console.log(r);
+          }
+      });
+    },
+    editProfile(){
+      this.loading = true;
+      ApiService.put(`http://localhost:3000/users/${this.user_id}`,this.user)
+      .then((r)=>{
+        console.log(r);
+        if(r.status==204)
+        {
+          this.getUser();
+          this.loading = false;
+          this.dialog3 = false;
+          this.snackbar6=true;
+          console.log(r)
+        }
+        else
+        {
+          this.loading = false;
+          this.snackbar5 = true;
+          console.log(r);
+          console.log(this.user);
+        }
+      })
+      .catch(error=>{
+        this.loading = false;
+        this.snackbar4=true;
+      });
+    },
+
     log() {
       console.log(this.oldpassword);
       console.log(this.newpassord);
-      console.log(this.userdata.email);
     },
+
     onUpdate (payload) 
     {
       this.results = payload
@@ -508,34 +578,33 @@ export default {
       }
       
     },
+
     editpassword()
     {
       this.loading = true
       let data={
         oldPassword: this.oldpassword,
         password: this.newpassord,
-        token: this.userdata.token
+        token: this.accessToken
       }
-      if(this.oldpassword !="" && this.newpassord !="")
+      if(this.oldpassword !="" && this.newpassord !="" && this.ValidPass())
       {
         ApiService.put('http://localhost:3000/EditProfile/EditPassword',data)
         .then((r)=>{
-          //console.log(r);
-          if(r.data!="Invalid Password !"){
+          if(r.status==204){
             this.snackbar1=true;
             this.oldpassword="";
             this.newpassord=""
             this.loading = false
             this.dialog = false
           }
-          else
-          {
-            console.log(r);
-            this.loading = false
-            this.snackbar3 = true; 
-            this.oldpassword="";
-            this.newpassord=""
-          }
+        })
+        .catch(error=>{
+          console.log(error);
+          this.loading = false
+          this.snackbar3 = true; 
+          this.oldpassword="";
+          this.newpassord=""
         });
       }
       else
@@ -544,40 +613,7 @@ export default {
         this.loading = false
       }
     },
-    editemail()
-    {
-      this.loading = true
-      let data={
-        Email: this.email,
-        token: this.userdata.token
-      }
-      if(this.email !="")
-      {
-        ApiService.put('http://localhost:3000/EditProfile/EditEmail',data)
-        .then((r)=>{
-          //console.log(r);
-          // TODO: condition to change
-          if(r.data!="Invalid Password !"){
-            this.snackbar4=true;
-            this.loading = false
-            this.dialog = false
-          }
-          else
-          {
-            console.log(r);
-            this.loading = false
-            this.snackbar5 = true; 
-            this.snackbar6 = true; 
 
-          }
-        });
-      }
-      else
-      {
-        this.snackbar6 = true; 
-        this.loading = false
-      }
-    },
   },
 };
 </script>
