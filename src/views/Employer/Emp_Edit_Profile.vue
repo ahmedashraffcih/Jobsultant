@@ -44,16 +44,18 @@
           <h2>More Details about Your Company:</h2>
         </div>
 
-        <v-textarea
-          v-model="overview"
-          label="Company overview"
-          auto-grow
-          rows="2"
-          :counter="650"
-          outlined
-          dense
-        >
+        <!-- May be removed 
+            <v-textarea
+              v-model="overview"
+              label="Company overview"
+              auto-grow
+              rows="2"
+              :counter="650"
+              outlined
+              dense
+            >
         </v-textarea>
+        -->
 
         <v-text-field
           v-model="website"
@@ -130,7 +132,7 @@ export default {
             'Sports',
             'Telecom Services'
         ],
-        overview: '',
+        //overview: '',
         website: null,
         companySize: '',
         sizes:[
@@ -196,7 +198,7 @@ export default {
             this.companyName = ''
             this.phoneNumber = ''
             this.industryOfCompany = null
-            this.overview = ''
+            //this.overview = ''
             this.website = ''
             this.companySize = null
             this.headquarters = ''
