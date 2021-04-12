@@ -3,7 +3,7 @@
     <v-row justify="center">
       <v-card class="mt-10 mb-10" width="500px">
         <v-card-title class="justify-center">Log in to your account</v-card-title>
-        <v-card-subtitle class="text-center">Don't have an account yet? <a style="text-decoration: none;" href="/Authentication/login">Register here</a></v-card-subtitle>
+        <v-card-subtitle class="text-center">Don't have an account yet? <a style="text-decoration: none;" href="/Authentication/register">Register here</a></v-card-subtitle>
         <v-alert color="error" :value="error" icon="close">The username or password wrong</v-alert>
         <v-card-text>
           <v-form v-model="Valid">

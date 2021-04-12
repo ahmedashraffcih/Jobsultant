@@ -1,0 +1,330 @@
+<template>
+    <v-col cols=5>
+        <v-row>
+            <v-tabs centered grow>
+                <v-tab>Recent Applications</v-tab>
+                <v-tab>Closed</v-tab>
+            </v-tabs>
+        </v-row>
+        <v-row justify="center">
+            <!-- @click="GetAppliedJob(application.jobID)" -->
+            <v-col cols=12>
+                <v-card
+                v-for="application in applications"
+                :key="application._id"
+                >
+                <v-progress-linear value="100" height="30" color="primary">
+                    <v-spacer></v-spacer>
+                    <v-btn class="mr-2" icon>
+                        <v-icon @click="dialog=true"color="white">mdi-dots-horizontal</v-icon>
+                    </v-btn>
+                </v-progress-linear>
+
+                <v-dialog v-model="dialog"  max-width="600">
+                    <v-card class="pa-5">
+                        <v-card-title>Are you sure you want to unapply?</v-card-title>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn outlined color="black" @click="dialog = false"> Cancel </v-btn>
+                            <v-btn color="primary" @click="dialog = false; CancelApply(application._id)"> Unapply </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+
+                <v-row>
+                    <v-col cols=6>
+                        <v-card-title class="ml-4">Job Title</v-card-title>
+                        <v-card-subtitle>
+                            <v-list>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-list-item-title>Company Name</v-list-item-title>
+                                        <v-list-item-subtitle>Egypt - Cairo</v-list-item-subtitle>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            </v-list>
+                            <v-list max-width="350px" dense>
+                                <v-list-item>
+                                    <v-list-item-title>Date Applied :</v-list-item-title>
+                                    <v-list-item-subtitle>04/08/2021</v-list-item-subtitle>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-title>Viewed Applications :</v-list-item-title>
+                                    <v-list-item-subtitle>151</v-list-item-subtitle>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-title>CV Relevancy :</v-list-item-title>
+                                    <v-list-item-subtitle>0/5</v-list-item-subtitle>
+                                </v-list-item>
+                            </v-list>
+                        </v-card-subtitle>
+                    </v-col>
+                    <v-col cols=6 align="center" align-self="center">
+                        <v-icon size="100px" color="primary">mdi-progress-upload</v-icon>
+                        <v-card-text>Pending</v-card-text>
+                    </v-col>
+                </v-row>
+            </v-card>
+            <v-card>
+                <v-progress-linear value="100" height="30" color="primary">
+                    <v-spacer></v-spacer>
+                    <v-btn class="mr-2" icon>
+                        <v-icon @click="dialog=true"color="white">mdi-dots-horizontal</v-icon>
+                    </v-btn>
+                </v-progress-linear>
+
+                <v-dialog v-model="dialog"  max-width="600">
+                    <v-card class="pa-5">
+                        <v-card-title>Are you sure you want to unapply?</v-card-title>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn outlined color="black" @click="dialog = false"> Cancel </v-btn>
+                            <v-btn color="primary" @click="dialog = false"> Unapply </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+
+                <v-row>
+                    <v-col cols=6>
+                        <v-card-title class="ml-4">Job Title</v-card-title>
+                        <v-card-subtitle>
+                            <v-list>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-list-item-title>Company Name</v-list-item-title>
+                                        <v-list-item-subtitle>Egypt - Cairo</v-list-item-subtitle>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            </v-list>
+                            <v-list max-width="350px" dense>
+                                <v-list-item>
+                                    <v-list-item-title>Date Applied :</v-list-item-title>
+                                    <v-list-item-subtitle>04/08/2021</v-list-item-subtitle>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-title>Viewed Applications :</v-list-item-title>
+                                    <v-list-item-subtitle>151</v-list-item-subtitle>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-title>CV Relevancy :</v-list-item-title>
+                                    <v-list-item-subtitle>0/5</v-list-item-subtitle>
+                                </v-list-item>
+                            </v-list>
+                        </v-card-subtitle>
+                    </v-col>
+                    <v-col cols=6 align="center" align-self="center">
+                        <v-icon size="100px" color="primary">mdi-progress-upload</v-icon>
+                        <v-card-text>Pending</v-card-text>
+                    </v-col>
+                </v-row>
+            </v-card>
+            </v-col>
+        </v-row>
+        <v-row justify="center">
+            <v-col cols=12>
+            <v-card>
+                <v-progress-linear value="100" height="25" color="warning">
+                    <v-spacer></v-spacer>
+                    <v-btn class="mr-2" icon>
+                        <v-icon color="white">mdi-dots-horizontal</v-icon>
+                    </v-btn>
+                </v-progress-linear>
+                <v-row>
+                    <v-col cols=6>
+                        <v-card-title class="ml-4">Job Title</v-card-title>
+                        <v-card-subtitle>
+                            <v-list>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-list-item-title>Company Name</v-list-item-title>
+                                        <v-list-item-subtitle>Egypt - Cairo</v-list-item-subtitle>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            </v-list>
+                            <v-list max-width="350px" dense>
+                                <v-list-item>
+                                    <v-list-item-title>Date Applied :</v-list-item-title>
+                                    <v-list-item-subtitle>04/08/2021</v-list-item-subtitle>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-title>Viewed Applications :</v-list-item-title>
+                                    <v-list-item-subtitle>151</v-list-item-subtitle>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-title>CV Relevancy :</v-list-item-title>
+                                    <v-list-item-subtitle>0/5</v-list-item-subtitle>
+                                </v-list-item>
+                            </v-list>
+                        </v-card-subtitle>
+                    </v-col>
+                    <v-col cols=6 align="center" align-self="center">
+                        <v-icon size="100px" color="warning">mdi-progress-clock</v-icon>
+                        <v-card-text>In Review</v-card-text>
+                    </v-col>
+                </v-row>
+            </v-card>
+            </v-col>
+        </v-row>
+        <v-row justify="center">
+            <v-col cols=12>
+            <v-card>
+                <v-progress-linear value="100" height="25" color="error">
+                    <v-spacer></v-spacer>
+                    <v-btn class="mr-2" icon>
+                        <v-icon color="white">mdi-dots-horizontal</v-icon>
+                    </v-btn>
+                </v-progress-linear>
+                <v-row>
+                    <v-col cols=6>
+                        <v-card-title class="ml-4">Job Title</v-card-title>
+                        <v-card-subtitle>
+                            <v-list>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-list-item-title>Company Name</v-list-item-title>
+                                        <v-list-item-subtitle>Egypt - Cairo</v-list-item-subtitle>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            </v-list>
+                            <v-list max-width="350px" dense>
+                                <v-list-item>
+                                    <v-list-item-title>Date Applied :</v-list-item-title>
+                                    <v-list-item-subtitle>04/08/2021</v-list-item-subtitle>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-title>Viewed Applications :</v-list-item-title>
+                                    <v-list-item-subtitle>151</v-list-item-subtitle>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-title>CV Relevancy :</v-list-item-title>
+                                    <v-list-item-subtitle>0/5</v-list-item-subtitle>
+                                </v-list-item>
+                            </v-list>
+                        </v-card-subtitle>
+                    </v-col>
+                    <v-col cols=6 align="center" align-self="center">
+                        <v-icon size="100px" color="error">mdi-close-circle-outline</v-icon>
+                        <v-card-text>Rejected</v-card-text>
+                    </v-col>
+                </v-row>
+            </v-card>
+            </v-col>
+        </v-row>
+        <v-row justify="center">
+            <v-col cols=12>
+            <v-card>
+                <v-progress-linear value="100" height="25" color="success">
+                    <v-spacer></v-spacer>
+                    <v-btn class="mr-2" icon>
+                        <v-icon color="white">mdi-dots-horizontal</v-icon>
+                    </v-btn>
+                </v-progress-linear>
+                <v-row>
+                    <v-col cols=6>
+                        <v-card-title class="ml-4">Job Title</v-card-title>
+                        <v-card-subtitle>
+                            <v-list>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-list-item-title>Company Name</v-list-item-title>
+                                        <v-list-item-subtitle>Egypt - Cairo</v-list-item-subtitle>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            </v-list>
+                            <v-list max-width="350px" dense>
+                                <v-list-item>
+                                    <v-list-item-title>Date Applied :</v-list-item-title>
+                                    <v-list-item-subtitle>04/08/2021</v-list-item-subtitle>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-title>Viewed Applications :</v-list-item-title>
+                                    <v-list-item-subtitle>151</v-list-item-subtitle>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-title>CV Relevancy :</v-list-item-title>
+                                    <v-list-item-subtitle>0/5</v-list-item-subtitle>
+                                </v-list-item>
+                            </v-list>
+                        </v-card-subtitle>
+                    </v-col>
+                    <v-col cols=6 align="center" align-self="center">
+                        <v-icon size="100px" color="success">mdi-check-circle-outline</v-icon>
+                        <v-card-text>Shortlisted</v-card-text>
+                    </v-col>
+                </v-row>
+            </v-card>
+            </v-col>
+        </v-row>
+    </v-col>
+</template>
+
+<script>
+import ApiService from "../../services/api.service";
+import { mapGetters,mapActions,mapMutations } from "vuex";
+export default {
+    data () {
+      return {
+        dialog: false,
+        applications:[],
+        oneApplication:{},
+        oneJob:{},
+      }
+    },
+    mounted() {
+        this.GetApplications();
+  },
+methods:{
+    GetApplications(){
+        ApiService.get('http://localhost:3000/jobApplications/listApplications')
+        .then((r)=>{
+        if(r.status==200){
+            this.applications= r.data;
+        }
+        else{
+            console.log(r);
+        }
+        console.log(this.applications);
+        });
+    },
+    GetApplication(id,Jobid)
+    {
+       ApiService.get(`http://localhost:3000/jobApplications/listApplications/${id}`)
+        .then((r)=>{
+          if(r.status==200){
+            this.oneApplication=r.data;
+            GetAppliedJob(Jobid);
+          }
+          else{
+            console.log(r);
+          }
+        });
+    },
+    GetAppliedJob(id)
+    {
+       ApiService.get(`http://localhost:3000/jobs/list/${id}`)
+        .then((r)=>{
+          if(r.status==200){
+            this.oneJob=r.data;
+            console.log(this.oneJob);
+          }
+          else{
+            console.log(r);
+          }
+        });
+    },
+    CancelApply(id)
+    {
+        ApiService.delete(`http://localhost:3000/jobApplications/deleteApplication/${id}`)
+        .then((r)=>{
+            if(r.status==204){
+            console.log("deleted");
+            this.GetApplications();
+            }
+            else{
+            console.log(r);
+            }
+        });
+    }
+},
+}
+</script>
