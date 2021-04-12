@@ -305,7 +305,7 @@ export default {
     AppliedJob:{
       jobID:"",
       applicantEmail:"",
-      applicantPhone:"",
+      applicantPhone:null,
     },
     pageOfItems: [],
     cardcondition:false,
@@ -314,7 +314,7 @@ export default {
     user:{},
     search:"",
     dialog:"",
-    Valid:"",
+    Valid:false,
     AlertKey:"",
     JobLevel:"",
     snackbar1:false,
@@ -418,6 +418,7 @@ export default {
       if(payload.isValid)
       {
         this.Valid= true;
+        console.log(payload);
         this.AppliedJob.applicantPhone=payload.formattedNumber;
         console.log(this.AppliedJob.applicantPhone);
         // this.hasLoaderActive=false;
