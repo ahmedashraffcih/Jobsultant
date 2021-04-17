@@ -8,16 +8,17 @@
     </v-avatar>
     <v-toolbar-title class="title"></v-toolbar-title>
     <v-btn to="/" class="buttoncase ml-10" text flat>Home</v-btn>
-    <v-btn class="buttoncase" to="/about" text flat>Find Jobs</v-btn>
-    <v-btn class="buttoncase" to="/user/account_settings" text flat>My Account</v-btn>
-    <v-btn class="buttoncase" to="/user/My_CV" text flat>My CV</v-btn>
+    <v-btn class="buttoncase" to="##" text flat>Dashboard</v-btn>
+
+    <!-- Dropdown  goes here -->
+ 
+    <Dropdown title="Posts" :items="services" />
+    
     <v-spacer></v-spacer>
     <v-btn icon>
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
 
-    <v-btn class="buttoncase mr-4" to="/Details/login" outlined>Log in</v-btn>
-    <v-btn class="buttoncase mr-4" to="/Details/Register" outlined>Register</v-btn>
     <v-btn class="buttoncase" to="/Employer/Emp_Register" outlined>For Employers</v-btn>
     <v-menu left bottom>
       <template v-slot:activator="{ on, attrs }">
@@ -27,8 +28,7 @@
       </template>
 
       <v-list>
-        <v-list-item @click="() => {}">Account Settings</v-list-item>
-        <v-list-item @click="() => {}">For Employers</v-list-item>
+        <v-list-item to="/Employer/Emp_Profile">View Profile</v-list-item>
         <v-divider></v-divider>
         <v-list-item @click="() => {}">Log Out</v-list-item>
       </v-list>
@@ -38,13 +38,28 @@
 </template>
 
 <script>
+import Dropdown from '../Dropdown';
 export default {
-  data: () => ({
-    group: null
-  })
+  components: {
+      Dropdown
+  },  
+  data ()  {
+    return {
+        services: [
+            {
+                title: 'Manage Jobs',
+                link: '#'
+            },
+            {
+                title: 'Add New Job',
+                link: '/Employer/Emp_Add_Job'
+            }
+        ]
+    }
+  }
 };
 </script>
-<style scoped>
+<style>
 .buttoncase {
   text-transform: none;
 }
