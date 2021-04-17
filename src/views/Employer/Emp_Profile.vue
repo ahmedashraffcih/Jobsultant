@@ -131,6 +131,7 @@
                         x-small
                         color="primary"
                         dark
+                        to="/Employer/Emp_Manage_Jobs"
                         >
                         Manage Jobs
                         <v-icon x-small dark right>
