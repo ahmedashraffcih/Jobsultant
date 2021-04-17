@@ -5,10 +5,7 @@
       <v-card>
         <v-card-title>Improve Your Profile</v-card-title>
         <v-divider></v-divider>
-        <v-card-text
-          >Reach profile strength of 80% to be in the top 10% of highly visible
-          users.</v-card-text
-        >
+        <v-card-text>Reach profile strength of 80% to be in the top 10% of highly visibleusers.</v-card-text>
       </v-card>
     </v-col>
 
@@ -25,19 +22,22 @@
         <v-list class="ml-4" max-width="500px" dense>
           <v-list-item>
             <v-list-item-title>Name</v-list-item-title>
-            <v-list-item-subtitle>Ahmed Ashraf</v-list-item-subtitle>
+            <v-list-item-subtitle>{{user.fname}} {{user.lname}}</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Birth date</v-list-item-title>
-            <v-list-item-subtitle>01/01/2000</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="user.BirthDate">{{user.BirthDate}}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="!user.BirthDate">-</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Gender</v-list-item-title>
-            <v-list-item-subtitle>Male</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="user.Gender">{{user.Gender}}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="!user.Gender">-</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Nationality</v-list-item-title>
-            <v-list-item-subtitle>Egypt</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="user.Nationality">{{user.Nationality}}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="!user.Nationality">-</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Residence Location</v-list-item-title>
@@ -56,13 +56,12 @@
         <v-list class="ml-4" max-width="500px" dense>
           <v-list-item>
             <v-list-item-title>Email</v-list-item-title>
-            <v-list-item-subtitle
-              >ahmedashraffcih@gmail.com</v-list-item-subtitle
-            >
+            <v-list-item-subtitle>{{user.Email}}</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Mobile phone</v-list-item-title>
-            <v-list-item-subtitle>‎+20-1028281233</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="user.Mobile">{{user.Mobile}}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="!user.Mobile">-</v-list-item-subtitle>
           </v-list-item>
         </v-list>
       </v-card>
@@ -91,9 +90,7 @@
 
         <v-card elevation="0 " v-for="(edu, i) in 2" :key="i">
           <v-row>
-            <v-card-title class="ml-7"
-              >Bachelor's degree, Computer Science</v-card-title
-            >
+            <v-card-title class="ml-7">Bachelor's degree, Computer Science</v-card-title>
             <v-row justify="end" class="mr-10">
               <v-icon dense>mdi-pencil</v-icon>
               <v-icon class="ml-2" dense>mdi-close</v-icon>
@@ -148,3 +145,44 @@
     </v-col>
   </v-row>
 </template>
+
+<script>
+
+import { mapGetters, mapActions, mapMutations } from "vuex";
+import ApiService from "../../services/api.service";
+export default {
+  data: () => ({
+    group: null,
+    user:{}
+  }),
+  mounted(){
+    this.getUser();
+  },
+  components: {  },
+
+  computed: {
+    //Get states from store
+    ...mapGetters("auth", ["user_id"]),
+    // ...mapActions(['DISPLAY_SEARCH'])
+  },
+  methods: {
+    log() {
+      console.log(this.userdata);
+    },
+    getUser(){
+        ApiService.get(`http://localhost:3000/users/${this.user_id}`)
+        .then((r)=>{
+          if(r.status==200)
+          {
+            this.user=r.data;
+            console.log(this.user)
+          }
+          else
+          {
+            console.log(r);
+          }
+      });
+    },
+  },
+};
+</script>
