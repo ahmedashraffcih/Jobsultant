@@ -14,8 +14,6 @@
 
     <Dropdown title="Posts" :items="services" />
 
-
-    <v-btn class="buttoncase" to="#" text flat>Users</v-btn>
     <v-spacer></v-spacer>
     <v-btn icon>
       <v-icon>mdi-magnify</v-icon>
@@ -54,7 +52,7 @@ export default {
             },
             {
                 title: 'Add New Job',
-                link: '#'
+                link: '/Employer/Emp_Add_Job'
             }
         ]
     }
