@@ -40,7 +40,7 @@
     <!-- Default App Bar & Authentication -->
     <v-btn v-if="!loggedIn" class="buttoncase mr-4" to="/Authentication/login" outlined>Log in</v-btn>
     <v-btn v-if="!loggedIn" class="buttoncase mr-4" to="/Authentication/Register" outlined>Register</v-btn>
-    <v-btn class="buttoncase" outlined>For Employers</v-btn>
+    <v-btn class="buttoncase" to="/Employer/Emp_Register" outlined>For Employers</v-btn>
     <v-menu offset-y bottom transition="slide-y-transition">
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on" >

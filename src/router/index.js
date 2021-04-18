@@ -8,6 +8,7 @@ import Account_Settings from "../views/User/Account_Settings.vue";
 import MyCV from "../views/User/My_CV.vue";
 import BuildCV from "../views/User/Build_CV.vue";
 import JobApps from "../views/User/Job_Applications.vue";
+import Emp_Register from "../views/Employer/Emp_Register.vue";
 
 import { TokenService } from "../services/storage.service";
 //The vue router defines all of the routes for the application, and contains a function that runs before each route change to prevent unauthenticated users from accessing restricted routes.
@@ -68,6 +69,11 @@ const routes = [
     name: "Job_Applications",
     component: JobApps,
   },
+  {
+    path: "/Employer/Emp_Register",
+    name: "Emp_Register",
+    component: Emp_Register
+  }
 ];
 
 const router = new VueRouter({
