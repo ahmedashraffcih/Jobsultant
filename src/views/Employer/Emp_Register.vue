@@ -180,7 +180,7 @@
               </v-list-item-subtitle>
             </v-list-item>
           </v-list>
-          <v-btn rounded large block color="success" @click="e6 = 1"> Join JobSultunt As a Company </v-btn>
+          <v-btn rounded large block color="success" @click="e6 = 1" to="/Employer/Emp_Profile"> Join JobSultunt As a Company </v-btn>
           <v-btn rounded large block text @click="e6 = 2"> Back </v-btn>
         </v-stepper-content>
       </v-stepper>
