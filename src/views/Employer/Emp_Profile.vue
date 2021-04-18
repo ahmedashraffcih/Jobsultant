@@ -7,12 +7,12 @@
                         class="mx-auto"
                         max-width="157"
                     >
-                        <!-- <v-img
+                        <v-img
                         class="white--text align-end"
                         height="200px"
                         src="../../assets/imgs/CompanyLogo.png"
                         >
-                        </v-img> -->
+                        </v-img> 
 
                         <v-card-actions>
                         <v-btn
@@ -31,12 +31,12 @@
                         class="mx-auto"
                         max-width="900"
                     >
-                       <!-- <v-img
+                        <v-img
                         class="white--text align-end"
                         height="200px"
                         src="../../assets/imgs/CompanyCover.jpeg"
                         >
-                        </v-img> -->
+                        </v-img>
 
                         <v-card-actions>
                         <v-btn
