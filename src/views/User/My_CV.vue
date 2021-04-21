@@ -56,7 +56,7 @@
         <v-list class="ml-4" max-width="500px" dense>
           <v-list-item>
             <v-list-item-title>Email</v-list-item-title>
-            <v-list-item-subtitle>{{user.Email}}</v-list-item-subtitle>
+            <v-list-item-subtitle>{{user.account.Email}}</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Mobile phone</v-list-item-title>

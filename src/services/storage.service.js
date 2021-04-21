@@ -2,6 +2,7 @@ const TOKEN_KEY = 'access_token'
 const REFRESH_TOKEN_KEY = 'refresh_token'
 const USER_ID_KEY = 'user_id'
 const USER = 'UserData'
+const USER_TYPE = 'User_Type'
 /**
  * Manage the how Access Tokens are being stored and retreived from storage.
  *
@@ -22,6 +23,18 @@ const TokenService = {
 
     removeUserId() {
         localStorage.removeItem(USER_ID_KEY)
+    },
+
+    getUserType() {
+        return localStorage.getItem(USER_TYPE)
+    },
+   
+    saveUserType(type) {
+        localStorage.setItem(USER_TYPE, type)
+    },
+
+    removeUserType() {
+        localStorage.removeItem(USER_TYPE)
     },
 
     StoreUser(payload) {

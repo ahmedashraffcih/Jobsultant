@@ -36,9 +36,11 @@ const UserService = {
             if (response.data.token) 
             {
                 //Sending the token for the token service to save it into local storage
+                //console.log(response.data)
                 TokenService.saveToken(response.data.token);
                 //Saving user id
-                TokenService.saveUserId(response.data.docID);
+                TokenService.saveUserId(response.data.userdocID);
+                TokenService.saveUserType(response.data.userType);
                 ApiService.setHeader();
                 //redirecting user after logging to Home page
                 router.push(router.history.current.query.redirect || '/');
@@ -136,6 +138,7 @@ const UserService = {
         TokenService.removeToken()
         TokenService.removeUser()
         TokenService.removeUserId()
+        TokenService.removeUserType()
         ApiService.removeHeader()
         // NOTE: Again, we'll cover the 401 Interceptor a bit later. 
     }

@@ -50,7 +50,7 @@
 
       <v-list>
         <v-list-item v-if="loggedIn" @click="() => {}">Account Settings</v-list-item>
-        <v-list-item to="/user/Job_Applications" @click="() => {}">My Applications</v-list-item>
+        <v-list-item v-if="loggedIn" to="/user/Job_Applications" @click="() => {}">My Applications</v-list-item>
         <v-list-item @click="() => {}">For Employers</v-list-item>
         <v-divider></v-divider>
         <v-list-item v-if="loggedIn" @click="TryLogout">Log Out</v-list-item>

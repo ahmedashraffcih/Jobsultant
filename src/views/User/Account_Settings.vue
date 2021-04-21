@@ -215,7 +215,7 @@
                                 dense
                                 outlined
                                 label="New Email"
-                                v-model="user.Email"
+                                v-model="user.account.Email"
                                 :rules="emailRules"
                                 clearable
                                 required>
@@ -263,7 +263,7 @@
           <v-list class="ml-10" max-width="500px">
             <v-list-item>
               <v-list-item-title>Email</v-list-item-title>
-              <v-list-item-subtitle>{{user.Email}}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{user.account.Email}}</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Mobile phone</v-list-item-title>
