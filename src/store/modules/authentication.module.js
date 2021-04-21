@@ -12,7 +12,8 @@ const state =  {
   authenticationSuccess: false,
   //store user info in user's object
   user:TokenService.getUser(),
-  user_id:TokenService.getUserId()
+  user_id:TokenService.getUserId(),
+  usertype:TokenService.getUserType()
   
 }
 /*The initial logged in state of the user is set by checking if the user is saved in local storage, 
@@ -36,6 +37,11 @@ const getters =
         user_id: (state) => 
         {
             return state.user_id;
+        },
+
+        user_type: (state) => 
+        {
+            return state.usertype;
         },
 
         authenticationErrorCode: (state) => 
@@ -173,6 +179,33 @@ const actions = {
           return false
       }
   },
+  async registerEmployer({ commit }, {email, password, firstname, lastname, title, phone, companyName, companyPhone, industry, website, size, location}) {
+    commit('registerRequest');
+
+    try {
+        const token = await UserService.registerEmployer(email, password, firstname, lastname, title, phone, companyName, companyPhone, industry);
+        // we need to log in the user directly after he register to fill his cv form 
+        // so we store the same user token he would use to log in 
+        commit('loginSuccess',token.token)
+        // Register user token into the system (NOTE: not in the local storage)
+        commit('registerSuccess', token.token)
+        //Console.log(token.token)
+
+        //store user info in user's object EDIT: We stored it directly from token service and so no need for mutation
+        //commit('SetUser', token)
+
+        // Redirect the user to the page he first tried to visit or to the home view
+        router.push(router.history.current.query.redirect || '/');
+
+        return true
+    } catch (e) {
+        if (e instanceof AuthenticationError) {
+            commit('registerError', {errorCode: e.errorCode, errorMessage: e.message})
+        }
+
+        return false
+    }
+},
   logout({ commit }) {
       //logout function removes the token from the local storage
       UserService.logout()

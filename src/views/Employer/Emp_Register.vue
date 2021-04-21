@@ -73,11 +73,9 @@
                 <v-list-item-title>Mobile Number</v-list-item-title>
                   <VuePhoneNumberInput  
                     size="sm" 
-                    border-radius="4" 
                     v-model="phoneNumber" 
-                    required = 'true'
+                    required
                     color="orangered"
-                    no-example = 'true'
                     default-country-code= "EG"
                     class="phone-number-width"
                     :rules="requiredRules"
@@ -186,11 +184,9 @@
                 <v-list-item-title>Company Phone</v-list-item-title>
                   <VuePhoneNumberInput
                     v-model="company_phoneNumber"  
-                    size="sm" 
-                    border-radius="4" 
-                    required = 'true'
+                    
+                    required
                     color="orangered"
-                    no-example = 'true'
                     default-country-code= "EG"
                     class="phone-number-width"
                     :rules="requiredRules"
@@ -224,7 +220,6 @@
             color="success" 
             :disabled="!Valid"
             @click="tryRegister" :loading="loading" 
-            to="/Employer/Emp_Profile"
             > Join JobSultunt As a Company </v-btn>
             <v-btn rounded large block text @click="e6 = 2"> Back </v-btn>
           </v-stepper-content>
@@ -239,6 +234,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 
@@ -309,7 +305,44 @@ export default {
   },
   // Methods
   methods: {
-      
+     ...mapActions("auth", ["registerEmployer"]),
+     tryRegister() {
+      //check if user meets input rules and both password are the same
+      //this.$refs.form.validate() &&
+      this.loading = true 
+      if (this.Valid) 
+      {
+        //Success  
+        this.snackbar2 = true;
+        this.registerEmployer({
+          email: this.email,
+          password: this.password,
+          firstname: this.firstname,
+          lastname: this.lastname,
+          title: this.title,
+          phone:this.phoneNumber,
+          companyName:this.company_name,
+          companyPhone:this.company_phoneNumber,
+          industry:this.industry,
+
+        }).then((r) => {
+          if (!r) 
+          {
+            console.log(r);
+            this.snackbar2 = true;
+            //set the loading off and register the user
+            this.loading = false;
+          }
+        });
+      } 
+      else {
+      //Validation Error
+      console.log(r);
+      this.snackbar1 = true;
+      this.loading = false
+      }
+    },
+     
   }
 };
 </script>
@@ -322,6 +355,6 @@ margin-bottom: 15px;
 background-color: white;
 }
 .phone-number-width{
-  width: 410px;
+  width: 475px;
 }
 </style>

@@ -40,7 +40,7 @@
                             <v-list>
                                 <v-list-item>
                                     <v-list-item-content>
-                                        <v-list-item-title v-if="application.jobObject">{{application.jobObject.Company}}</v-list-item-title>
+                                        <v-list-item-title v-if="application.jobObject">{{application.jobObject.company}}</v-list-item-title>
                                         <v-list-item-title v-if="!application.jobObject">Company Name</v-list-item-title>
                                         <v-list-item-subtitle>Egypt - Cairo</v-list-item-subtitle>
                                     </v-list-item-content>
@@ -64,8 +64,11 @@
                         </v-card-subtitle>
                     </v-col>
                     <v-col cols=6 align="center" align-self="center">
-                        <v-icon size="100px" :color="application.applicantStatus">mdi-progress-upload</v-icon>
-                        <v-card-text>Pending</v-card-text>
+                        <v-icon size="100px" v-if="application.applicantStatus=='pending'"  color="primary">mdi-progress-upload</v-icon>
+                        <v-icon size="100px" v-if="application.applicantStatus=='review'" color="warning">mdi-progress-clock</v-icon>
+                        <v-icon size="100px" v-if="application.applicantStatus=='error'" color="error">mdi-close-circle-outline</v-icon>
+                        <v-icon size="100px" v-if="application.applicantStatus=='shortlisted'" color="success">mdi-check-circle-outline</v-icon>
+                        <v-card-text>{{application.applicantStatus}}</v-card-text>
                     </v-col>
                 </v-row>
             </v-card>

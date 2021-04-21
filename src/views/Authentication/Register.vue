@@ -162,7 +162,6 @@ export default {
       if (this.email != '' && this.password != ''&& this.firstname != '' && this.lastname != '' && this.ValidPass()) 
       {
         //Success  
-        this.snackbar2 = true;
         this.register({
           email: this.email,
           password: this.password,
@@ -171,7 +170,7 @@ export default {
         }).then((r) => {
           if (!r) 
           {
-            this.snackbar = true;
+            this.snackbar2 = true;
             //set the loading off and register the user
             this.loading = false;
           }

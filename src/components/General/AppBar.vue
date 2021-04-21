@@ -16,8 +16,8 @@
       <v-tab text to="/jobs">Jobs</v-tab>
       <v-tab v-if="!loggedIn" text to="/Authentication/Register">Create Your CV</v-tab>
       <v-tab v-if="!loggedIn" text to="/Authentication/login">Blogs</v-tab>
-      <v-tab v-if="loggedIn" to="/user/account_settings">My Account</v-tab>
-      <v-tab v-if="loggedIn" to="/user/My_CV">My CV</v-tab>
+      <v-tab v-if="loggedIn && user_type=='normal user'" to="/user/account_settings">My Account</v-tab>
+      <v-tab v-if="loggedIn && user_type=='normal user'" to="/user/My_CV">My CV</v-tab>
     </v-tabs>
     <v-spacer></v-spacer>
     <!-- ======================================================================= -->
@@ -26,7 +26,7 @@
     <v-btn icon @click.prevent="toggleSearch()">
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
-    <v-btn class="mr-4" v-if="loggedIn" icon>
+    <v-btn class="mr-4"v-if="loggedIn && user_type=='normal user'" icon>
       <v-badge
         :content="messages"
         :value="messages"
@@ -50,7 +50,7 @@
 
       <v-list>
         <v-list-item v-if="loggedIn" @click="() => {}">Account Settings</v-list-item>
-        <v-list-item v-if="loggedIn" to="/user/Job_Applications" @click="() => {}">My Applications</v-list-item>
+        <v-list-item v-if="loggedIn && user_type=='normal user'" to="/user/Job_Applications" @click="() => {}">My Applications</v-list-item>
         <v-list-item @click="() => {}">For Employers</v-list-item>
         <v-divider></v-divider>
         <v-list-item v-if="loggedIn" @click="TryLogout">Log Out</v-list-item>
@@ -75,7 +75,7 @@ export default {
   computed: {
     //Get states from store
     ...mapGetters("ui", ["DISPLAY_SEARCH"]),
-    ...mapGetters("auth", ["loggedIn"]),
+    ...mapGetters("auth", ["loggedIn","user_type"]),
 
     // ...mapActions(['DISPLAY_SEARCH'])
   },

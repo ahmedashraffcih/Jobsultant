@@ -66,7 +66,7 @@
               <v-list-item three-line>
                 <v-list-item-content>
                   <v-list-item-title class="title">{{job.title}}</v-list-item-title>
-                  <v-list-item-subtitle class="subtitle-1">{{job.Company}}</v-list-item-subtitle>
+                  <v-list-item-subtitle class="subtitle-1">{{job.company}}</v-list-item-subtitle>
                   <v-list-item-subtitle class="subtitle-2 mt-5">{{job.career_level}}</v-list-item-subtitle>
                   <v-list-item-subtitle class="caption mt-5">{{job.description}}</v-list-item-subtitle>
                   <v-list-item-subtitle class="caption mt-5">1/1/2020</v-list-item-subtitle>
