@@ -13,11 +13,14 @@
     <!-- Website Tabs -->
     <v-tabs optional>
       <v-tab light to="/">Home</v-tab>
-      <v-tab text to="/jobs">Jobs</v-tab>
+      <v-tab v-if="loggedIn && user_type=='normal user'" text to="/jobs">Jobs</v-tab>
       <v-tab v-if="!loggedIn" text to="/Authentication/Register">Create Your CV</v-tab>
       <v-tab v-if="!loggedIn" text to="/Authentication/login">Blogs</v-tab>
       <v-tab v-if="loggedIn && user_type=='normal user'" to="/user/account_settings">My Account</v-tab>
       <v-tab v-if="loggedIn && user_type=='normal user'" to="/user/My_CV">My CV</v-tab>
+      <v-tab v-if="loggedIn && user_type=='employer'" to="/Employer/Emp_Profile">Company Profile</v-tab>
+      <v-tab v-if="loggedIn && user_type=='employer'" to="/Employer/Emp_Add_Job">Post Job</v-tab>
+      <v-tab v-if="loggedIn && user_type=='employer'" to="#">Manage Jobs</v-tab>
     </v-tabs>
     <v-spacer></v-spacer>
     <!-- ======================================================================= -->
@@ -40,7 +43,7 @@
     <!-- Default App Bar & Authentication -->
     <v-btn v-if="!loggedIn" class="buttoncase mr-4" to="/Authentication/login" outlined>Log in</v-btn>
     <v-btn v-if="!loggedIn" class="buttoncase mr-4" to="/Authentication/Register" outlined>Register</v-btn>
-    <v-btn class="buttoncase" to="/Employer/Emp_Register" outlined>For Employers</v-btn>
+    <v-btn v-if="user_type!='employer'" class="buttoncase" to="/Employer/Emp_Register" outlined>For Employers</v-btn>
     <v-menu offset-y bottom transition="slide-y-transition">
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on" >
@@ -51,7 +54,7 @@
       <v-list>
         <v-list-item v-if="loggedIn" @click="() => {}">Account Settings</v-list-item>
         <v-list-item v-if="loggedIn && user_type=='normal user'" to="/user/Job_Applications" @click="() => {}">My Applications</v-list-item>
-        <v-list-item @click="() => {}">For Employers</v-list-item>
+        <v-list-item v-if="user_type!='employer'" @click="() => {}">For Employers</v-list-item>
         <v-divider></v-divider>
         <v-list-item v-if="loggedIn" @click="TryLogout">Log Out</v-list-item>
       </v-list>
@@ -63,11 +66,24 @@
 <script>
 import SearchBar from "./SearchBar.vue";
 import { mapGetters, mapActions, mapMutations } from "vuex";
-
+import Dropdown from '../Dropdown';
 export default {
+  components: {
+    Dropdown
+  }, 
   data: () => ({
     group: null,
     messages: 1,
+    services: [
+      {
+        title: 'Manage Jobs',
+        link: '#'
+      },
+      {
+        title: 'Add New Job',
+        link: '/Employer/Emp_Add_Job'
+      }
+    ]
   }),
 
   components: { SearchBar },

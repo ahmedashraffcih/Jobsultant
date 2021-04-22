@@ -1,159 +1,149 @@
 <template>
   <v-row class="blue-grey lighten-5" justify="center">
     <v-col cols="6">
-      <div class="form-header rounded-lg">
-        <h1>Add New Job!</h1>
-        <p>Tell job seekers what they need to know!</p>
-      </div>
-      <form class="form-header rounded-lg">
-        <div>
-          <h2>Job Details:</h2>
-        </div>
-        <v-text-field
-          v-model="jobTitle"
-          :rules="TitleRules"
-          label="Job Title"
-          required
-          outlined
-          dense
-
-        ></v-text-field>
-
-        <v-select
-          v-model="jobType"
-          :items="types"
-          :error-messages="selectErrors"
-          label="Job Type"
-          class="MarginField"
-          required
-          outlined
-          dense
-        ></v-select>
-
-        <v-select
-          v-model="careerLevel"
-          :items="levels"
-          :error-messages="selectErrors"
-          label="Career Level"
-          class="MarginField"
-          required
-          outlined
-          dense
-        ></v-select>
-
-      <v-container >
+      <v-card class="mb-5" elevation="0">
+        <v-card-title class="ml-6">Add New Job!</v-card-title>
+        <v-card-subtitle class="ml-6">Tell job seekers what they need to know!</v-card-subtitle>
+      </v-card>
+      <v-card elevation="0">
+        <v-form class="form-header rounded-lg">
+          <v-card-title>Job Details</v-card-title>
+          <v-row justify="center" class="pl-7 pr-7">
+            <v-text-field
+              v-model="jobTitle"
+              :rules="TitleRules"
+              label="Job Title"
+              required
+              outlined
+              dense
+              max-width="100px"
+            ></v-text-field>
+          </v-row>
+          <v-row justify="center" class="pl-7 pr-7">
+            <v-select
+              v-model="jobType"
+              :items="types"
+              :error-messages="selectErrors"
+              label="Job Type"
+              class="MarginField"
+              required
+              outlined
+              dense
+            ></v-select>
+          </v-row>
+          <v-row justify="center" class="pl-7 pr-7">
+            <v-select
+              v-model="careerLevel"
+              :items="levels"
+              :error-messages="selectErrors"
+              label="Career Level"
+              class="MarginField"
+              required
+              outlined
+              dense
+            ></v-select>
+          </v-row>
+          <v-row justify="center" class="pl-7 pr-7">
             <v-combobox
-            v-model="skillsBox"
-            :items="skills"
-            :search-input.sync="search"
-            :rules="skillsRulles"
-            hide-selected
-            hint="Enter keywords including any related job titles, technologies, or keywords the candidate should have in his CV."
-            persistent-hint
-            label="Skills Requiered"
-            multiple
-            outlined
-            small-chips
+              v-model="skillsBox"
+              :items="skills"
+              :search-input.sync="search"
+              :rules="skillsRulles"
+              hide-selected
+              hint="Enter keywords including any related job titles, technologies, or keywords the candidate should have in his CV."
+              persistent-hint
+              label="Skills Requiered"
+              multiple
+              outlined
+              small-chips
             >
-            <template v-slot:no-data>
+              <template v-slot:no-data>
                 <v-list-item>
-                <v-list-item-content>
+                  <v-list-item-content>
                     <v-list-item-title>
-                    No results matching "<strong>{{ search }}</strong>". Press <kbd>enter</kbd> to create a new one
+                      No results matching "<strong>{{ search }}</strong
+                      >". Press <kbd>enter</kbd> to create a new one
                     </v-list-item-title>
-                </v-list-item-content>
+                  </v-list-item-content>
                 </v-list-item>
-            </template>
+              </template>
             </v-combobox>
-      </v-container>
-
-      <v-textarea
-          v-model="description"
-          label="Job Description"
-          auto-grow
-          rows="2"
-          :rules="fieldRules"
-          :counter="650"
-          outlined
-          dense
-        >
-        </v-textarea>
-
-        <v-textarea
-          v-model="details"
-          label="Job Details"
-          auto-grow
-          rows="2"
-          :rules="fieldRules"
-          :counter="650"
-          outlined
-          dense
-        >
-        </v-textarea>    
-
-        <v-row>
-          <v-btn class="mr-4" color="success" @click="submit"> Post Job</v-btn>
-
-          <v-spacer></v-spacer>
-
-          <v-btn color="error" class="mr-2" @click="clear"> clear </v-btn>
-        </v-row>
-      </form>
+          </v-row>
+          <v-row justify="center" class="pl-7 pr-7 mt-4">
+            <v-textarea
+              v-model="description"
+              label="Job Description"
+              auto-grow
+              rows="2"
+              :rules="fieldRules"
+              :counter="650"
+              outlined
+              dense
+            >
+            </v-textarea>
+          </v-row>
+          <v-row justify="center" class="pl-7 pr-7 mt-4">
+            <v-textarea
+            v-model="details"
+            label="Job Details"
+            auto-grow
+            rows="2"
+            :rules="fieldRules"
+            :counter="650"
+            outlined
+            dense
+          >
+          </v-textarea>
+          </v-row>
+          <v-row class="mt-4">
+            <v-btn class="ml-7" color="success" @click="submit"> Post Job</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="error" class="mr-7" @click="clear"> clear </v-btn>
+          </v-row>
+        </v-form>
+      </v-card>
     </v-col>
   </v-row>
 </template>
 
 <script>
- 
 //Vue.component('vue-phone-number-input', VuePhoneNumberInput);
 export default {
-    data () {
-        return{
-        types:[
-            'Full-Time',
-            'Part-Time',
-            'Internship',
-            'Freelance Project'
-        ],
-        levels:[
-            'Manager',
-            'Senior-level',
-            'Junior-level',
-            'Entry-level',
-            'Student'
-        ],
-        skills:[
-            'Gaming',
-            'Programming', 
-            'Vue', 
-            'Vuetify'
-        ],
-        skillsBox: ['Programming'],
-        search: null,
-        skillsRulles: [(v) => v.length >= 3 || "Minimum of 3 skills" ],
-        fieldRules: [(v) => !!v || "Field is required"],
-        TitleRules: [
-            (v) => !!v || "Field is required",
-            (v) => (!!v && isNaN(v)) || "Can't include numbers",
-        ],
-        }
+  data() {
+    return {
+      types: ["Full-Time", "Part-Time", "Internship", "Freelance Project"],
+      levels: [
+        "Manager",
+        "Senior-level",
+        "Junior-level",
+        "Entry-level",
+        "Student",
+      ],
+      skills: ["Gaming", "Programming", "Vue", "Vuetify"],
+      skillsBox: ["Programming"],
+      search: null,
+      skillsRulles: [(v) => v.length >= 3 || "Minimum of 3 skills"],
+      fieldRules: [(v) => !!v || "Field is required"],
+      TitleRules: [
+        (v) => !!v || "Field is required",
+        (v) => (!!v && isNaN(v)) || "Can't include numbers",
+      ],
+    };
+  },
+  methods: {
+    submit() {
+      this.$v.$touch();
     },
-      methods: {
-        submit () {
-            this.$v.$touch()
-        },
-        clear () {
-            this.jobTitle = null
-            this.careerLevel = null
-            this.skillsBox = null
-            this.description = null
-            this.details = null
-            
-        },
+    clear() {
+      this.jobTitle = null;
+      this.careerLevel = null;
+      this.skillsBox = null;
+      this.description = null;
+      this.details = null;
     },
-}
+  },
+};
 </script>
-
 
 <style scoped>
 .form-header {
@@ -162,7 +152,7 @@ export default {
   margin-bottom: 15px;
   background-color: white;
 }
-.MarginField{
-    margin-top: 10px;
+.MarginField {
+  margin-top: 10px;
 }
-</style> 
+</style>
