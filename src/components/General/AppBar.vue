@@ -20,7 +20,8 @@
       <v-tab v-if="loggedIn && user_type=='normal user'" to="/user/My_CV">My CV</v-tab>
       <v-tab v-if="loggedIn && user_type=='employer'" to="/Employer/Emp_Profile">Company Profile</v-tab>
       <v-tab v-if="loggedIn && user_type=='employer'" to="/Employer/Emp_Add_Job">Post Job</v-tab>
-      <v-tab v-if="loggedIn && user_type=='employer'" to="#">Manage Jobs</v-tab>
+      <v-tab v-if="loggedIn && user_type=='employer'" to="/Employer/Emp_Manage_Jobs">Manage Jobs</v-tab>
+      <v-tab v-if="loggedIn && user_type=='employer'" to="#">Dashboard</v-tab>
     </v-tabs>
     <v-spacer></v-spacer>
     <!-- ======================================================================= -->
