@@ -7,11 +7,16 @@ import axios from "axios";
 import ApiService from './services/api.service'
 import { TokenService } from './services/storage.service'
 import VueTelInputVuetify from 'vue-tel-input-vuetify/lib';
+import VueEllipseProgress from 'vue-ellipse-progress';
+import ReadMore from 'vue-read-more';
 
 Vue.config.productionTip = false;
 Vue.use(VueTelInputVuetify, {
   vuetify,
 });
+
+Vue.use(VueEllipseProgress);
+Vue.use(ReadMore);
 
 axios.defaults.baseURL = 'http://localhost:3000/'
 // Set the base URL of the API

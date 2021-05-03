@@ -76,6 +76,7 @@
                                 rounded
                                 color="success"
                                 dark
+                                to="/Employer/Emp_View_Candidates"
                                 >
                                 View Canidates
                                     <v-icon small dark right>
