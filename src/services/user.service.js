@@ -44,6 +44,7 @@ const UserService = {
                 ApiService.setHeader();
                 //redirecting user after logging to Home page
                 router.push(router.history.current.query.redirect || '/');
+                location.reload();
             }
             else
             {

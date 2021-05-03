@@ -104,7 +104,7 @@
             <v-list-item three-line>
               <v-list-item-content>
                 <v-list-item-title class="title">{{oneJob.title}}</v-list-item-title>
-                <v-list-item-subtitle class="subtitle-1">{{oneJob.Company}}</v-list-item-subtitle>
+                <v-list-item-subtitle class="subtitle-1">{{oneJob.company}}</v-list-item-subtitle>
                 <v-list-item-subtitle class="subtitle-2 mt-5">{{oneJob.career_level}}</v-list-item-subtitle>
                 <v-list-item-subtitle class="caption mt-5">{{oneJob.description}}</v-list-item-subtitle>
                 <v-list-item-subtitle class="caption mt-5">1/1/2020</v-list-item-subtitle>
@@ -131,7 +131,7 @@
                 <v-toolbar
                   color="#24305E"
                   dark>
-                  <v-toolbar-title class="ml-5">Apply to {{oneJob.Company}}</v-toolbar-title>
+                  <v-toolbar-title class="ml-5">Apply to {{oneJob.company}}</v-toolbar-title>
                   <v-spacer></v-spacer>
                   <v-icon @click="dialog.value = false">mdi-close</v-icon>
                 </v-toolbar>
@@ -370,7 +370,7 @@ export default {
         .then((r)=>{
           if(r.status==200){
             this.oneJob=r.data;
-            console.log(this.oneJob._id);
+            console.log(this.oneJob);
             this.loading=false
           }
           else{

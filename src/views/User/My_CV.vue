@@ -154,7 +154,9 @@ import ApiService from "../../services/api.service";
 export default {
   data: () => ({
     group: null,
-    user:{}
+    user:{
+      account:{},
+    },
   }),
   mounted(){
     this.getUser();

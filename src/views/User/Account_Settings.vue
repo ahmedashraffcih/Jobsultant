@@ -249,7 +249,7 @@
                             width="150px"
                             color="#24305E"
                             :disabled="!Valid2"
-                            @click="editProfile()":loading="loading">
+                            @click="editEmail()":loading="loading">
                             Apply
                           </v-btn>
                         </v-row>
@@ -263,7 +263,8 @@
           <v-list class="ml-10" max-width="500px">
             <v-list-item>
               <v-list-item-title>Email</v-list-item-title>
-              <v-list-item-subtitle>{{user.account.Email}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="user.account.Email">{{user.account.Email}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="!user.account.Email">-</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Mobile phone</v-list-item-title>
@@ -413,7 +414,9 @@ export default {
   data: () => ({
     //---------------
     //------------------------ Personal Information Section ------------------------\\
-    user:{},
+    user:{
+      account:{},
+    },
     dialog3:false,
     snackbar4:false,
     snackbar6:false,
@@ -511,7 +514,8 @@ export default {
     // ...mapActions(['DISPLAY_SEARCH'])
   },
   methods: {
-    ValidPass() {
+    ValidPass() 
+    {
       // check if user passowrd matches or not
       return this.newpassord === this.confirmnewpassord;
     },
@@ -531,24 +535,24 @@ export default {
       });
     },
     editProfile(){
+      
       this.loading = true;
+      
       ApiService.put(`http://localhost:3000/users/${this.user_id}`,this.user)
       .then((r)=>{
-        console.log(r);
+        console.log(r)
         if(r.status==204)
         {
           this.getUser();
           this.loading = false;
           this.dialog3 = false;
           this.snackbar6=true;
-          console.log(r)
         }
         else
         {
           this.loading = false;
-          this.snackbar5 = true;
-          console.log(r);
           console.log(this.user);
+          this.snackbar4=true;
         }
       })
       .catch(error=>{
@@ -556,6 +560,34 @@ export default {
         this.snackbar4=true;
       });
     },
+    editEmail(){
+      
+      this.loading = true;
+      ApiService.put(`http://localhost:3000/EditProfile/EditEmail/${this.user.account._id}`,this.user.account)
+      .then((r)=>{
+        console.log(r)
+        if(r.status==204)
+        {
+          console.log(this.user.account.Email)
+          this.loading = false;
+          this.dialog2 = false;
+          this.snackbar6=true;
+          //this.getUser();
+        }
+        else
+        {
+          this.loading = false;
+          this.snackbar5 = true;
+          console.log("zby brdo");
+        }
+      })
+      .catch(error=>{
+        this.loading = false;
+        this.snackbar5 = true;
+        this.snackbar4=true;
+      });
+    },
+
 
     log() {
       console.log(this.oldpassword);
