@@ -53,7 +53,7 @@
                                         :size="150" 
                                         :legend-value="requirments"
                                         >
-                                        <span slot="legend-value"> / 100</span>
+                                        <span slot="legend-value"> %</span>
                                         <span slot="legend-caption">Of Requirments</span>
                                         </vue-ellipse-progress >
                                 </v-col>
