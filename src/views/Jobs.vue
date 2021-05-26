@@ -269,17 +269,27 @@
       </v-col>
     </v-row>
     <v-snackbar v-model="snackbar1" timeout = "2000" color="success" outlined dark> Your Application placed successfully</v-snackbar>
+    <v-overlay :value="overlay" opacity="0.9" >
+        <fingerprint-spinner
+          class="justify-center"
+          :animation-duration="1500"
+          :size="120"
+          color="#42A5F5"
+        />
+    </v-overlay>
   </div>
 </template>
 
 <script>
 import ApiService from "../services/api.service";
+import { FingerprintSpinner } from 'epic-spinners'
 import { mapGetters,mapActions,mapMutations } from "vuex";
 import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 export default {
   components:{
-      VuePhoneNumberInput
+      VuePhoneNumberInput,
+      FingerprintSpinner
   },
   mounted() {
     this.loadingjobs=true
@@ -287,7 +297,8 @@ export default {
     .then((r)=>{
       if(r.status==200){
         this.jobs= r.data;
-        this.loadingjobs=false
+        this.loadingjobs=false;
+        
       }
       else{
         console.log(r);
@@ -295,9 +306,11 @@ export default {
       console.log(this.jobs);
     });
     this.getUser();
+    
   },
   data: () => ({
     //report: false
+    overlay:true,
     jobs:[],
     result:[],
     job:"",
@@ -406,6 +419,7 @@ export default {
           {
             this.user=r.data;
             console.log(this.user)
+            this.overlay=false;
           }
           else
           {

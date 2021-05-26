@@ -2,6 +2,7 @@
   <div class="opening">
     <v-row justify="center">
       <h1 class="display-4 white--text mt-10">JobSultant</h1>
+      
     </v-row>
     <v-row justify="center">
       <h1 class="white--text mt-5">Find Jobs, Netowrk and Learn</h1>
@@ -23,14 +24,29 @@
         <v-btn large height="55" color="#a8d0e6">Search Jobs</v-btn>
       </v-col>
     </v-row>
+      <v-overlay :value="overlay" opacity="0.9" >
+        <fingerprint-spinner
+          class="justify-center"
+          :animation-duration="1500"
+          :size="120"
+          color="#42A5F5"
+        />
+    </v-overlay>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import { FingerprintSpinner } from 'epic-spinners'
 
 export default {
-  name: "Home",
+  data: () => ({
+    name: "Home",
+    overlay: false,
+  }),
+  components: {
+    FingerprintSpinner
+  },
 };
 </script>
 <style scoped>

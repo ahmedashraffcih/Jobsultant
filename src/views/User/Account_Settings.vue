@@ -78,7 +78,7 @@
                               >
                                 <template v-slot:activator="{ on, attrs }">
                                   <v-text-field
-                                    v-model="date"
+                                    v-model="user.cv.birth_Date"
                                     readonly
                                     outlined
                                     flat
@@ -117,6 +117,7 @@
                             </v-col>
                             <v-col cols="10">
                               <v-select
+                                v-model="user.cv.gender"
                                 dense
                                 outlined
                                 label="Gender"
@@ -133,13 +134,27 @@
                               <v-card-text>Location</v-card-text>
                             </v-col>
                             <v-col cols="10">
-                              <v-select
+                              
+                              <v-combobox
                                 dense
-                                outlined
-                                label="Location"
+                                v-model="user.cv.residence_Location"
                                 :items="items"
-                                >
-                              </v-select>
+                                :search-input.sync="search"
+                                outlined
+                                hide-selected
+                                clearable
+                                persistent-hint
+                              >
+                                <template v-slot:no-data>
+                                  <v-list-item>
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        No results matching "<strong>{{ search }}</strong>". Press <kbd>enter</kbd> to create a new one
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </v-list-item>
+                                </template>
+                              </v-combobox>
                             </v-col>
                           </v-row>
                         </v-form>
@@ -168,15 +183,15 @@
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Birth date</v-list-item-title>
-              <v-list-item-subtitle>-</v-list-item-subtitle>
+              <v-list-item-subtitle>{{user.cv.birth_Date}}</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Gender</v-list-item-title>
-              <v-list-item-subtitle>-</v-list-item-subtitle>
+              <v-list-item-subtitle>{{user.cv.gender}}</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Residence Location</v-list-item-title>
-              <v-list-item-subtitle>-</v-list-item-subtitle>
+              <v-list-item-subtitle>{{user.cv.residence_Location}}</v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-card>
@@ -235,7 +250,7 @@
                                 required
                                 :error="hasErrorActive" 
                                 :loader="hasLoaderActive" 
-                                v-model="phoneNumber" 
+                                v-model="user.cv.mobile_Phone" 
                                 :rules="phoneRules"
                                 clearable
                                 @update="onUpdate"/>
@@ -268,7 +283,7 @@
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Mobile phone</v-list-item-title>
-              <v-list-item-subtitle>-</v-list-item-subtitle>
+              <v-list-item-subtitle>{{user.cv.mobile_Phone}}</v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-card>
@@ -394,6 +409,14 @@
     <v-snackbar v-model="snackbar4" timeout = "2000" color="error" outlined dark> There's no change </v-snackbar>
     <v-snackbar v-model="snackbar5" timeout = "2000" color="error" outlined dark> Email is already used </v-snackbar>
     <v-snackbar v-model="snackbar6" timeout = "2000" color="success" outlined dark> Your changes have been successfully saved </v-snackbar>
+    <v-overlay :value="overlay" opacity="0.9" >
+        <fingerprint-spinner
+          class="justify-center"
+          :animation-duration="1500"
+          :size="120"
+          color="#42A5F5"
+        />
+    </v-overlay>
   </div>
 </template>
 
@@ -404,20 +427,29 @@ import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import ApiService from "../../services/api.service";
 import TokenService from "../../services/storage.service";
+import { FingerprintSpinner } from 'epic-spinners'
 export default {
   mounted(){
     this.getUser();
   },
   components:{
-      VuePhoneNumberInput
+      VuePhoneNumberInput,
+      FingerprintSpinner
   },
   data: () => ({
     //---------------
     //------------------------ Personal Information Section ------------------------\\
     user:{
       account:{},
+      cv:{
+        education:{},
+        work_Experience:{},
+        skills:{},
+        languages:{},
+      },
     },
     dialog3:false,
+    overlay: true,
     snackbar4:false,
     snackbar6:false,
     //------------------------ Name Section  ------------------------\\
@@ -526,7 +558,8 @@ export default {
           if(r.status==200)
           {
             this.user=r.data;
-            console.log(this.user)
+            console.log(this.user);
+            this.overlay=false;
           }
           else
           {

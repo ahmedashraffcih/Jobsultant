@@ -26,22 +26,23 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Birth date</v-list-item-title>
-            <v-list-item-subtitle v-if="user.BirthDate">{{user.BirthDate}}</v-list-item-subtitle>
-            <v-list-item-subtitle v-if="!user.BirthDate">-</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="user.cv.birth_Date">{{user.cv.birth_Date}}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="!user.cv.birth_Date">-</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Gender</v-list-item-title>
-            <v-list-item-subtitle v-if="user.Gender">{{user.Gender}}</v-list-item-subtitle>
-            <v-list-item-subtitle v-if="!user.Gender">-</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="user.cv.gender">{{user.cv.gender}}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="!user.cv.gender">-</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Nationality</v-list-item-title>
-            <v-list-item-subtitle v-if="user.Nationality">{{user.Nationality}}</v-list-item-subtitle>
-            <v-list-item-subtitle v-if="!user.Nationality">-</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="user.cv.nationality">{{user.cv.nationality}}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="!user.cv.nationality">-</v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Residence Location</v-list-item-title>
-            <v-list-item-subtitle>Egypt - Cairo</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="user.cv.residence_Location">{{user.cv.residence_Location}}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="!user.cv.residence_Location">-</v-list-item-subtitle>
           </v-list-item>
         </v-list>
       </v-card>
@@ -61,24 +62,42 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Mobile phone</v-list-item-title>
-            <v-list-item-subtitle v-if="user.Mobile">{{user.Mobile}}</v-list-item-subtitle>
-            <v-list-item-subtitle v-if="!user.Mobile">-</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="user.cv.mobile_Phone">{{user.cv.mobile_Phone}}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="!user.cv.mobile_Phone">-</v-list-item-subtitle>
           </v-list-item>
         </v-list>
       </v-card>
 
-      <v-card class="mb-5">
+      <v-card class="mb-5" >
         <v-row>
           <v-card-title class="ml-7">Work Experience</v-card-title>
           <v-row justify="end" class="mr-10">
             <v-icon dense>mdi-plus</v-icon>
           </v-row>
         </v-row>
-        <v-list class="ml-4" max-width="500px" dense>
-          <v-list-item>
-            <v-list-item-title>No Experience</v-list-item-title>
-          </v-list-item>
-        </v-list>
+        <v-card elevation="0 " v-for="work in user.cv.work_Experience" :key="work">
+          <v-row>
+            <v-card-title class="ml-7">{{work.Job_title}}</v-card-title>
+            <v-row justify="end" class="mr-10">
+              <v-icon dense>mdi-pencil</v-icon>
+              <v-icon class="ml-2" dense>mdi-close</v-icon>
+            </v-row>
+          </v-row>
+          <v-list class="ml-4" max-width="500px" dense>
+            <v-list-item>
+              <v-list-item-subtitle>‎{{work.company_name}}</v-list-item-subtitle>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-subtitle>‎‎{{work.location}}</v-list-item-subtitle>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-subtitle>‎{{work.start_date}}</v-list-item-subtitle>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-subtitle>‎{{work.end_date}}</v-list-item-subtitle>
+            </v-list-item>
+          </v-list>
+        </v-card>
       </v-card>
 
       <v-card class="mb-5">
@@ -89,9 +108,9 @@
           </v-row>
         </v-row>
 
-        <v-card elevation="0 " v-for="(edu, i) in 2" :key="i">
+        <v-card elevation="0 " v-for="edu in user.cv.education" :key="edu">
           <v-row>
-            <v-card-title class="ml-7">Bachelor's degree, Computer Science</v-card-title>
+            <v-card-title class="ml-7">{{edu.degree}} {{' ,' + edu.field}}</v-card-title>
             <v-row justify="end" class="mr-10">
               <v-icon dense>mdi-pencil</v-icon>
               <v-icon class="ml-2" dense>mdi-close</v-icon>
@@ -99,16 +118,13 @@
           </v-row>
           <v-list class="ml-4" max-width="500px" dense>
             <v-list-item>
-              <v-list-item-subtitle>‎at Helwan University</v-list-item-subtitle>
+              <v-list-item-subtitle>‎{{edu.university}}</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
-              <v-list-item-subtitle>‎Egypt-Cairo</v-list-item-subtitle>
+              <v-list-item-subtitle>‎‎{{edu.location}}</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
-              <v-list-item-subtitle>‎July 2021</v-list-item-subtitle>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-subtitle>Description</v-list-item-subtitle>
+              <v-list-item-subtitle>‎{{edu.graduation_date}}</v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-card>
@@ -121,10 +137,10 @@
             <v-icon dense>mdi-pencil</v-icon>
           </v-row>
         </v-row>
-        <v-list class="ml-4" max-width="500px" dense>
-          <v-list-item>
-            <v-list-item-title>Skill Name</v-list-item-title>
-            <v-list-item-subtitle>Level: [[level]]</v-list-item-subtitle>
+        <v-list class="ml-2" max-width="700px" dense >
+          <v-list-item v-for="skill in user.cv.skills" :key="skill">
+            <v-icon>mdi-circle-small</v-icon>
+            <v-list-item-title> {{skill}}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-card>
@@ -136,32 +152,51 @@
             <v-icon dense>mdi-pencil</v-icon>
           </v-row>
         </v-row>
-        <v-list class="ml-4" max-width="500px" dense>
-          <v-list-item>
-            <v-list-item-title>language</v-list-item-title>
-            <v-list-item-subtitle>Level: [[level]]</v-list-item-subtitle>
+        <v-list class="ml-2" max-width="700px" dense >
+          <v-list-item v-for="language in user.cv.languages" :key="language">
+            <v-icon>mdi-circle-small</v-icon>
+            <v-list-item-title> {{language}}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-card>
     </v-col>
+    <v-overlay :value="overlay" opacity="0.9" >
+        <fingerprint-spinner
+          class="justify-center"
+          :animation-duration="1500"
+          :size="120"
+          color="#42A5F5"
+        />
+    </v-overlay>
   </v-row>
+  
 </template>
 
 <script>
 
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import ApiService from "../../services/api.service";
+import { FingerprintSpinner } from 'epic-spinners'
 export default {
   data: () => ({
     group: null,
+    overlay: true,
     user:{
       account:{},
+      cv:{
+        education:{},
+        work_Experience:{},
+        skills:{},
+        languages:{},
+      },
     },
   }),
   mounted(){
     this.getUser();
   },
-  components: {  },
+  components: { 
+    FingerprintSpinner
+   },
 
   computed: {
     //Get states from store
@@ -178,7 +213,8 @@ export default {
           if(r.status==200)
           {
             this.user=r.data;
-            console.log(this.user)
+            console.log(this.user);
+            this.overlay=false;
           }
           else
           {
