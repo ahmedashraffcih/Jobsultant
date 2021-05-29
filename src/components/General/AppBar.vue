@@ -15,7 +15,7 @@
       <v-tab light to="/">Home</v-tab>
       <v-tab v-if="loggedIn && user_type=='normal user'" text to="/jobs">Jobs</v-tab>
       <v-tab v-if="!loggedIn" text to="/Authentication/Register">Create Your CV</v-tab>
-      <v-tab v-if="!loggedIn" text to="/Authentication/login">Blogs</v-tab>
+      <v-tab v-if="!loggedIn" text to="">Blogs</v-tab>
       <v-tab v-if="loggedIn && user_type=='normal user'" to="/user/account_settings">My Account</v-tab>
       <v-tab v-if="loggedIn && user_type=='normal user'" to="/user/My_CV">My CV</v-tab>
       <v-tab v-if="loggedIn && user_type=='employer'" to="/Employer/Emp_Profile">Company Profile</v-tab>

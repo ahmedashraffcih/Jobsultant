@@ -75,7 +75,7 @@
             <v-icon dense>mdi-plus</v-icon>
           </v-row>
         </v-row>
-        <v-card elevation="0 " v-for="work in user.cv.work_Experience" :key="work">
+        <v-card elevation="0 " v-for="work in user.cv.work_Experience" >
           <v-row>
             <v-card-title class="ml-7">{{work.Job_title}}</v-card-title>
             <v-row justify="end" class="mr-10">
@@ -108,7 +108,7 @@
           </v-row>
         </v-row>
 
-        <v-card elevation="0 " v-for="edu in user.cv.education" :key="edu">
+        <v-card elevation="0 " v-for="edu in user.cv.education" >
           <v-row>
             <v-card-title class="ml-7">{{edu.degree}} {{' ,' + edu.field}}</v-card-title>
             <v-row justify="end" class="mr-10">
@@ -138,7 +138,7 @@
           </v-row>
         </v-row>
         <v-list class="ml-2" max-width="700px" dense >
-          <v-list-item v-for="skill in user.cv.skills" :key="skill">
+          <v-list-item v-for="skill in user.cv.skills" >
             <v-icon>mdi-circle-small</v-icon>
             <v-list-item-title> {{skill}}</v-list-item-title>
           </v-list-item>
@@ -153,7 +153,7 @@
           </v-row>
         </v-row>
         <v-list class="ml-2" max-width="700px" dense >
-          <v-list-item v-for="language in user.cv.languages" :key="language">
+          <v-list-item v-for="language in user.cv.languages" >
             <v-icon>mdi-circle-small</v-icon>
             <v-list-item-title> {{language}}</v-list-item-title>
           </v-list-item>

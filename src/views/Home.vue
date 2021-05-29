@@ -27,7 +27,7 @@
       <v-overlay :value="overlay" opacity="0.9" >
         <fingerprint-spinner
           class="justify-center"
-          :animation-duration="1500"
+          :animation-duration="3000"
           :size="120"
           color="#42A5F5"
         />

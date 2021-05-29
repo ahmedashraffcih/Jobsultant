@@ -138,7 +138,7 @@
                               <v-combobox
                                 dense
                                 v-model="user.cv.residence_Location"
-                                :items="items"
+                                
                                 :search-input.sync="search"
                                 outlined
                                 hide-selected
