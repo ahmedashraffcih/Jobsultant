@@ -3,9 +3,9 @@
     <v-row justify="center">
       <v-col cols="4">
         <h1>Welcome to Jobsultant.com, {{userdata.firstName}}!</h1>
-        <p>Let's go ahead and build your CV. It will only take 3 minutes.</p>
-        <v-stepper v-model="e6" vertical>
-          <v-stepper-step :complete="e6 > 1" step="1">
+        <p class="light-blue--text text--darken-4">Let's go ahead and build your CV. It will only take 3 minutes.</p>
+        <v-stepper v-model="e6" vertical >
+          <v-stepper-step :complete="e6 > 1" step="1" color="orange darken-2">
             What is your current (or last) position?
             <small class="mt-2">You Can skip this</small>
           </v-stepper-step>
@@ -155,18 +155,18 @@
             </v-form>
             
             <v-col cols="12" class="ma-0 pa-0 mb-5 ml-2">
-              <v-btn :disabled="!Valid2" color="primary" @click="e6 = 2">
+              <v-btn :disabled="!Valid2" dark color="orange darken-2" @click="e6 = 2">
                 Continue
               </v-btn>
             </v-col>
-            <v-col cols="12" class="ma-0 pa-0 ml-2">
-              <v-btn text color="primary" @click="e6 = 2">
+            <v-col cols="12" class="ma-0 pa-0">
+              <v-btn text color="orange darken-2" @click="e6 = 2">
                 I have no experience / still studying
               </v-btn>
             </v-col>
           </v-stepper-content>
 
-          <v-stepper-step :complete="e6 > 2" step="2">
+          <v-stepper-step :complete="e6 > 2" step="2" color="orange darken-2">
             What kind of job are you looking for?
           </v-stepper-step>
 
@@ -240,11 +240,11 @@
               </v-list-item>
             </v-list>
             </v-form>
-            <v-btn :disabled="!Valid2" color="primary" @click="e6 = 3"> Continue </v-btn>
+            <v-btn :disabled="!Valid2" dark color="orange darken-2" @click="e6 = 3"> Continue </v-btn>
             <v-btn text @click="e6 = 1"> Back </v-btn>
           </v-stepper-content>
 
-          <v-stepper-step :complete="e6 > 3" step="3">
+          <v-stepper-step :complete="e6 > 3" step="3" color="orange darken-2">
             Tell us about your education.
           </v-stepper-step>
 
@@ -338,11 +338,11 @@
               </v-list-item>
             </v-list>
             </v-form>
-            <v-btn :disabled="!Valid3" color="primary" @click="e6 = 4"> Continue </v-btn>
+            <v-btn :disabled="!Valid3" dark color="orange darken-2" @click="e6 = 4"> Continue </v-btn>
             <v-btn text @click="e6 = 2"> Back </v-btn>
           </v-stepper-content>
 
-          <v-stepper-step step="4">
+          <v-stepper-step step="4" color="orange darken-2">
             Make it easy for employers to contact you.<br />Tell them a bit about
             yourself.</v-stepper-step
           >
@@ -437,7 +437,7 @@
               </v-list-item>
             </v-list>
             </v-form>
-            <v-btn :disabled="!Valid4" @click="CreateCV()" color="primary":loading="loading"> Continue </v-btn>
+            <v-btn :disabled="!Valid4" @click="CreateCV()" dark color="orange darken-2":loading="loading"> Continue </v-btn>
             <v-btn text @click="e6 = 3"> Back </v-btn>
           </v-stepper-content>
         </v-stepper>
@@ -533,6 +533,7 @@ export default {
             this.loading = false;
             //this.dialog = false;
             this.snackbar1=true;
+            router.push(router.history.current.query.redirect || '/');
             console.log(r)
           }
           else
@@ -573,7 +574,7 @@ export default {
 </script>
 <style scoped>
 .div {
-  background-color: #a8d0e6;
+  background-color: #e0e0e0;
   width: 100%;
 }
 </style>

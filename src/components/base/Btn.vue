@@ -1,8 +1,9 @@
 <template>
   <v-btn
     :style="styles"
-    color="primary"
+    color="orange darken-2"
     fab
+    dark
     small
     v-bind="$attrs"
     elevation="0"

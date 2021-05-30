@@ -1,14 +1,14 @@
 <template>
-  <v-row class="blue-grey lighten-5" justify="center">
+  <v-row class="grey lighten-3" justify="center">
     <v-col cols="4">
         <div class="form-header rounded-lg">
             <h1>Employer / Company Registration</h1>
-            <p>Hire Smarter, Grow Faster</p>
+            <p class="light-blue--text text--darken-4">Hire Smarter, Grow Faster</p>
         </div>
 
       <v-stepper v-model="e6" vertical mb-10>
         <v-form v-model="Valid">
-          <v-stepper-step :complete="e6 > 1" step="1">
+          <v-stepper-step :complete="e6 > 1" step="1"  color="orange darken-2">
             Contact Information
           </v-stepper-step>
 
@@ -84,11 +84,11 @@
             </v-list>
 
             <v-col cols="12" class="ma-0 pa-0 mb-5 ml-2">
-              <v-btn color="primary" @click="e6 = 2"> Continue </v-btn>
+              <v-btn dark color="orange darken-2" @click="e6 = 2"> Continue </v-btn>
             </v-col>
           </v-stepper-content>
 
-          <v-stepper-step :complete="e6 > 2" step="2">
+          <v-stepper-step :complete="e6 > 2" step="2" color="orange darken-2">
             Login Information
           </v-stepper-step>
 
@@ -151,15 +151,15 @@
               </v-list-item>
 
             </v-list>
-            <v-btn color="primary" @click="e6 = 3"> Continue </v-btn>
+            <v-btn dark color="orange darken-2" @click="e6 = 3"> Continue </v-btn>
             <v-btn text @click="e6 = 1"> Back </v-btn>
           </v-stepper-content>
 
-          <v-stepper-step :complete="e6 > 3" step="3">
+          <v-stepper-step :complete="e6 > 3" step="3" color="orange darken-2">
             Company Basic Information
           </v-stepper-step>
 
-          <v-stepper-content step="3">
+          <v-stepper-content step="3" color="orange darken-2">
             <v-list class="mb-4" max-width="500px" dense>
 
             <!-- Company Name -->  
@@ -217,7 +217,7 @@
             rounded 
             large 
             block 
-            color="success" 
+            color="orange darken-2"
             :disabled="!Valid"
             @click="tryRegister" :loading="loading" 
             > Join JobSultunt As a Company </v-btn>

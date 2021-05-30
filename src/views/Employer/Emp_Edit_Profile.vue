@@ -1,5 +1,5 @@
 <template>
-  <v-row class="blue-grey lighten-5" justify="center">
+  <v-row class="grey lighten-3" justify="center">
     <v-col cols="6">
       <div class="form-header rounded-lg">
         <h1>About your company</h1>
@@ -7,23 +7,11 @@
       </div>
       <form class="form-header rounded-lg">
         <div>
-          <h2>Company Basic Information:</h2>
+          <h2 class="mb-4">Company Basic Information:</h2>
         </div>
-        <v-text-field
-          v-model="employer.companyName"
-          :rules="CompRules"
-          :counter="20"
-          label="Company Name"
-          outlined
-          dense
-        ></v-text-field>
+        <v-text-field v-model="employer.companyName" :rules="CompRules" :counter="20" label="Company Name" outlined dense></v-text-field>
 
-        <VuePhoneNumberInput
-          size="lg"
-          border-radius="4"
-          default-country-code="EG"
-          v-model="employer.companyPhone"
-        />
+        <VuePhoneNumberInput size="lg" border-radius="4" default-country-code="EG" v-model="employer.companyPhone" />
 
         <v-select
           v-model="employer.industry"
@@ -40,44 +28,16 @@
           <h2>More Details about Your Company:</h2>
         </div>
 
-        <v-text-field
-          v-model="employer.website"
-          label="Website"
-          :rules="webRules"
-          outlined
-          dense
-        ></v-text-field>
+        <v-text-field v-model="employer.website" label="Website" :rules="webRules" outlined dense></v-text-field>
 
-        <v-select
-          v-model="employer.size"
-          :items="sizes"
-          :error-messages="selectErrors"
-          label="Company Size"
-          outlined
-          dense
-        ></v-select>
+        <v-select v-model="employer.size" :items="sizes" :error-messages="selectErrors" label="Company Size" outlined dense></v-select>
 
-        <v-text-field
-          v-model="employer.location"
-          :error-messages="headquartersErrors"
-          label="Headquarters"
-          outlined
-          dense
-        ></v-text-field>
+        <v-text-field v-model="employer.location" :error-messages="headquartersErrors" label="Headquarters" outlined dense></v-text-field>
 
         <v-row>
-          <v-btn
-            class="mr-4"
-            color="success"
-            @click="editEmpInfo()"
-            :loading="loading"
-          >
-            Apply Edits</v-btn
-          >
+          <v-btn class="ml-3 mr-4 mb-4" dark color="light-blue darken-4" @click="editEmpInfo()" :loading="loading"> Apply Edits</v-btn>
 
-          <v-spacer></v-spacer>
-
-          <v-btn color="error" class="mr-2" @click="clear"> clear </v-btn>
+          <v-btn color="orange darken-2" dark class="mr-2" @click="clear"> clear </v-btn>
         </v-row>
       </form>
     </v-col>
@@ -133,10 +93,7 @@ export default {
 
       // Rules
       nameRules: [(v) => !!v || "Field is required"],
-      CompRules: [
-        (v) => !!v || "Field is required",
-        (v) => (!!v && isNaN(v)) || "Can't include numbers",
-      ],
+      CompRules: [(v) => !!v || "Field is required", (v) => (!!v && isNaN(v)) || "Can't include numbers"],
       webRules: [(v) => /^(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-]*$/i.test(v) || "website must be valid"],
     };
   },
@@ -154,23 +111,18 @@ export default {
       console.log(this.userdata);
     },
     getUser() {
-      ApiService.get(`http://localhost:3000/employers/${this.user_id}`).then(
-        (r) => {
-          if (r.status == 200) {
-            this.employer = r.data;
-            console.log(this.employer);
-          } else {
-            console.log(r);
-          }
+      ApiService.get(`http://localhost:3000/employers/${this.user_id}`).then((r) => {
+        if (r.status == 200) {
+          this.employer = r.data;
+          console.log(this.employer);
+        } else {
+          console.log(r);
         }
-      );
+      });
     },
     editEmpInfo() {
       this.loading = true;
-      ApiService.put(
-        `http://localhost:3000/EditInfo/${this.user_id}`,
-        this.employer
-      )
+      ApiService.put(`http://localhost:3000/EditInfo/${this.user_id}`, this.employer)
         .then((r) => {
           console.log(r);
           if (r.status == 204) {

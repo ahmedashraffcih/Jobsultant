@@ -2,7 +2,7 @@
   <div class="div">
     <v-row justify="center">
       <v-col cols="5">
-        <h1 class="display-1 mt-3 mb-10 white--text">My Account</h1>
+        <h1 class="display-1 mt-3 mb-10 ">My Account</h1>
         <v-card class="mb-5">
           <v-row>
             <v-card-title class="ml-13">Personal Information</v-card-title>
@@ -13,12 +13,12 @@
                   v-model="dialog3"
                 >
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon  v-bind="attrs" v-on="on">mdi-pencil</v-icon>
+                    <v-icon  color="orange darken-2" v-bind="attrs" v-on="on">mdi-pencil</v-icon>
                   </template>
                   <template v-slot:default="dialog3">
                     <v-card>
                       <v-toolbar
-                        color="#24305E"
+                        color="light-blue darken-4"
                         dark>
                         <v-toolbar-title class="ml-5">Edit Personal Information</v-toolbar-title>
                         <v-spacer></v-spacer>
@@ -163,7 +163,7 @@
                           <v-btn
                             class="white--text"
                             width="150px"
-                            color="#24305E"
+                            color="light-blue darken-4"
                             
                             @click="editProfile()":loading="loading">
                             Apply
@@ -178,8 +178,8 @@
           <v-divider></v-divider>
           <v-list class="ml-10" max-width="500px">
             <v-list-item>
-              <v-list-item-title>Name</v-list-item-title>
-              <v-list-item-subtitle>{{user.fname}} {{user.lname}}</v-list-item-subtitle>
+              <v-list-item-title >Name</v-list-item-title>
+              <v-list-item-subtitle >{{user.fname}} {{user.lname}}</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Birth date</v-list-item-title>
@@ -210,12 +210,12 @@
                   v-model="dialog2"
                 >
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon  v-bind="attrs" v-on="on">mdi-pencil</v-icon>
+                    <v-icon color="orange darken-2" v-bind="attrs" v-on="on">mdi-pencil</v-icon>
                   </template>
                   <template v-slot:default="dialog2">
                     <v-card>
                       <v-toolbar
-                        color="#24305E"
+                        color="light-blue darken-4"
                         dark>
                         <v-toolbar-title class="ml-5">Edit Contact Information</v-toolbar-title>
                         <v-spacer></v-spacer>
@@ -265,7 +265,7 @@
                           <v-btn
                             class="white--text"
                             width="150px"
-                            color="#24305E"
+                            color="light-blue darken-4"
                             :disabled="!Valid2"
                             @click="editEmail()":loading="loading">
                             Apply
@@ -303,12 +303,12 @@
                   v-model="dialog"
                 >
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon  v-bind="attrs" v-on="on">mdi-pencil</v-icon>
+                    <v-icon color="orange darken-2" v-bind="attrs" v-on="on">mdi-pencil</v-icon>
                   </template>
                   <template v-slot:default="dialog">
                     <v-card>
                       <v-toolbar
-                        color="#24305E"
+                        color="light-blue darken-4"
                         dark>
                         <v-toolbar-title class="ml-5">Change Your Password</v-toolbar-title>
                         <v-spacer></v-spacer>
@@ -358,7 +358,7 @@
                           <v-btn
                             class="white--text mr-3"
                             width="150px"
-                            color="#24305E"
+                            color="light-blue darken-4"
                             :disabled="!Valid"
                             @click="editpassword()":loading="loading">
                             Confirm
@@ -380,7 +380,7 @@
           <v-row>
             <v-card-title class="ml-13">Email notification</v-card-title>
             <v-row justify="end" class="mr-15">
-              <v-icon>mdi-pencil</v-icon>
+              <v-icon color="orange darken-2">mdi-pencil</v-icon>
             </v-row>
           </v-row>
           <v-list-item>
@@ -394,12 +394,10 @@
         <v-card class="mb-5">
           <v-row>
             <v-card-title class="ml-13">Delete My Account</v-card-title>
-            <v-row justify="end" class="mr-15">
-              <v-icon>mdi-pencil</v-icon>
-            </v-row>
+            
           </v-row>
           <v-list-item>
-            <v-list-item-title class="ml-10">Permanently remove your account from Jobsultant.com</v-list-item-title>
+            <v-list-item-title  class="ml-10">Permanently remove your account from Jobsultant.com</v-list-item-title>
           </v-list-item>
           <v-btn class="ml-14 mb-3" outlined>Delete My Account</v-btn>
         </v-card>
@@ -418,7 +416,7 @@
           class="justify-center"
           :animation-duration="1500"
           :size="120"
-          color="#42A5F5"
+          color="#FF9800"
         />
     </v-overlay>
   </div>
@@ -689,7 +687,7 @@ export default {
 
 <style scoped>
 .div {
-  background-color: #a8d0e6;
+  background-color: #e0e0e0;
   width: 100%;
 }
 </style>

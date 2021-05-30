@@ -35,11 +35,12 @@
               <!-- to make the button disabled until verify validations :disabled="!Valid" -->
               <v-col cols="10" style="height: 50px">
                 <v-btn
-                  rounded-4
+                  rounded
                   large
                   block
-                  color="success"
-                  :disabled="!Valid"
+                  dark
+                  color="light-blue"
+                  
                   @click="tryLogin" :loading="loading">
                   
                   Log in
@@ -49,10 +50,11 @@
                 <v-card-text class="text-center">OR</v-card-text>
               </v-col>
               <v-col cols="10">
-                <v-btn rounded-4 large block color="success">Log in With Google</v-btn>
+                
+                <v-btn rounded dark large block color="#4267B2"><v-icon left dark class="mr-5">mdi-facebook</v-icon>Log in With Facebook</v-btn>
               </v-col>
               <v-col cols="10">
-                <v-btn rounded-4 large block color="success">Log in With Facebook</v-btn>
+                <v-btn rounded large block dark color="#E53935"><v-icon left dark class="mr-5">mdi-google</v-icon>Log in With Google</v-btn>
               </v-col>
             </v-row>
           </v-form>
@@ -137,7 +139,7 @@ export default {
 
 <style scoped>
 .div {
-  background-color: #a8d0e6;
+  background-color: #B3E5FC;
   width: 100%;
 }
 </style>

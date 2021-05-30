@@ -5,7 +5,7 @@
   >
     <base-card
       :height="value.prominent ? 450 : 350"
-      color="grey lighten-1"
+      color="light-blue"
       dark
       href="#!"
     >
@@ -22,7 +22,7 @@
             <v-chip
               label
               class="mx-0 mb-2 text-uppercase"
-              color="green darken-3"
+              color="light-blue"
               text-color="white"
               small
               @click.stop=""
@@ -42,7 +42,7 @@
           <v-col align-self="end">
             <v-chip
               class="text-uppercase ma-0"
-              color="primary"
+              color="orange darken-2"
               label
               small
               @click.stop=""
