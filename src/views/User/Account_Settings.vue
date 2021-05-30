@@ -183,15 +183,18 @@
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Birth date</v-list-item-title>
-              <v-list-item-subtitle>{{user.cv.birth_Date}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="user.cv.birth_Date">{{user.cv.birth_Date}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="!user.cv.birth_Date">-</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Gender</v-list-item-title>
-              <v-list-item-subtitle>{{user.cv.gender}}</v-list-item-subtitle>
+              <v-list-item-subtitle  v-if="user.cv.gender">{{user.cv.gender}}</v-list-item-subtitle>
+              <v-list-item-subtitle  v-if="!user.cv.gender">-</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Residence Location</v-list-item-title>
-              <v-list-item-subtitle>{{user.cv.residence_Location}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="user.cv.residence_Location">{{user.cv.residence_Location}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="!user.cv.residence_Location">-</v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-card>
@@ -283,7 +286,8 @@
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Mobile phone</v-list-item-title>
-              <v-list-item-subtitle>{{user.cv.mobile_Phone}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="user.cv.mobile_Phone">{{user.cv.mobile_Phone}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="!user.cv.mobile_Phone">-</v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-card>

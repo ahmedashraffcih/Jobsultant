@@ -75,7 +75,7 @@
             <v-icon dense>mdi-plus</v-icon>
           </v-row>
         </v-row>
-        <v-card elevation="0 " v-for="work in user.cv.work_Experience" >
+        <v-card elevation="0 " v-for="(work,key) in user.cv.work_Experience" :key="key">
           <v-row>
             <v-card-title class="ml-7">{{work.Job_title}}</v-card-title>
             <v-row justify="end" class="mr-10">
@@ -85,16 +85,20 @@
           </v-row>
           <v-list class="ml-4" max-width="500px" dense>
             <v-list-item>
-              <v-list-item-subtitle>‎{{work.company_name}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="work.company_name">{{work.company_name}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="!work.company_name">-</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
-              <v-list-item-subtitle>‎‎{{work.location}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="work.location">{{work.location}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="!work.location">-</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
-              <v-list-item-subtitle>‎{{work.start_date}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="work.start_date">{{work.start_date}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="!work.start_date">-</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
-              <v-list-item-subtitle>‎{{work.end_date}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="work.end_date">{{work.end_date}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="!work.end_date">-</v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-card>
@@ -108,9 +112,10 @@
           </v-row>
         </v-row>
 
-        <v-card elevation="0 " v-for="edu in user.cv.education" >
+        <v-card elevation="0 " v-for="(edu,key) in user.cv.education" :key="key">
           <v-row>
-            <v-card-title class="ml-7">{{edu.degree}} {{' ,' + edu.field}}</v-card-title>
+            <v-card-title class="ml-7" v-if="edu.degree">{{edu.degree}} {{' ,' + edu.field}}</v-card-title>
+            <v-card-title class="ml-7" v-if="!edu.degree">-</v-card-title>
             <v-row justify="end" class="mr-10">
               <v-icon dense>mdi-pencil</v-icon>
               <v-icon class="ml-2" dense>mdi-close</v-icon>
@@ -118,13 +123,16 @@
           </v-row>
           <v-list class="ml-4" max-width="500px" dense>
             <v-list-item>
-              <v-list-item-subtitle>‎{{edu.university}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="edu.university">{{edu.university}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="!edu.university">-</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
-              <v-list-item-subtitle>‎‎{{edu.location}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="edu.location">{{edu.location}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="!edu.location">-</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
-              <v-list-item-subtitle>‎{{edu.graduation_date}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="edu.graduation_date">{{edu.graduation_date}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="!edu.graduation_date">-</v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-card>
@@ -138,9 +146,10 @@
           </v-row>
         </v-row>
         <v-list class="ml-2" max-width="700px" dense >
-          <v-list-item v-for="skill in user.cv.skills" >
+          <v-list-item v-for="(skill,key) in user.cv.skills" :key="key">
             <v-icon>mdi-circle-small</v-icon>
-            <v-list-item-title> {{skill}}</v-list-item-title>
+            <v-list-item-title v-if="user.cv.skills"> {{skill}}</v-list-item-title>
+            <v-list-item-title v-if="!user.cv.skills">-</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-card>
@@ -153,9 +162,10 @@
           </v-row>
         </v-row>
         <v-list class="ml-2" max-width="700px" dense >
-          <v-list-item v-for="language in user.cv.languages" >
+          <v-list-item v-for="(language,key) in user.cv.languages" :key="key">
             <v-icon>mdi-circle-small</v-icon>
-            <v-list-item-title> {{language}}</v-list-item-title>
+            <v-list-item-title v-if="user.cv.languages"> {{language}}</v-list-item-title>
+            <v-list-item-title v-if="!user.cv.languages">-</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-card>
