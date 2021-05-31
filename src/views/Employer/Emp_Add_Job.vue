@@ -1,9 +1,9 @@
 <template>
-  <v-row class="blue-grey lighten-5" justify="center">
+  <v-row class="grey lighten-3" justify="center">
     <v-col cols="6">
       <v-card class="mb-5" elevation="0">
         <v-card-title class="ml-6">Add New Job!</v-card-title>
-        <v-card-subtitle class="ml-6">Tell job seekers what they need to know!</v-card-subtitle>
+        <v-card-subtitle class="ml-6 light-blue--text text--darken-4">Tell job seekers what they need to know!</v-card-subtitle>
       </v-card>
       <v-card elevation="0">
         <v-form class="form-header rounded-lg">
@@ -82,10 +82,23 @@
             >
             </v-textarea>
           </v-row>
-          <v-row class="mt-4">
-            <v-btn class="ml-7" color="success" @click="submit"> Post Job</v-btn>
+          <v-row justify="center" class="pl-7 pr-7 mt-4">
+            <v-textarea
+            v-model="details"
+            label="Job Details"
+            auto-grow
+            rows="2"
+            :rules="fieldRules"
+            :counter="650"
+            outlined
+            dense
+          >
+          </v-textarea>
+          </v-row>
+          <v-row class="mt-4 mb-4">
+            <v-btn class="ml-7" dark color="light-blue darken-4" @click="submit"> Post Job</v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="error" class="mr-7" @click="clear"> clear </v-btn>
+            <v-btn color="orange darken-2" dark class="mr-7" @click="clear"> clear </v-btn>
           </v-row>
         </v-form>
       </v-card>

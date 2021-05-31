@@ -2,7 +2,7 @@
   <div class="div">
     <v-row justify="center">
       <v-col cols="5">
-        <h1 class="display-1 mt-3 mb-10 white--text">My Account</h1>
+        <h1 class="display-1 mt-3 mb-10 ">My Account</h1>
         <v-card class="mb-5">
           <v-row>
             <v-card-title class="ml-13">Personal Information</v-card-title>
@@ -13,12 +13,12 @@
                   v-model="dialog3"
                 >
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon  v-bind="attrs" v-on="on">mdi-pencil</v-icon>
+                    <v-icon  color="orange darken-2" v-bind="attrs" v-on="on">mdi-pencil</v-icon>
                   </template>
                   <template v-slot:default="dialog3">
                     <v-card>
                       <v-toolbar
-                        color="#24305E"
+                        color="light-blue darken-4"
                         dark>
                         <v-toolbar-title class="ml-5">Edit Personal Information</v-toolbar-title>
                         <v-spacer></v-spacer>
@@ -78,7 +78,7 @@
                               >
                                 <template v-slot:activator="{ on, attrs }">
                                   <v-text-field
-                                    v-model="date"
+                                    v-model="user.cv.birth_Date"
                                     readonly
                                     outlined
                                     flat
@@ -117,6 +117,7 @@
                             </v-col>
                             <v-col cols="10">
                               <v-select
+                                v-model="user.cv.gender"
                                 dense
                                 outlined
                                 label="Gender"
@@ -133,13 +134,27 @@
                               <v-card-text>Location</v-card-text>
                             </v-col>
                             <v-col cols="10">
-                              <v-select
+                              
+                              <v-combobox
                                 dense
+                                v-model="user.cv.residence_Location"
+                                
+                                :search-input.sync="search"
                                 outlined
-                                label="Location"
-                                :items="items"
-                                >
-                              </v-select>
+                                hide-selected
+                                clearable
+                                persistent-hint
+                              >
+                                <template v-slot:no-data>
+                                  <v-list-item>
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        No results matching "<strong>{{ search }}</strong>". Press <kbd>enter</kbd> to create a new one
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </v-list-item>
+                                </template>
+                              </v-combobox>
                             </v-col>
                           </v-row>
                         </v-form>
@@ -148,7 +163,7 @@
                           <v-btn
                             class="white--text"
                             width="150px"
-                            color="#24305E"
+                            color="light-blue darken-4"
                             
                             @click="editProfile()":loading="loading">
                             Apply
@@ -163,20 +178,23 @@
           <v-divider></v-divider>
           <v-list class="ml-10" max-width="500px">
             <v-list-item>
-              <v-list-item-title>Name</v-list-item-title>
-              <v-list-item-subtitle>{{user.fname}} {{user.lname}}</v-list-item-subtitle>
+              <v-list-item-title >Name</v-list-item-title>
+              <v-list-item-subtitle >{{user.fname}} {{user.lname}}</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Birth date</v-list-item-title>
-              <v-list-item-subtitle>-</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="user.cv.birth_Date">{{user.cv.birth_Date}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="!user.cv.birth_Date">-</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Gender</v-list-item-title>
-              <v-list-item-subtitle>-</v-list-item-subtitle>
+              <v-list-item-subtitle  v-if="user.cv.gender">{{user.cv.gender}}</v-list-item-subtitle>
+              <v-list-item-subtitle  v-if="!user.cv.gender">-</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Residence Location</v-list-item-title>
-              <v-list-item-subtitle>-</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="user.cv.residence_Location">{{user.cv.residence_Location}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="!user.cv.residence_Location">-</v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-card>
@@ -192,12 +210,12 @@
                   v-model="dialog2"
                 >
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon  v-bind="attrs" v-on="on">mdi-pencil</v-icon>
+                    <v-icon color="orange darken-2" v-bind="attrs" v-on="on">mdi-pencil</v-icon>
                   </template>
                   <template v-slot:default="dialog2">
                     <v-card>
                       <v-toolbar
-                        color="#24305E"
+                        color="light-blue darken-4"
                         dark>
                         <v-toolbar-title class="ml-5">Edit Contact Information</v-toolbar-title>
                         <v-spacer></v-spacer>
@@ -235,7 +253,7 @@
                                 required
                                 :error="hasErrorActive" 
                                 :loader="hasLoaderActive" 
-                                v-model="phoneNumber" 
+                                v-model="user.cv.mobile_Phone" 
                                 :rules="phoneRules"
                                 clearable
                                 @update="onUpdate"/>
@@ -247,7 +265,7 @@
                           <v-btn
                             class="white--text"
                             width="150px"
-                            color="#24305E"
+                            color="light-blue darken-4"
                             :disabled="!Valid2"
                             @click="editEmail()":loading="loading">
                             Apply
@@ -268,7 +286,8 @@
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Mobile phone</v-list-item-title>
-              <v-list-item-subtitle>-</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="user.cv.mobile_Phone">{{user.cv.mobile_Phone}}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="!user.cv.mobile_Phone">-</v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-card>
@@ -284,12 +303,12 @@
                   v-model="dialog"
                 >
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon  v-bind="attrs" v-on="on">mdi-pencil</v-icon>
+                    <v-icon color="orange darken-2" v-bind="attrs" v-on="on">mdi-pencil</v-icon>
                   </template>
                   <template v-slot:default="dialog">
                     <v-card>
                       <v-toolbar
-                        color="#24305E"
+                        color="light-blue darken-4"
                         dark>
                         <v-toolbar-title class="ml-5">Change Your Password</v-toolbar-title>
                         <v-spacer></v-spacer>
@@ -339,7 +358,7 @@
                           <v-btn
                             class="white--text mr-3"
                             width="150px"
-                            color="#24305E"
+                            color="light-blue darken-4"
                             :disabled="!Valid"
                             @click="editpassword()":loading="loading">
                             Confirm
@@ -361,7 +380,7 @@
           <v-row>
             <v-card-title class="ml-13">Email notification</v-card-title>
             <v-row justify="end" class="mr-15">
-              <v-icon>mdi-pencil</v-icon>
+              <v-icon color="orange darken-2">mdi-pencil</v-icon>
             </v-row>
           </v-row>
           <v-list-item>
@@ -375,12 +394,10 @@
         <v-card class="mb-5">
           <v-row>
             <v-card-title class="ml-13">Delete My Account</v-card-title>
-            <v-row justify="end" class="mr-15">
-              <v-icon>mdi-pencil</v-icon>
-            </v-row>
+            
           </v-row>
           <v-list-item>
-            <v-list-item-title class="ml-10">Permanently remove your account from Jobsultant.com</v-list-item-title>
+            <v-list-item-title  class="ml-10">Permanently remove your account from Jobsultant.com</v-list-item-title>
           </v-list-item>
           <v-btn class="ml-14 mb-3" outlined>Delete My Account</v-btn>
         </v-card>
@@ -394,6 +411,14 @@
     <v-snackbar v-model="snackbar4" timeout = "2000" color="error" outlined dark> There's no change </v-snackbar>
     <v-snackbar v-model="snackbar5" timeout = "2000" color="error" outlined dark> Email is already used </v-snackbar>
     <v-snackbar v-model="snackbar6" timeout = "2000" color="success" outlined dark> Your changes have been successfully saved </v-snackbar>
+    <v-overlay :value="overlay" opacity="0.9" >
+        <fingerprint-spinner
+          class="justify-center"
+          :animation-duration="1500"
+          :size="120"
+          color="#FF9800"
+        />
+    </v-overlay>
   </div>
 </template>
 
@@ -404,20 +429,29 @@ import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import ApiService from "../../services/api.service";
 import TokenService from "../../services/storage.service";
+import { FingerprintSpinner } from 'epic-spinners'
 export default {
   mounted(){
     this.getUser();
   },
   components:{
-      VuePhoneNumberInput
+      VuePhoneNumberInput,
+      FingerprintSpinner
   },
   data: () => ({
     //---------------
     //------------------------ Personal Information Section ------------------------\\
     user:{
       account:{},
+      cv:{
+        education:{},
+        work_Experience:{},
+        skills:{},
+        languages:{},
+      },
     },
     dialog3:false,
+    overlay: true,
     snackbar4:false,
     snackbar6:false,
     //------------------------ Name Section  ------------------------\\
@@ -526,7 +560,8 @@ export default {
           if(r.status==200)
           {
             this.user=r.data;
-            console.log(this.user)
+            console.log(this.user);
+            this.overlay=false;
           }
           else
           {
@@ -652,7 +687,7 @@ export default {
 
 <style scoped>
 .div {
-  background-color: #a8d0e6;
+  background-color: #e0e0e0;
   width: 100%;
 }
 </style>

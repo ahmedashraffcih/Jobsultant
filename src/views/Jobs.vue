@@ -16,10 +16,10 @@
               rounded-0>
             </v-text-field>
           </v-col>
-          <v-card-text> Filter Your Search </v-card-text>
+          <v-card-text > Filter Your Search </v-card-text>
           <v-card-title>Career Level</v-card-title>
           <v-card-text>
-            <v-chip-group active-class="deep-purple accent-4 white--text" column>
+            <v-chip-group active-class="orange darken-2 white--text" column>
               <v-chip>Intern</v-chip>
               <v-chip>Mid-level</v-chip>
               <v-chip>Senior-level</v-chip>
@@ -27,8 +27,8 @@
             </v-chip-group>
           </v-card-text>
           <v-expansion-panels flat hover>
-            <v-expansion-panel v-for="(item, i) in 5" :key="i">
-              <v-expansion-panel-header> Item </v-expansion-panel-header>
+            <v-expansion-panel v-for="(item, i) in items" :key="i">
+              <v-expansion-panel-header> {{item}} </v-expansion-panel-header>
               <v-expansion-panel-content>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -66,7 +66,7 @@
               <v-list-item three-line>
                 <v-list-item-content>
                   <v-list-item-title class="title">{{job.title}}</v-list-item-title>
-                  <v-list-item-subtitle class="subtitle-1">{{job.company}}</v-list-item-subtitle>
+                  <v-list-item-subtitle style="color:#FF9800" class="subtitle-1">{{job.company}}</v-list-item-subtitle>
                   <v-list-item-subtitle class="subtitle-2 mt-5">{{job.career_level}}</v-list-item-subtitle>
                   <v-list-item-subtitle class="caption mt-5">{{job.description}}</v-list-item-subtitle>
                   <v-list-item-subtitle class="caption mt-5">1/1/2020</v-list-item-subtitle>
@@ -81,7 +81,7 @@
           </v-card>
 
           <div class="text-center">
-            <v-pagination  :length="3"></v-pagination>
+            <v-pagination class="orange darken-2" :length="3"></v-pagination>
           </div>
         </v-card>
       </v-col>
@@ -93,7 +93,7 @@
           <v-progress-linear
             absolute
             v-if="loading"
-            color="blue"
+            color="orange darken-2"
             indeterminate
           >     
           </v-progress-linear>
@@ -214,14 +214,14 @@
               <v-list-item-content>
                 <v-list-item-title class="title">{{user.fname}} {{user.lname}}</v-list-item-title>
                 <v-list-item-subtitle class="subtitle-2 mt-10">Last CV Refresh Date: 2020-11-03</v-list-item-subtitle>
-                <v-list-item-subtitle class="subtitle-2 mt-5">Preferred job title</v-list-item-subtitle>
+                <v-list-item-subtitle style="color:#FF9800" class="subtitle-2 mt-5">Preferred job title</v-list-item-subtitle>
                 <v-list-item-subtitle class="caption mt-2">Data Engineer</v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-avatar
-                tile
-                size="60"
-                color="blue">
-              </v-list-item-avatar>
+                color="orange"
+                size="80"
+                >
+                <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img></v-list-item-avatar>
             </v-list-item>
           </v-list>
         </v-card>
@@ -269,17 +269,27 @@
       </v-col>
     </v-row>
     <v-snackbar v-model="snackbar1" timeout = "2000" color="success" outlined dark> Your Application placed successfully</v-snackbar>
+    <v-overlay :value="overlay" opacity="0.9" >
+        <fingerprint-spinner
+          class="justify-center"
+          :animation-duration="1500"
+          :size="120"
+          color="#FF9800"
+        />
+    </v-overlay>
   </div>
 </template>
 
 <script>
 import ApiService from "../services/api.service";
+import { FingerprintSpinner } from 'epic-spinners'
 import { mapGetters,mapActions,mapMutations } from "vuex";
 import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 export default {
   components:{
-      VuePhoneNumberInput
+      VuePhoneNumberInput,
+      FingerprintSpinner
   },
   mounted() {
     this.loadingjobs=true
@@ -287,7 +297,8 @@ export default {
     .then((r)=>{
       if(r.status==200){
         this.jobs= r.data;
-        this.loadingjobs=false
+        this.loadingjobs=false;
+        
       }
       else{
         console.log(r);
@@ -295,9 +306,11 @@ export default {
       console.log(this.jobs);
     });
     this.getUser();
+    
   },
   data: () => ({
     //report: false
+    overlay:true,
     jobs:[],
     result:[],
     job:"",
@@ -318,6 +331,7 @@ export default {
     AlertKey:"",
     JobLevel:"",
     snackbar1:false,
+    items:["Location","Job Type","Salary","Industry"],
     //------------------------ Phone Section ------------------------\\
     phoneNumber:null,
     results: {},
@@ -406,6 +420,7 @@ export default {
           {
             this.user=r.data;
             console.log(this.user)
+            this.overlay=false;
           }
           else
           {
@@ -438,7 +453,7 @@ export default {
 
 <style scoped>
 .div {
-  background-color: #a8d0e6;
+  background-color: #E0E0E0;
   width: 100%;
 }
 </style>

@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import {ui} from './modules/ui'
+import {articles} from './modules/articles'
+
 // import {user} from './modules/user'
 import {auth} from './modules/authentication.module'
 
@@ -11,6 +13,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {
     ui,
+    articles,
     // user,
     auth
   },

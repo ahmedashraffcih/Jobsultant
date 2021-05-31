@@ -10,6 +10,7 @@ import VueTelInputVuetify from 'vue-tel-input-vuetify/lib';
 import VueEllipseProgress from 'vue-ellipse-progress';
 import ReadMore from 'vue-read-more';
 import VueSocialSharing from 'vue-social-sharing'
+import './plugins/base'
 
 Vue.config.productionTip = false;
 Vue.use(VueTelInputVuetify, {
