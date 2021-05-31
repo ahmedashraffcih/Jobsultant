@@ -1,27 +1,12 @@
 <template>
-  <v-row class="grey lighten-3" justify="center">
+  <v-row class="blue-grey lighten-5" justify="center">
     <v-col cols="8">
       <v-col class="form-header rounded-lg">
         <h1 class="font-weight-light">
-          Applicants for
+          Shortlisted applicants for
           <span class="font-weight-regular">{{ JobTitle }}</span> position
         </h1>
-        <v-row>
-          <v-col cols="8">
-            <p class="text-h6 font-weight-light">{{ ApplicantsCount }} applicants!</p>
-          </v-col>
-          <v-col cols="3">
-            <v-btn
-              class="ml-15"
-              dark
-              color="#01579B"
-              to="/Employer/Emp_View_Shortlisted"
-            >
-              View Shortlisted Candidates
-              
-            </v-btn>
-          </v-col>
-        </v-row>
+        
       </v-col>
 
       <v-col class="jobs-header rounded-lg">
@@ -60,34 +45,6 @@
                   <h4 class="mb-2 ml-4 grey--text">
                     Email: <span class="black--text">{{ Email }}</span>
                   </h4>
-                  <v-col cols="8">
-                    <v-btn
-                      :loading="loading"
-                      :disabled="loading"
-                      dark
-                      color="#01579B"
-                      @click="loader = 'loading'"
-                    >
-                      Shortlist
-                      <template v-slot:loader>
-                        <span>Loading...</span>
-                      </template>
-                    </v-btn>
-
-                    <v-btn
-                      class=" ml-3"
-                      :loading="loading2"
-                      :disabled="loading2"
-                      dark
-                      color="orange darken-2"
-                      @click="loader = 'loading2'"
-                    >
-                      Reject
-                      <template v-slot:loader>
-                        <span>Loading...</span>
-                      </template>
-                    </v-btn>
-                  </v-col>
                   <!-- last -->
                 </v-col>
                 <v-col cols="4">
@@ -142,6 +99,8 @@ export default {
         { id: "MySQL" },
         { id: "Javascript" },
       ],
+
+      Job: {},
       //action buttons
       loading: false,
       loading2: false,
@@ -153,6 +112,18 @@ export default {
     };
   },
 
+  mounted() {
+
+  },
+
+  methods: {
+
+  },
+  computed: {
+    requirmentsPercent() {
+      return (this.requirmentsDone * 100) / 100;
+    },
+  },
   watch: {
     loader() {
       const l = this.loader;
@@ -161,11 +132,6 @@ export default {
       setTimeout(() => (this[l] = false), 3000);
 
       this.loader = null;
-    },
-  },
-  computed: {
-    requirmentsPercent() {
-      return (this.requirmentsDone * 100) / 100;
     },
   },
 };
