@@ -82,19 +82,6 @@
             >
             </v-textarea>
           </v-row>
-          <v-row justify="center" class="pl-7 pr-7 mt-4">
-            <v-textarea
-            v-model="details"
-            label="Job Details"
-            auto-grow
-            rows="2"
-            :rules="fieldRules"
-            :counter="650"
-            outlined
-            dense
-          >
-          </v-textarea>
-          </v-row>
           <v-row class="mt-4">
             <v-btn class="ml-7" color="success" @click="submit"> Post Job</v-btn>
             <v-spacer></v-spacer>
