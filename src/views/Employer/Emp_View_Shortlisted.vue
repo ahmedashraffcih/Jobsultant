@@ -3,33 +3,19 @@
     <v-col cols="8">
       <v-col class="form-header rounded-lg">
         <h1 class="font-weight-light">
-          Applicants for
+          Shortlisted applicants for
           <span class="font-weight-regular">{{ JobTitle }}</span> position
         </h1>
-        <v-row>
-            <v-col cols="8">
-                <p class="text-h6 font-weight-light">{{ ApplicantsCount }} applicants!</p>
-            </v-col>
-            <v-col cols="3">
-                <v-btn
-                    class="ml-15"
-                    color="success"
-                    to="/Employer/Emp_View_Shortlisted"
-                >
-                    View Shortlisted Candidates 
-                      
-                </v-btn>
-            </v-col>
-        </v-row>
+        
       </v-col>
 
       <v-col class="jobs-header rounded-lg">
         <v-row>
           <v-col cols="8">
             <v-card class="mb-3">
-                <v-card-title>
+              <v-card-title>
                   <a class="a" href="#">{{username}}</a>
-                </v-card-title>
+              </v-card-title>
               <v-card-subtitle class="text-subtitle-1">{{
                 workExp
               }}</v-card-subtitle>
@@ -59,32 +45,6 @@
                   <h4 class="mb-2 ml-4 grey--text">
                     Email: <span class="black--text">{{ Email }}</span>
                   </h4>
-                  <v-col cols="8">
-                    <v-btn
-                      :loading="loading"
-                      :disabled="loading"
-                      color="success"
-                      @click="loader = 'loading'"
-                    >
-                      Shortlist
-                      <template v-slot:loader>
-                        <span>Loading...</span>
-                      </template>
-                    </v-btn>
-
-                    <v-btn
-                      class=" ml-1"
-                      :loading="loading2"
-                      :disabled="loading2"
-                      color="error"
-                      @click="loader = 'loading2'"
-                    >
-                      Reject
-                      <template v-slot:loader>
-                        <span>Loading...</span>
-                      </template>
-                    </v-btn>
-                  </v-col>
                   <!-- last -->
                 </v-col>
                 <v-col cols="4">
