@@ -138,22 +138,14 @@
                               <v-combobox
                                 dense
                                 v-model="user.cv.residence_Location"
+                                :items="locations"
                                 
-                                :search-input.sync="search"
                                 outlined
                                 hide-selected
                                 clearable
                                 persistent-hint
                               >
-                                <template v-slot:no-data>
-                                  <v-list-item>
-                                    <v-list-item-content>
-                                      <v-list-item-title>
-                                        No results matching "<strong>{{ search }}</strong>". Press <kbd>enter</kbd> to create a new one
-                                      </v-list-item-title>
-                                    </v-list-item-content>
-                                  </v-list-item>
-                                </template>
+                                
                               </v-combobox>
                             </v-col>
                           </v-row>
@@ -464,6 +456,7 @@ export default {
     //------------------------
     //------------------------ Gender Section  ------------------------\\
     items: ['Male', 'Female'],
+    locations:['Egypt','UAE','USA','Germany','France','England','Australia'],
     Gender:"",
     Valid3:false,
     //------------------------

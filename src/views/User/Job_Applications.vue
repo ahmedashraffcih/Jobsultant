@@ -12,7 +12,7 @@
           <!-- @click="GetAppliedJob(application.jobID)" -->
           <v-col cols="12">
             <v-card v-for="application in applications" :key="application._id" class="mb-5">
-              <v-progress-linear value="100" height="30" :color="application.applicantStatus">
+              <v-progress-linear value="100" height="30" :class="'color: '+(application.applicantStatus === 'no status' ) ? 'primary' : 'application.applicantStatus'">
                 <v-spacer></v-spacer>
                 <v-btn class="mr-2" icon>
                   <v-icon @click="dialog = true" color="white">mdi-dots-horizontal</v-icon>
@@ -27,6 +27,7 @@
                     <v-btn outlined color="orange darken-2" @click="dialog = false"> Cancel </v-btn>
                     <v-btn
                       color="orange darken-2"
+                      dark
                       @click="
                         dialog = false;
                         CancelApply(application._id);
@@ -55,7 +56,7 @@
                     <v-list max-width="350px" dense>
                       <v-list-item>
                         <v-list-item-title>Date Applied :</v-list-item-title>
-                        <v-list-item-subtitle v-if="application.date">{{ application.date }}</v-list-item-subtitle>
+                        <v-list-item-subtitle v-if="application.date">{{ application.date.substring(0, 10) }}</v-list-item-subtitle>
                         <v-list-item-subtitle v-if="!application.date">04/08/2021</v-list-item-subtitle>
                       </v-list-item>
                       <v-list-item>
@@ -70,11 +71,11 @@
                   </v-card-subtitle>
                 </v-col>
                 <v-col cols="6" align="center" align-self="center">
-                  <v-icon size="100px" v-if="application.applicantStatus == 'pending'" color="primary">mdi-progress-upload</v-icon>
+                  <v-icon size="100px" v-if="application.applicantStatus == 'no status'" color="primary">mdi-progress-upload</v-icon>
                   <v-icon size="100px" v-if="application.applicantStatus == 'review'" color="warning">mdi-progress-clock</v-icon>
                   <v-icon size="100px" v-if="application.applicantStatus == 'error'" color="error">mdi-close-circle-outline</v-icon>
                   <v-icon size="100px" v-if="application.applicantStatus == 'shortlisted'" color="success">mdi-check-circle-outline</v-icon>
-                  <v-card-text>{{ application.applicantStatus }}</v-card-text>
+                  <v-card-text>{{ (application.applicantStatus === 'no status' ) ? 'Pending' : 'application.applicantStatus' }}</v-card-text>
                 </v-col>
               </v-row>
             </v-card>
@@ -273,17 +274,26 @@
         <p>lol</p>
       </v-tab-item>
     </v-tabs-items>
+    <v-overlay :value="overlay" opacity="0.9">
+    <fingerprint-spinner class="justify-center" :animation-duration="1500" :size="120" color="#FF9800" />
+  </v-overlay>
   </v-col>
+  
 </template>
 
 <script>
 import ApiService from "../../services/api.service";
 import { mapGetters, mapActions, mapMutations } from "vuex";
+import { FingerprintSpinner } from 'epic-spinners'
 export default {
+  components:{
+      FingerprintSpinner
+  },
   data() {
     return {
       dialog: false,
       tabs: null,
+      overlay: true,
       applications: [],
       oneApplication: {},
       oneJob: {},
@@ -301,6 +311,7 @@ export default {
       ApiService.get(`http://localhost:3000/jobApplications/Applications/${this.user_id}`).then((r) => {
         if (r.status == 200) {
           this.applications = r.data;
+          this.overlay=false;
         } else {
           console.log(r);
         }
@@ -328,10 +339,12 @@ export default {
       });
     },
     CancelApply(id) {
+      this.overlay=true;
       ApiService.delete(`http://localhost:3000/jobApplications/deleteApplication/${id}`).then((r) => {
         if (r.status == 204) {
           console.log("deleted");
           this.GetApplications();
+          this.overlay=false;
         } else {
           console.log(r);
         }
