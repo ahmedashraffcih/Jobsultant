@@ -12,12 +12,14 @@
           <v-divider></v-divider>
           <v-list dense>
             <v-list-item>
-              <v-list-item-title>CV reference number:</v-list-item-title>
-              <v-list-item-subtitle class="orange--text text--darken-2">{{ user.cv._id.substring(0, 7) }}</v-list-item-subtitle>
+              <v-list-item-title>CV reference number : </v-list-item-title>
+              <v-list-item-subtitle class="orange--text text--darken-2 ml-2" v-if="user.cv._id">{{ user.cv._id.substring(0, 7) }}</v-list-item-subtitle>
+              <v-list-item-subtitle class="orange--text text--darken-2 ml-2" v-if="!user.cv._id">-</v-list-item-subtitle>
             </v-list-item>
             <v-list-item>
-              <v-list-item-title>CV last updated on:</v-list-item-title>
-              <v-list-item-subtitle class="orange--text text--darken-2">{{ user.cv.date.substring(0, 10) }}</v-list-item-subtitle>
+              <v-list-item-title>CV last updated on : </v-list-item-title>
+              <v-list-item-subtitle class="orange--text text--darken-2 ml-2" v-if="user.cv.date">{{ user.cv.date.substring(0, 10) }}</v-list-item-subtitle>
+              <v-list-item-subtitle class="orange--text text--darken-2 ml-2" v-if="!user.cv.date">-</v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-card>

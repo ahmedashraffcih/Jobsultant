@@ -67,9 +67,9 @@
                 <v-list-item-content>
                   <v-list-item-title class="title">{{job.title}}</v-list-item-title>
                   <v-list-item-subtitle style="color:#FF9800" class="subtitle-1">{{job.company}}</v-list-item-subtitle>
-                  <v-list-item-subtitle class="subtitle-2 mt-5">{{job.career_level}}</v-list-item-subtitle>
-                  <v-list-item-subtitle class="caption mt-5">{{job.description}}</v-list-item-subtitle>
-                  <v-list-item-subtitle class="caption mt-5">1/1/2020</v-list-item-subtitle>
+                  <v-list-item-subtitle class="subtitle-2 mt-5" >{{job.career_Level}} Level</v-list-item-subtitle>
+                  <v-list-item-subtitle class="caption mt-2">{{job.description}}</v-list-item-subtitle>
+                  <v-list-item-subtitle class="caption mt-2">1/1/2020</v-list-item-subtitle>
                 </v-list-item-content>
                 <v-list-item-avatar
                   tile
@@ -104,7 +104,7 @@
             <v-list-item three-line>
               <v-list-item-content>
                 <v-list-item-title class="title">{{oneJob.title}}</v-list-item-title>
-                <v-list-item-subtitle class="subtitle-1">{{oneJob.company}}</v-list-item-subtitle>
+                <v-list-item-subtitle style="color:#FF9800" class="subtitle-1">{{oneJob.company}}</v-list-item-subtitle>
                 <v-list-item-subtitle class="subtitle-2 mt-5">{{oneJob.career_level}}</v-list-item-subtitle>
                 <v-list-item-subtitle class="caption mt-5">{{oneJob.description}}</v-list-item-subtitle>
                 <v-list-item-subtitle class="caption mt-5">1/1/2020</v-list-item-subtitle>
@@ -129,7 +129,7 @@
             <template v-slot:default="dialog">
               <v-card>
                 <v-toolbar
-                  color="#24305E"
+                  color="light-blue darken-4"
                   dark>
                   <v-toolbar-title class="ml-5">Apply to {{oneJob.company}}</v-toolbar-title>
                   <v-spacer></v-spacer>
@@ -181,7 +181,7 @@
                     <v-btn
                       class="white--text"
                       width="150px"
-                      color="#24305E"
+                      color="light-blue darken-4"
                       :disabled="!Valid"
                       @click="ApplyJob()":loading="loading">
                       Apply
@@ -202,6 +202,8 @@
           </ul>
           
           <v-card-title class="title">Job Details</v-card-title>
+          <v-card-text>{{oneJob.job_Details}}</v-card-text>
+          <v-progress-linear value="100" height="15" color="orange darken-2"></v-progress-linear>
         </v-card>
       </v-col>
 
@@ -215,7 +217,7 @@
                 <v-list-item-title class="title">{{user.fname}} {{user.lname}}</v-list-item-title>
                 <v-list-item-subtitle class="subtitle-2 mt-10">Last CV Refresh Date: 2020-11-03</v-list-item-subtitle>
                 <v-list-item-subtitle style="color:#FF9800" class="subtitle-2 mt-5">Preferred job title</v-list-item-subtitle>
-                <v-list-item-subtitle class="caption mt-2">Data Engineer</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption mt-2">{{user.cv.job_Title}}</v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-avatar
                 color="orange"
@@ -380,8 +382,10 @@ export default {
     GetJob(id)
     {
       this.loading=true
-       ApiService.get(`http://localhost:3000/jobs/list/${id}`)
+      
+       ApiService.get(`http://localhost:3000/jobs/listjob/${id}`)
         .then((r)=>{
+          console.log(r)
           if(r.status==200){
             this.oneJob=r.data;
             console.log(this.oneJob);

@@ -37,7 +37,7 @@
               <v-col cols="2" class="mt-4">
                 <v-btn small right color="light-blue darken-4" dark to="/Employer/Emp_Edit_Profile">
                   <h3>Edit</h3>
-                  <v-icon small dark right >
+                  <v-icon small dark right>
                     mdi-pencil
                   </v-icon>
                 </v-btn>
@@ -81,7 +81,7 @@
           <v-row>
             <v-card outlined elevation="0.7" height="140px" class="mb-5" width="1000px">
               <v-card-title class="ml-3 text-h5">Share with friends:</v-card-title>
-              <v-card-actions >
+              <v-card-actions>
                 <template>
                   <ShareNetwork
                     v-for="network in networks"
@@ -94,7 +94,6 @@
                     hashtags="vuejs,jobsultant"
                     class="mx-6"
                     tag="button"
-                    
                   >
                     <v-icon color="light-blue darken-4" size="30px">
                       {{ network.icon }}
@@ -102,7 +101,6 @@
                   </ShareNetwork>
                 </template>
               </v-card-actions>
-              
             </v-card>
           </v-row>
           <v-row>
@@ -191,7 +189,7 @@
                   </v-row>
                 </v-row>
                 <v-row>
-                  <v-list  class="ml-6" height="72px" width="500px">
+                  <v-list class="ml-6" height="72px" width="500px">
                     <v-list-item>
                       <v-list-item-title>Name : </v-list-item-title>
                       <v-list-item-subtitle>{{ employer.fname }} {{ employer.lname }}</v-list-item-subtitle>
@@ -220,7 +218,7 @@
             <v-card-title class="text-h4 ml-10">Open Vacancies at {{ employer.companyName }}!</v-card-title>
             <v-btn class="ml-14 mb-8" small color="light-blue darken-4" dark to="/Employer/Emp_Manage_Jobs">
               <h3>Manage Jobs</h3>
-              <v-icon small dark right >
+              <v-icon small dark right>
                 mdi-card-account-details
               </v-icon>
             </v-btn>
@@ -302,6 +300,9 @@
     <v-snackbar v-model="OverviewError" timeout="2000" color="error" outlined dark>
       Overview can not be empty or less than 150 characters
     </v-snackbar>
+    <v-overlay :value="overlay" opacity="0.9">
+      <fingerprint-spinner class="justify-center" :animation-duration="1500" :size="120" color="#FF9800" />
+    </v-overlay>
   </v-row>
 </template>
 
@@ -309,6 +310,7 @@
 import VuePhoneNumberInput from "vue-phone-number-input";
 import "vue-phone-number-input/dist/vue-phone-number-input.css";
 import { mapGetters, mapActions, mapMutations } from "vuex";
+import { FingerprintSpinner } from "epic-spinners";
 import ApiService from "../../services/api.service";
 import TokenService from "../../services/storage.service";
 
@@ -322,6 +324,7 @@ export default {
     OverviewError: false,
     loading: false,
     loading2: false,
+    overlay: true,
 
     // Contact Information:
     employer: {},
@@ -358,6 +361,7 @@ export default {
   },
   components: {
     VuePhoneNumberInput,
+    FingerprintSpinner,
   },
 
   computed: {
@@ -374,6 +378,7 @@ export default {
       ApiService.get(`http://localhost:3000/employers/${this.user_id}`).then((r) => {
         if (r.status == 200) {
           this.employer = r.data;
+          this.overlay = false;
           console.log(this.employer);
         } else {
           console.log(r);

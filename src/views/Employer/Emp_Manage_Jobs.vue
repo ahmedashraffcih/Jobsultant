@@ -2,7 +2,7 @@
   <v-row class="grey lighten-3" justify="center">
     <v-col cols="8">
       <div class="form-header rounded-lg">
-        <h1 class="ml-5" >Manage Jobs!</h1>
+        <h1 class="ml-5">Manage Jobs!</h1>
         <p class="light-blue--text text--darken-4 ml-5">Adminstrate your posted Jobs!</p>
       </div>
 
@@ -20,7 +20,7 @@
         </v-row>
       </div>
 
-      <div class="form-header rounded-lg" >
+      <div class="form-header rounded-lg">
         <v-tabs v-model="tabs" grow color="orange darken-2">
           <v-tab>Active Jobs</v-tab>
           <v-tab>Archived Jobs</v-tab>
@@ -92,6 +92,9 @@
           </v-tab-item>
         </v-tabs-items>
       </div>
+      <v-overlay :value="overlay" opacity="0.9">
+        <fingerprint-spinner class="justify-center" :animation-duration="1500" :size="120" color="#FF9800" />
+      </v-overlay>
     </v-col>
   </v-row>
 </template>
@@ -101,6 +104,7 @@ export default {
   data() {
     return {
       tabs: null,
+      overlay:false,
       CompanyName: "Vodafone Egypt",
       Views: 150,
       JobTitle: "Junior .NET Developer",

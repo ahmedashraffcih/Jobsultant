@@ -214,14 +214,13 @@
               </v-list-item>
             </v-list>
             <v-btn 
-            rounded 
             large 
-            block 
+            width="485px" 
             color="orange darken-2"
             :disabled="!Valid"
             @click="tryRegister" :loading="loading" 
             > Join JobSultunt As a Company </v-btn>
-            <v-btn rounded large block text @click="e6 = 2"> Back </v-btn>
+            <v-btn large text width="485px"  @click="e6 = 2"> Back </v-btn>
           </v-stepper-content>
           </v-form>
       </v-stepper>
