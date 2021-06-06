@@ -10,7 +10,7 @@
         <!-- ======================================================================= -->
         <v-card-text>
           <v-form v-model="Valid">
-            <v-row justify="center" style="height: 90px">
+            <v-row justify="center" style="height: 75px">
               <!-- FirstName -->
               <v-col cols="5">
                 <v-text-field dense outlined label="First Name" v-model="firstname" required :rules="nameRules" height="50px"> </v-text-field>
@@ -22,11 +22,11 @@
             </v-row>
             <!-- ======================================================================= -->
             <v-row justify="center">
-              <v-col cols="10" style="height: 90px">
+              <v-col cols="10" style="height: 75px">
                 <!-- Email -->
                 <v-text-field dense outlined label="Email" v-model="email" required :rules="emailRules" height="50px"> </v-text-field>
               </v-col>
-              <v-col cols="10" style="height: 90px">
+              <v-col cols="10" style="height: 75px">
                 <!-- Password -->
                 <v-text-field
                   dense
@@ -42,7 +42,7 @@
                 >
                 </v-text-field>
               </v-col>
-              <v-col cols="10" style="height: 90px">
+              <v-col cols="10" style="height: 90px" >
                 <!-- Confirm Password -->
                 <v-text-field
                   dense
@@ -55,19 +55,19 @@
                   height="50px"
                 ></v-text-field>
               </v-col>
-              <v-col cols="10">
+              <v-col cols="10" class="mt-0 pt-0">
                 <!-- Register Button -->
                 <v-btn rounded dark color="light-blue" large block @click="tryRegister" :loading="loading">
                   Proceed to build your CV
                 </v-btn>
                 <p class="text-center mt-3">
-                  By registering, you confirm that you have read and agree to Jobsultant.com's Terms and Conditions of Use and Privacy Policy.<br>
-                  <br>OR
+                  By registering, you confirm that you have read and agree to Jobsultant.com's Terms and Conditions of Use and Privacy Policy.<br />
+                  <br />OR
                 </p>
                 <!-- ======================================================================= -->
               </v-col>
 
-              <v-col cols="10">
+              <v-col cols="10" class="pt-0 mt-0">
                 <v-btn rounded dark large block color="#4267B2"><v-icon left dark class="mr-5">mdi-facebook</v-icon>Sign Up With Facebook</v-btn>
               </v-col>
               <v-col cols="10" class="mb-3">
@@ -79,7 +79,7 @@
       </v-card>
     </v-row>
     <!-- ======================================================================= -->
-    <v-snackbar v-model="snackbar1" timeout="3000" color="error">Complete You Information as needed</v-snackbar>
+    <v-snackbar v-model="snackbar1"  timeout="3000" color="error">Complete You Information as needed</v-snackbar>
     <v-snackbar v-model="snackbar2" timeout="1000" color="success" outlined dark> Registered </v-snackbar>
     <!-- ======================================================================= -->
   </div>
@@ -152,7 +152,7 @@ export default {
 </script>
 <style scoped>
 .div {
-  background-color: #a8d0e6;
+  background-color: #FFF3E0;
   width: 100%;
 }
 </style>

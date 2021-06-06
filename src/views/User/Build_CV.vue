@@ -93,7 +93,7 @@
                   <v-row>
                     <v-col cols="12" class="subtitle-2">
                       <span>End date</span>
-                      <v-checkbox @click="datecondition=false" v-model="checkbox" flat label="Till Now"></v-checkbox>
+                      <!-- <v-checkbox @click="datecondition=false" v-model="checkbox" flat label="Till Now"></v-checkbox> -->
                       <v-dialog
                         ref="dialog2"
                         v-model="endmodal"

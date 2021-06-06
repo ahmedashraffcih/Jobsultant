@@ -58,7 +58,7 @@
             flat
             rounded="0"
             outlined
-            v-for="job in filteredJobs"
+            v-for="job in filteredJobs.slice((page-1)*itemsPerPage,itemsPerPage * page)"
             :key="job._id"
             @click="cardcondition=true; GetJob(job._id);">
             
@@ -79,10 +79,7 @@
               </v-list-item>
             </v-list>
           </v-card>
-
-          <div class="text-center">
-            <v-pagination class="orange darken-2" :length="3"></v-pagination>
-          </div>
+            <v-pagination v-model="page" class="orange darken-2" :length="Math.ceil(jobs.length/itemsPerPage)" color="light-blue darken-4" ></v-pagination>
         </v-card>
       </v-col>
 
@@ -217,7 +214,9 @@
                 <v-list-item-title class="title">{{user.fname}} {{user.lname}}</v-list-item-title>
                 <v-list-item-subtitle class="subtitle-2 mt-10">Last CV Refresh Date: 2020-11-03</v-list-item-subtitle>
                 <v-list-item-subtitle style="color:#FF9800" class="subtitle-2 mt-5">Preferred job title</v-list-item-subtitle>
-                <v-list-item-subtitle class="caption mt-2">{{user.cv.job_Title}}</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption mt-2" v-if="!user.cv.job_Title">-</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption mt-2" v-if="user.cv.job_Title">{{user.cv.job_Title}}</v-list-item-subtitle>
+                
               </v-list-item-content>
               <v-list-item-avatar
                 color="orange"
@@ -311,8 +310,12 @@ export default {
     
   },
   data: () => ({
+    //page
+    page: 1,
+    itemsPerPage: 4,
     //report: false
     overlay:true,
+    
     jobs:[],
     result:[],
     job:"",
@@ -326,7 +329,10 @@ export default {
     cardcondition:false,
     loading:false,
     loadingjobs:false,
-    user:{},
+    user:{
+      cv:{},
+      account:{},
+    },
     search:"",
     dialog:"",
     Valid:false,
@@ -359,7 +365,7 @@ export default {
       return this.jobs.filter((job)=>{
         return job.title.toLowerCase().match(this.search.toLowerCase());
       });
-    }
+    },
   },
   methods: {
    
@@ -370,7 +376,8 @@ export default {
         .then((r)=>{
           if(r.status==200){
             this.jobs=r.data;
-            
+            this.updateVisibleJobs();
+            console.log(user.cv.job_Title)
           }
           else{
             console.log(r);

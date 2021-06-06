@@ -76,7 +76,7 @@ export default {
 </script>
 <style scoped>
 .div {
-  background-color: #e0e0e0;
+  background-color: #FFF3E0;
   width: 100%;
 }
 </style>
