@@ -301,6 +301,7 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from "vuex";
+import { FingerprintSpinner } from 'epic-spinners'
 import ApiService from "../../services/api.service";
 export default {
   data() {
@@ -327,6 +328,7 @@ export default {
       loaded: false,
       Deleteloading: false,
       Editloading: false,
+      overlay:true,
 
       // Dialogs
       dialog: false,
@@ -335,6 +337,9 @@ export default {
       // Flags
       EditFlag: false,
     };
+  },
+  components:{
+      FingerprintSpinner
   },
   mounted() {
     this.GetJobs();
@@ -353,6 +358,7 @@ export default {
           this.Jobs = r.data;
           console.log(this.Jobs);
           (this.loaded = true), (this.loading = false);
+          this.overlay=false;
         } else {
           console.log(r);
         }
