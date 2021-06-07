@@ -8,7 +8,7 @@
             <h1 class="display-4 white--text mt-10">JobSultant</h1>
           </v-row>
           <v-row justify="center">
-            <h2 class="white--text font-weight-regular mt-5">Find Jobs, Netowrk and Learn</h2>
+            <h2 class="white--text font-weight-regular mt-5">Find Jobs, Network and Learn</h2>
           </v-row>
           <v-row justify="center" class="mt-15">
             <v-col cols="3">
@@ -32,7 +32,7 @@
             Post your job on JobSultant.com to reach the perfect candidate from the Middle East's largest database of job seekers.<br />
             Receive applicants already filtered and shortlisted to your preferences by Bayt technology..
           </h4>
-          <v-btn class="mt-7" dark outlined>Sign Up As A Company</v-btn>
+          <v-btn class="mt-7" dark outlined to="Employer/Emp_Register">Sign Up As A Company</v-btn>
         </v-col>
       </v-row>
     </v-parallax>
@@ -80,8 +80,16 @@
         </v-col>
       </v-row>
     </v-card>
-
-    
+    <v-parallax dark src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="400">
+      <v-row align="center" justify="center">
+        <v-col class="text-center" cols="12">
+          <h1 class="text-h4 font-weight-meduim mb-4">Ready to talk?</h1>
+          <h3 class="font-weight-light">Our team is here to help.</h3>
+          <v-btn class="mt-7 mr-5" dark outlined to="Employer/Emp_Register">Learn More</v-btn>
+          <v-btn class="mt-7" dark outlined to="Employer/Emp_Register">Contact Us</v-btn>
+        </v-col>
+      </v-row>
+    </v-parallax>
   </div>
 </template>
 
