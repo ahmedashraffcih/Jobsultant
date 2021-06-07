@@ -126,6 +126,7 @@ const UserService = {
             TokenService.saveUserType(response.data.type);
             // //saving user as an object in local storage
             TokenService.StoreUser(JSON.stringify(response.data))
+            location.reload();
             //saving user id
             return response.data
         } catch (error) {

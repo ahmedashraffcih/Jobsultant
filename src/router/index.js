@@ -95,7 +95,6 @@ const routes = [
     },
     meta: {
       public: true, // Allow access to even if not logged in
-      onlyWhenLoggedOut: true,
     },
   },
   {
