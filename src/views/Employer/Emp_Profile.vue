@@ -4,7 +4,12 @@
       <v-row>
         <v-col cols="3">
           <v-card class="mx-auto" elevation="0.7">
-            <v-img class="white--text align-end" height="200px" src="../../assets/imgs/CompanyLogo.png"> </v-img>
+            <v-img
+              class="white--text align-end"
+              height="200px"
+              src="../../assets/imgs/CompanyLogo.png"
+            >
+            </v-img>
 
             <v-card-actions>
               <v-btn small color="primary" text>
@@ -16,7 +21,12 @@
 
         <v-col cols="9">
           <v-card elevation="0.7">
-            <v-img class="white--text align-end" height="200px" src="../../assets/imgs/CompanyCover.jpeg"> </v-img>
+            <v-img
+              class="white--text align-end"
+              height="200px"
+              src="../../assets/imgs/CompanyCover.jpeg"
+            >
+            </v-img>
 
             <v-card-actions>
               <v-btn small color="primary" text>
@@ -35,7 +45,13 @@
               </v-col>
 
               <v-col cols="2" class="mt-4">
-                <v-btn small right color="light-blue darken-4" dark to="/Employer/Emp_Edit_Profile">
+                <v-btn
+                  small
+                  right
+                  color="light-blue darken-4"
+                  dark
+                  to="/Employer/Emp_Edit_Profile"
+                >
                   <h3>Edit</h3>
                   <v-icon small dark right>
                     mdi-pencil
@@ -46,32 +62,54 @@
             <v-list class="ml-10 mb-5">
               <v-list-item>
                 <v-list-item-title>Name : </v-list-item-title>
-                <v-list-item-subtitle>{{ employer.companyName }}</v-list-item-subtitle>
+                <v-list-item-subtitle>{{
+                  employer.companyName
+                }}</v-list-item-subtitle>
               </v-list-item>
               <v-list-item>
                 <v-list-item-title>Phone : </v-list-item-title>
-                <v-list-item-subtitle v-if="employer.companyPhone">{{ employer.companyPhone }}</v-list-item-subtitle>
-                <v-list-item-subtitle v-if="!employer.companyPhone">-</v-list-item-subtitle>
+                <v-list-item-subtitle v-if="employer.companyPhone">{{
+                  employer.companyPhone
+                }}</v-list-item-subtitle>
+                <v-list-item-subtitle v-if="!employer.companyPhone"
+                  >-</v-list-item-subtitle
+                >
               </v-list-item>
               <v-list-item>
                 <v-list-item-title>Industry : </v-list-item-title>
-                <v-list-item-subtitle v-if="employer.industry">{{ employer.industry }}</v-list-item-subtitle>
-                <v-list-item-subtitle v-if="!employer.industry">-</v-list-item-subtitle>
+                <v-list-item-subtitle v-if="employer.industry">{{
+                  employer.industry
+                }}</v-list-item-subtitle>
+                <v-list-item-subtitle v-if="!employer.industry"
+                  >-</v-list-item-subtitle
+                >
               </v-list-item>
               <v-list-item>
                 <v-list-item-title>Website : </v-list-item-title>
-                <v-list-item-subtitle v-if="employer.website">{{ employer.website }}</v-list-item-subtitle>
-                <v-list-item-subtitle v-if="!employer.website">-</v-list-item-subtitle>
+                <v-list-item-subtitle v-if="employer.website">{{
+                  employer.website
+                }}</v-list-item-subtitle>
+                <v-list-item-subtitle v-if="!employer.website"
+                  >-</v-list-item-subtitle
+                >
               </v-list-item>
               <v-list-item>
                 <v-list-item-title>Company Size : </v-list-item-title>
-                <v-list-item-subtitle v-if="employer.size">{{ employer.size }} employees</v-list-item-subtitle>
-                <v-list-item-subtitle v-if="!employer.size">-</v-list-item-subtitle>
+                <v-list-item-subtitle v-if="employer.size"
+                  >{{ employer.size }} employees</v-list-item-subtitle
+                >
+                <v-list-item-subtitle v-if="!employer.size"
+                  >-</v-list-item-subtitle
+                >
               </v-list-item>
               <v-list-item>
                 <v-list-item-title>Headquarters : </v-list-item-title>
-                <v-list-item-subtitle v-if="employer.location">{{ employer.location }} </v-list-item-subtitle>
-                <v-list-item-subtitle v-if="!employer.location">-</v-list-item-subtitle>
+                <v-list-item-subtitle v-if="employer.location"
+                  >{{ employer.location }}
+                </v-list-item-subtitle>
+                <v-list-item-subtitle v-if="!employer.location"
+                  >-</v-list-item-subtitle
+                >
               </v-list-item>
             </v-list>
           </v-card>
@@ -79,8 +117,16 @@
 
         <v-col cols="4" class="pr-6">
           <v-row>
-            <v-card outlined elevation="0.7" height="140px" class="mb-5" width="1000px">
-              <v-card-title class="ml-3 text-h5">Share with friends:</v-card-title>
+            <v-card
+              outlined
+              elevation="0.7"
+              height="140px"
+              class="mb-5"
+              width="1000px"
+            >
+              <v-card-title class="ml-3 text-h5"
+                >Share with friends:</v-card-title
+              >
               <v-card-actions>
                 <template>
                   <ShareNetwork
@@ -107,19 +153,33 @@
             <v-card outlined elevation="0.7" width="800px" height="262px">
               <v-col>
                 <v-row>
-                  <v-card-title class="ml-4 text-h5">Contact Information:</v-card-title>
+                  <v-card-title class="ml-4 text-h5"
+                    >Contact Information:</v-card-title
+                  >
                   <v-row justify="end" class="mr-10">
-                    <v-dialog transition="dialog-bottom-transition" max-width="1000" v-model="Personal_Dialog">
+                    <v-dialog
+                      transition="dialog-bottom-transition"
+                      max-width="1000"
+                      v-model="Personal_Dialog"
+                    >
                       <template v-slot:activator="{ on, attrs }">
-                        <v-icon color="#FF9800" v-bind="attrs" v-on="on">mdi-pencil</v-icon>
+                        <v-icon color="#FF9800" v-bind="attrs" v-on="on"
+                          >mdi-pencil</v-icon
+                        >
                       </template>
 
                       <template v-slot:default="Personal_Dialog">
                         <v-card>
                           <v-toolbar color="#24305E" dark>
-                            <v-toolbar-title class="ml-5">Edit Personal Information</v-toolbar-title>
+                            <v-toolbar-title class="ml-5"
+                              >Edit Personal Information</v-toolbar-title
+                            >
                             <v-spacer></v-spacer>
-                            <v-icon class="mr-2" @click="Personal_Dialog.value = false">mdi-close</v-icon>
+                            <v-icon
+                              class="mr-2"
+                              @click="Personal_Dialog.value = false"
+                              >mdi-close</v-icon
+                            >
                           </v-toolbar>
 
                           <v-card-text>
@@ -129,37 +189,67 @@
                               <!-- /////////////////////////////////////////////////////////// -->
                               <v-row justify="center">
                                 <v-col cols="2">
-                                  <p class=" mt-2 text-subtitle-1 font-weight-regular">
+                                  <p
+                                    class=" mt-2 text-subtitle-1 font-weight-regular"
+                                  >
                                     Full name
                                   </p>
                                 </v-col>
                                 <!-- FirstName -->
                                 <v-col cols="5">
-                                  <v-text-field dense outlined label="First Name" v-model="employer.fname" :rules="nameRules" required clearable>
+                                  <v-text-field
+                                    dense
+                                    outlined
+                                    label="First Name"
+                                    v-model="employer.fname"
+                                    :rules="nameRules"
+                                    required
+                                    clearable
+                                  >
                                   </v-text-field>
                                 </v-col>
                                 <!-- Last Name -->
                                 <v-col cols="5">
-                                  <v-text-field dense outlined label="Last Name" v-model="employer.lname" :rules="nameRules" required clearable>
+                                  <v-text-field
+                                    dense
+                                    outlined
+                                    label="Last Name"
+                                    v-model="employer.lname"
+                                    :rules="nameRules"
+                                    required
+                                    clearable
+                                  >
                                   </v-text-field>
                                 </v-col>
                               </v-row>
 
                               <v-row justify="center">
                                 <v-col cols="2">
-                                  <p class=" mt-2 text-subtitle-1 font-weight-regular">
+                                  <p
+                                    class=" mt-2 text-subtitle-1 font-weight-regular"
+                                  >
                                     Title
                                   </p>
                                 </v-col>
                                 <!-- Title -->
                                 <v-col cols="10">
-                                  <v-text-field dense outlined label="Title" v-model="employer.title" required clearable> </v-text-field>
+                                  <v-text-field
+                                    dense
+                                    outlined
+                                    label="Title"
+                                    v-model="employer.title"
+                                    required
+                                    clearable
+                                  >
+                                  </v-text-field>
                                 </v-col>
                               </v-row>
 
                               <v-row justify="center">
                                 <v-col cols="2">
-                                  <p class=" mt-2 text-subtitle-1 font-weight-regular">
+                                  <p
+                                    class=" mt-2 text-subtitle-1 font-weight-regular"
+                                  >
                                     Phone
                                   </p>
                                 </v-col>
@@ -178,7 +268,13 @@
                             </v-form>
 
                             <v-row class="justify-end mr-1">
-                              <v-btn class="white--text" width="150px" color="#24305E" @click="editContactInfo()" :loading="loading">
+                              <v-btn
+                                class="white--text"
+                                width="150px"
+                                color="#24305E"
+                                @click="editContactInfo()"
+                                :loading="loading"
+                              >
                                 Apply
                               </v-btn>
                             </v-row>
@@ -192,17 +288,28 @@
                   <v-list class="ml-6" height="72px" width="500px">
                     <v-list-item>
                       <v-list-item-title>Name : </v-list-item-title>
-                      <v-list-item-subtitle>{{ employer.fname }} {{ employer.lname }}</v-list-item-subtitle>
+                      <v-list-item-subtitle
+                        >{{ employer.fname }}
+                        {{ employer.lname }}</v-list-item-subtitle
+                      >
                     </v-list-item>
                     <v-list-item>
                       <v-list-item-title>Title : </v-list-item-title>
-                      <v-list-item-subtitle v-if="employer.title">{{ employer.title }}</v-list-item-subtitle>
-                      <v-list-item-subtitle v-if="!employer.title">-</v-list-item-subtitle>
+                      <v-list-item-subtitle v-if="employer.title">{{
+                        employer.title
+                      }}</v-list-item-subtitle>
+                      <v-list-item-subtitle v-if="!employer.title"
+                        >-</v-list-item-subtitle
+                      >
                     </v-list-item>
                     <v-list-item>
                       <v-list-item-title>Phone : </v-list-item-title>
-                      <v-list-item-subtitle v-if="employer.phone">{{ employer.phone }}</v-list-item-subtitle>
-                      <v-list-item-subtitle v-if="!employer.phone">-</v-list-item-subtitle>
+                      <v-list-item-subtitle v-if="employer.phone">{{
+                        employer.phone
+                      }}</v-list-item-subtitle>
+                      <v-list-item-subtitle v-if="!employer.phone"
+                        >-</v-list-item-subtitle
+                      >
                     </v-list-item>
                   </v-list>
                 </v-row>
@@ -215,8 +322,16 @@
       <v-row>
         <v-col cols="12">
           <v-card outlined>
-            <v-card-title class="text-h4 ml-10">Open Vacancies at {{ employer.companyName }}!</v-card-title>
-            <v-btn class="ml-14 mb-8" small color="light-blue darken-4" dark to="/Employer/Emp_Manage_Jobs">
+            <v-card-title class="text-h4 ml-10"
+              >Open Vacancies at {{ employer.companyName }}!</v-card-title
+            >
+            <v-btn
+              class="ml-14 mb-8"
+              small
+              color="light-blue darken-4"
+              dark
+              to="/Employer/Emp_Manage_Jobs"
+            >
               <h3>Manage Jobs</h3>
               <v-icon small dark right>
                 mdi-card-account-details
@@ -233,24 +348,39 @@
               <!-- ///////////////// Overview Card Starts Here ///////////////// -->
               <v-card-title class="text-h4 ml-10">Overview:</v-card-title>
               <v-row justify="end" class="mr-14">
-                <v-dialog transition="dialog-bottom-transition" max-width="1000" v-model="Overview_Dialog">
+                <v-dialog
+                  transition="dialog-bottom-transition"
+                  max-width="1000"
+                  persistent
+                  v-model="Overview_Dialog"
+                >
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="#FF9800" v-bind="attrs" v-on="on">mdi-pencil</v-icon>
+                    <v-icon color="#FF9800" v-bind="attrs" v-on="on"
+                      >mdi-pencil</v-icon
+                    >
                   </template>
 
                   <template v-slot:default="Overview_Dialog">
                     <v-card>
                       <v-toolbar color="#24305E" dark>
-                        <v-toolbar-title class="ml-5">Edit Company Overview</v-toolbar-title>
+                        <v-toolbar-title class="ml-5"
+                          >Edit Company Overview</v-toolbar-title
+                        >
                         <v-spacer></v-spacer>
-                        <v-icon class="mr-2" @click="Overview_Dialog.value = false">mdi-close</v-icon>
+                        <v-icon
+                          class="mr-2"
+                          @click="Overview_Dialog.value = false"
+                          >mdi-close</v-icon
+                        >
                       </v-toolbar>
 
                       <v-card-text>
                         <v-form v-model="Valid3" class="mt-5">
                           <v-row justify="center">
                             <v-col cols="3">
-                              <p class=" mt-3 text-subtitle-1 font-weight-regular">
+                              <p
+                                class=" mt-3 text-subtitle-1 font-weight-regular"
+                              >
                                 Company Overview
                               </p>
                             </v-col>
@@ -274,7 +404,13 @@
                         </v-form>
 
                         <v-row class="justify-end mr-1">
-                          <v-btn class="white--text" width="150px" color="#24305E" @click="editOverview()" :loading="loading2">
+                          <v-btn
+                            class="white--text"
+                            width="150px"
+                            color="#24305E"
+                            @click="editOverview()"
+                            :loading="loading2"
+                          >
                             Apply
                           </v-btn>
                         </v-row>
@@ -283,7 +419,7 @@
                   </template>
                 </v-dialog>
               </v-row>
-              <v-card-text class="text-subtitle-1">
+              <v-card-text class=" ml-10 text-subtitle-1">
                 <p>{{ employer.overView }}</p>
               </v-card-text>
             </v-row>
@@ -294,10 +430,22 @@
     <v-snackbar v-model="snackbar" timeout="2000" color="success" outlined dark>
       Your changes have been successfully saved
     </v-snackbar>
-    <v-snackbar v-model="OverviewSuccess" timeout="2000" color="success" outlined dark>
+    <v-snackbar
+      v-model="OverviewSuccess"
+      timeout="2000"
+      color="success"
+      outlined
+      dark
+    >
       Overview successfully edited
     </v-snackbar>
-    <v-snackbar v-model="OverviewError" timeout="2000" color="error" outlined dark>
+    <v-snackbar
+      v-model="OverviewError"
+      timeout="2000"
+      color="error"
+      outlined
+      dark
+    >
       Overview can not be empty or less than 150 characters
     </v-snackbar>
     <v-overlay :value="overlay" opacity="0.9">
@@ -410,17 +558,16 @@ export default {
 
     editOverview() {
       this.loading2 = true;
+      if(this.employer.overView != "" && this.employer.overView.length >= 150){
       ApiService.put(`http://localhost:3000/EditInfo/${this.user_id}`, this.employer)
         .then((r) => {
           console.log(r);
-          if (r.status == 204 && this.employer.overView != "" && this.employer.overView.length >= 150) {
+          if (r.status == 204) {
             this.getUser();
             this.loading2 = false;
             (this.Overview_Dialog = false), (this.OverviewSuccess = true);
             console.log(r);
           } else {
-            this.loading2 = false;
-            this.OverviewError = true;
             console.log(r);
             console.log(this.user);
           }
@@ -428,6 +575,12 @@ export default {
         .catch((error) => {
           this.loading2 = false;
         });
+      }
+      else{
+        this.loading2 = false;
+        this.OverviewError = true;
+
+      }
     },
   },
 };
