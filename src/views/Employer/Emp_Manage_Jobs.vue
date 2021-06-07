@@ -292,6 +292,9 @@
           </v-tab-item>
         </v-tabs-items>
       </div>
+      <v-overlay :value="overlay" opacity="0.9">
+        <fingerprint-spinner class="justify-center" :animation-duration="1500" :size="120" color="#FF9800" />
+      </v-overlay>
     </v-col>
   </v-row>
 </template>

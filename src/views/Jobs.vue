@@ -58,7 +58,7 @@
             flat
             rounded="0"
             outlined
-            v-for="job in filteredJobs"
+            v-for="job in filteredJobs.slice((page-1)*itemsPerPage,itemsPerPage * page)"
             :key="job._id"
             @click="cardcondition=true; GetJob(job._id);">
             
@@ -67,9 +67,9 @@
                 <v-list-item-content>
                   <v-list-item-title class="title">{{job.title}}</v-list-item-title>
                   <v-list-item-subtitle style="color:#FF9800" class="subtitle-1">{{job.company}}</v-list-item-subtitle>
-                  <v-list-item-subtitle class="subtitle-2 mt-5">{{job.career_level}}</v-list-item-subtitle>
-                  <v-list-item-subtitle class="caption mt-5">{{job.description}}</v-list-item-subtitle>
-                  <v-list-item-subtitle class="caption mt-5">1/1/2020</v-list-item-subtitle>
+                  <v-list-item-subtitle class="subtitle-2 mt-5" >{{job.career_Level}} Level</v-list-item-subtitle>
+                  <v-list-item-subtitle class="caption mt-2">{{job.description}}</v-list-item-subtitle>
+                  <v-list-item-subtitle class="caption mt-2">1/1/2020</v-list-item-subtitle>
                 </v-list-item-content>
                 <v-list-item-avatar
                   tile
@@ -79,10 +79,7 @@
               </v-list-item>
             </v-list>
           </v-card>
-
-          <div class="text-center">
-            <v-pagination class="orange darken-2" :length="3"></v-pagination>
-          </div>
+            <v-pagination v-model="page" class="orange darken-2" :length="Math.ceil(jobs.length/itemsPerPage)" color="light-blue darken-4" ></v-pagination>
         </v-card>
       </v-col>
 
@@ -104,7 +101,7 @@
             <v-list-item three-line>
               <v-list-item-content>
                 <v-list-item-title class="title">{{oneJob.title}}</v-list-item-title>
-                <v-list-item-subtitle class="subtitle-1">{{oneJob.company}}</v-list-item-subtitle>
+                <v-list-item-subtitle style="color:#FF9800" class="subtitle-1">{{oneJob.company}}</v-list-item-subtitle>
                 <v-list-item-subtitle class="subtitle-2 mt-5">{{oneJob.career_level}}</v-list-item-subtitle>
                 <v-list-item-subtitle class="caption mt-5">{{oneJob.description}}</v-list-item-subtitle>
                 <v-list-item-subtitle class="caption mt-5">1/1/2020</v-list-item-subtitle>
@@ -129,7 +126,7 @@
             <template v-slot:default="dialog">
               <v-card>
                 <v-toolbar
-                  color="#24305E"
+                  color="light-blue darken-4"
                   dark>
                   <v-toolbar-title class="ml-5">Apply to {{oneJob.company}}</v-toolbar-title>
                   <v-spacer></v-spacer>
@@ -181,7 +178,7 @@
                     <v-btn
                       class="white--text"
                       width="150px"
-                      color="#24305E"
+                      color="light-blue darken-4"
                       :disabled="!Valid"
                       @click="ApplyJob()":loading="loading">
                       Apply
@@ -202,6 +199,8 @@
           </ul>
           
           <v-card-title class="title">Job Details</v-card-title>
+          <v-card-text>{{oneJob.job_Details}}</v-card-text>
+          <v-progress-linear value="100" height="15" color="orange darken-2"></v-progress-linear>
         </v-card>
       </v-col>
 
@@ -215,7 +214,9 @@
                 <v-list-item-title class="title">{{user.fname}} {{user.lname}}</v-list-item-title>
                 <v-list-item-subtitle class="subtitle-2 mt-10">Last CV Refresh Date: 2020-11-03</v-list-item-subtitle>
                 <v-list-item-subtitle style="color:#FF9800" class="subtitle-2 mt-5">Preferred job title</v-list-item-subtitle>
-                <v-list-item-subtitle class="caption mt-2">Data Engineer</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption mt-2" v-if="!user.cv.job_Title">-</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption mt-2" v-if="user.cv.job_Title">{{user.cv.job_Title}}</v-list-item-subtitle>
+                
               </v-list-item-content>
               <v-list-item-avatar
                 color="orange"
@@ -309,8 +310,12 @@ export default {
     
   },
   data: () => ({
+    //page
+    page: 1,
+    itemsPerPage: 4,
     //report: false
     overlay:true,
+    
     jobs:[],
     result:[],
     job:"",
@@ -324,7 +329,10 @@ export default {
     cardcondition:false,
     loading:false,
     loadingjobs:false,
-    user:{},
+    user:{
+      cv:{},
+      account:{},
+    },
     search:"",
     dialog:"",
     Valid:false,
@@ -357,7 +365,7 @@ export default {
       return this.jobs.filter((job)=>{
         return job.title.toLowerCase().match(this.search.toLowerCase());
       });
-    }
+    },
   },
   methods: {
    
@@ -368,7 +376,8 @@ export default {
         .then((r)=>{
           if(r.status==200){
             this.jobs=r.data;
-            
+            this.updateVisibleJobs();
+            console.log(user.cv.job_Title)
           }
           else{
             console.log(r);
@@ -380,8 +389,10 @@ export default {
     GetJob(id)
     {
       this.loading=true
-       ApiService.get(`http://localhost:3000/jobs/list/${id}`)
+      
+       ApiService.get(`http://localhost:3000/jobs/listjob/${id}`)
         .then((r)=>{
+          console.log(r)
           if(r.status==200){
             this.oneJob=r.data;
             console.log(this.oneJob);
