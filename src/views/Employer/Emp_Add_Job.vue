@@ -9,43 +9,17 @@
         <v-form class="form-header rounded-lg">
           <v-card-title>Job Details</v-card-title>
           <v-row justify="center" class="pl-7 pr-7">
-            <v-text-field
-              v-model="jobTitle"
-              :rules="TitleRules"
-              label="Job Title"
-              required
-              outlined
-              dense
-              max-width="100px"
-            ></v-text-field>
+            <v-text-field v-model="Job.title" :rules="TitleRules" label="Job Title" required outlined dense max-width="100px"></v-text-field>
           </v-row>
           <v-row justify="center" class="pl-7 pr-7">
-            <v-select
-              v-model="jobType"
-              :items="types"
-              :error-messages="selectErrors"
-              label="Job Type"
-              class="MarginField"
-              required
-              outlined
-              dense
-            ></v-select>
+            <v-select v-model="Job.type" :items="types" label="Job Type" class="MarginField" required outlined dense></v-select>
           </v-row>
           <v-row justify="center" class="pl-7 pr-7">
-            <v-select
-              v-model="careerLevel"
-              :items="levels"
-              :error-messages="selectErrors"
-              label="Career Level"
-              class="MarginField"
-              required
-              outlined
-              dense
-            ></v-select>
+            <v-select v-model="Job.career_Level" :items="levels" label="Career Level" class="MarginField" required outlined dense></v-select>
           </v-row>
           <v-row justify="center" class="pl-7 pr-7">
             <v-combobox
-              v-model="skillsBox"
+              v-model="Job.skills"
               :items="skills"
               :search-input.sync="search"
               :rules="skillsRulles"
@@ -70,76 +44,99 @@
             </v-combobox>
           </v-row>
           <v-row justify="center" class="pl-7 pr-7 mt-4">
-            <v-textarea
-              v-model="description"
-              label="Job Description"
-              auto-grow
-              rows="2"
-              :rules="fieldRules"
-              :counter="650"
-              outlined
-              dense
-            >
+            <v-textarea v-model="Job.description" label="Job Description" auto-grow rows="2" :rules="fieldRules" :counter="650" outlined dense>
             </v-textarea>
           </v-row>
-          <v-row justify="center" class="pl-7 pr-7 mt-4">
-            <v-textarea
-            v-model="details"
-            label="Job Details"
-            auto-grow
-            rows="2"
-            :rules="fieldRules"
-            :counter="650"
-            outlined
-            dense
-          >
-          </v-textarea>
-          </v-row>
           <v-row class="mt-4 mb-4">
-            <v-btn class="ml-7" dark color="light-blue darken-4" @click="submit"> Post Job</v-btn>
+            <v-btn class="ml-7" dark color="light-blue darken-4" :loading="loading1" @click="PostJob()"> Post Job</v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="orange darken-2" dark class="mr-7" @click="clear"> clear </v-btn>
+            <v-btn color="orange darken-2" dark class="mr-7" :loading="loading2" @click="clear"> clear </v-btn>
           </v-row>
         </v-form>
       </v-card>
+      <v-alert v-model="alert1" dense transition="scale-transition" dismissible type="success">
+        Your job posted successfully!
+      </v-alert>
+      <v-alert v-model="alert2" dense transition="scale-transition" dismissible type="warning">
+        Please complete required fields!
+      </v-alert>
     </v-col>
   </v-row>
 </template>
 
 <script>
 //Vue.component('vue-phone-number-input', VuePhoneNumberInput);
+
+import ApiService from "../../services/api.service";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 export default {
+  computed: {
+    //Get states from store
+    ...mapGetters("auth", ["userdata"]),
+    ...mapGetters("auth", ["user_id"]),
+    // ...mapActions(['DISPLAY_SEARCH'])
+  },
   data() {
     return {
-      types: ["Full-Time", "Part-Time", "Internship", "Freelance Project"],
-      levels: [
-        "Manager",
-        "Senior-level",
-        "Junior-level",
-        "Entry-level",
-        "Student",
-      ],
+      types: ["Full-Time", "Part-Time", "Internship", "Freelance"],
+      levels: ["Senior", "Junior", "Entry level"],
       skills: ["Gaming", "Programming", "Vue", "Vuetify"],
-      skillsBox: ["Programming"],
       search: null,
+      // Rules
       skillsRulles: [(v) => v.length >= 3 || "Minimum of 3 skills"],
       fieldRules: [(v) => !!v || "Field is required"],
-      TitleRules: [
-        (v) => !!v || "Field is required",
-        (v) => (!!v && isNaN(v)) || "Can't include numbers",
-      ],
+      TitleRules: [(v) => !!v || "Field is required", (v) => (!!v && isNaN(v)) || "Can't include numbers"],
+
+      // Job Data
+      Job: {
+        title: "",
+        career_Level: "",
+        type: "",
+        description: "",
+        skills: [],
+      },
+
+      // Loaders
+      loading1: false,
+      loading2: false,
+      alert1: false,
+      alert2: false,
     };
   },
   methods: {
-    submit() {
-      this.$v.$touch();
+    PostJob() {
+      this.loading1 = true;
+      if (this.Job.title != "" && this.Job.description != "") {
+        ApiService.post(`http://localhost:3000/jobs/AddJob/${this.user_id}`, this.Job)
+          .then((r) => {
+            console.log(this.user_id);
+            console.log(this.Job);
+            console.log(r);
+            if (r.status == 204) {
+              console.log(r);
+              this.loading1 = false;
+              this.alert1 = true;
+              this.alert2 = false;
+            } else {
+              console.log(r);
+              console.log(this.user);
+              this.loading1 = false;
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        this.alert2 = true;
+        this.loading1 = false;
+      }
     },
+
     clear() {
-      this.jobTitle = null;
-      this.careerLevel = null;
-      this.skillsBox = null;
-      this.description = null;
-      this.details = null;
+      this.Job.title = null;
+      this.Job.career_Level = null;
+      this.Job.skills = null;
+      this.Job.description = null;
     },
   },
 };
