@@ -2,6 +2,13 @@
   "name": "jobsultant",
   "version": "0.1.0",
   "private": true,
+  "author": "Ahmed Ashraf, Abdelrahman Mostafa, Omar Nouh, Seif Hany, Khaled Mosbah, Ahmed Tamer",
+  "homepage": "https://github.com/ahmedashraffcih/Jobsultant/blob/master/src/views/Home.vue",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmedashraffcih/Jobsultant"
+  },
+  "license": "Helwan University",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
