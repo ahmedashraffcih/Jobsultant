@@ -144,9 +144,7 @@ export default {
   components: {
     Dropdown,
   },
-  mounted() {
-    this.getUser();
-  },
+  
   data: () => ({
     group: null,
     messages: 1,

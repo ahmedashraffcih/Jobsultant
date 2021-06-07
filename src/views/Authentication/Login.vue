@@ -61,9 +61,16 @@
         </v-card-text>
       </v-card>
     </v-row>
-    <v-snackbar v-model="snackbar1" timeout = "3000" color="error" outlined dark> Fill Required Fields</v-snackbar>
-    <v-snackbar v-model="snackbar2" timeout = "5000" color="error" outlined dark> Wrong Email or Password </v-snackbar>
-    <v-snackbar v-model="snackbar3" timeout = "1000" color="success" outlined dark> Logging </v-snackbar>
+    <v-snackbar v-model="snackbar1" timeout = "3000" color="warning" dark><v-icon class="mr-2">mdi-alert-outline</v-icon> Fill Required Fields</v-snackbar>
+    <v-snackbar v-model="snackbar2" timeout = "5000" color="error" dark><v-icon class="mr-2">mdi-alert-octagon-outline</v-icon> Wrong Email or Password </v-snackbar>
+    <v-snackbar v-model="snackbar3" timeout = "1000" color="success" dark><v-icon class="mr-2">mdi-checkbox-marked-circle</v-icon> Logging </v-snackbar>
+  <!-- <v-row justify="center">
+      <v-col cols="2">
+    <v-alert v-model="snackbar1" type="warning" dismissible transition="scale-transition"> Fill Required Fields</v-alert>
+    <v-alert v-model="snackbar2" type="error" dismissible transition="scale-transition"> Wrong Email or Password </v-alert>
+    <v-alert v-model="snackbar3" type="success" dismissible transition="scale-transition"> Logging </v-alert>
+  </v-col>
+  </v-row> -->
   </div>
 </template>
 
