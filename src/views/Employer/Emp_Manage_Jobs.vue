@@ -307,6 +307,7 @@ export default {
       loaded: false,
       Deleteloading: false,
       Editloading: false,
+      overlay:true,
 
       // Dialogs
       dialog: false,
@@ -315,6 +316,9 @@ export default {
       // Flags
       EditFlag: false,
     };
+  },
+  components:{
+      FingerprintSpinner
   },
   mounted() {
     this.GetJobs();
@@ -335,6 +339,7 @@ export default {
           console.log(this.Jobs);
           this.overlay = false;
           (this.loaded = true), (this.loading = false);
+          this.overlay=false;
         } else {
           console.log(r);
         }
