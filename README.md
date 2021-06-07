@@ -10,16 +10,13 @@
   <a href="https://github.com/ahmedashraffcih/Jobsultant/blob/master/LICENSE" target="_blank">
     <img alt="License: Helwan University" src="https://img.shields.io/github/license/ahmedashraffcih/Jobsultant" />
   </a>
-  <a href="https://twitter.com/AhmedA\_Mahmoud" target="_blank">
-    <img alt="Twitter: AhmedA\_Mahmoud" src="https://img.shields.io/twitter/follow/AhmedA\_Mahmoud.svg?style=social" />
-  </a>
 </p>
 
 > Jobsultant is connecting job seekers with employers looking to hire. Every day, thousands of new job vacancies are listed on the award-winning platform from the region's top employers.
 
 ### 🏠 [Homepage](https://github.com/ahmedashraffcih/Jobsultant/blob/master/src/views/Home.vue)
 
-### Project setup
+### 🔌 Project setup
 
 ## Install
 ```sh
@@ -81,6 +78,3 @@ Give a ⭐️ if this project helped you!
 
 Copyright © 2021 [Ahmed Ashraf, Abdelrahman Mostafa, Omar Nouh, Seif Hany, Khaled Mosbah, Ahmed Tamer](https://github.com/ahmedashraffcih).<br />
 This project is [Helwan University](https://github.com/ahmedashraffcih/Jobsultant/blob/master/LICENSE) licensed.
-
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
