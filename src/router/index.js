@@ -27,11 +27,17 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    meta: {
+      public: true, // Allow access to even if not logged in
+    },
   },
   {
     path: "/blogs",
     name: "Blogs",
     component: Blogs,
+    meta: {
+      public: true, // Allow access to even if not logged in
+    },
   },
   {
     path: "/jobs",
@@ -41,7 +47,7 @@ const routes = [
   {
     path: "/Authentication/Login",
     name: "Login",
-    component: function() {
+    component: function () {
       return import("../views/Authentication/Login.vue");
     },
     meta: {
@@ -52,7 +58,7 @@ const routes = [
   {
     path: "/Authentication/Register",
     name: "Register",
-    component: function() {
+    component: function () {
       return import('../views/Authentication/Register.vue')
 
     },
@@ -84,7 +90,13 @@ const routes = [
   {
     path: "/Employer/Emp_Register",
     name: "Emp_Register",
-    component: Emp_Register
+    component: function () {
+      return import("../views/Employer/Emp_Register.vue");
+    },
+    meta: {
+      public: true, // Allow access to even if not logged in
+      onlyWhenLoggedOut: true,
+    },
   },
   {
     path: "/Employer/Emp_Profile",
@@ -124,32 +136,35 @@ const router = new VueRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//   const isPublic = to.matched.some(record => record.meta.public)
-//   const onlyWhenLoggedOut = to.matched.some(record => record.meta.onlyWhenLoggedOut)
-//   const loggedIn = !!TokenService.getToken();
+router.beforeEach((to, from, next) => {
+  const isPublic = to.matched.some(record => record.meta.public)
+  const onlyWhenLoggedOut = to.matched.some(record => record.meta.onlyWhenLoggedOut)
+  const loggedIn = !!TokenService.getToken();
 
-//   if (!isPublic && !loggedIn) {
-//     if(to.fullPath == "/Authentication/Register"){
-//       return next({
-//         path:'/Authentication/Register'
-//       });
-//     }else{
-//       return next({
-//         path:'/Authentication/login',
-//         query: {redirect: to.fullPath}  // Store the full path to redirect the user to after login
-//       });
-//     }
-//     //console.log(to.fullPath)
-    
-//   }
+  if (!isPublic && !loggedIn) {
+    if (to.fullPath == "/Authentication/Register") 
+    {
+      return next({
+        path: '/Authentication/Register'
+      });
+    } 
+    else 
+    {
+      return next({
+        path: '/Authentication/login',
+        query: { redirect: to.fullPath }  // Store the full path to redirect the user to after login
+      });
+    }
+    //console.log(to.fullPath)
 
-//   // Do not allow user to visit login page or register page if they are logged in
-//   if (loggedIn && onlyWhenLoggedOut) {
-//     return next('/')
-//   }
+  }
 
-//   next();
-// })
+  // Do not allow user to visit login page or register page if they are logged in
+  if (loggedIn && onlyWhenLoggedOut) {
+    return next('/')
+  }
+
+  next();
+})
 
 export default router;

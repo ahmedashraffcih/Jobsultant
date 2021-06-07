@@ -2,7 +2,8 @@
   <div class="div">
     <v-row justify="center">
       <v-col cols="4">
-        <h1>Welcome to Jobsultant.com, {{userdata.firstName}}!</h1>
+        <h1 v-if="userdata.firstName">Welcome to Jobsultant.com, {{userdata.firstName}}!</h1>
+        <h1 v-if="!userdata.firstName">Welcome to Jobsultant.com,!</h1>
         <p class="light-blue--text text--darken-4">Let's go ahead and build your CV. It will only take 3 minutes.</p>
         <v-stepper v-model="e6" vertical >
           <v-stepper-step :complete="e6 > 1" step="1" color="orange darken-2">
@@ -155,7 +156,7 @@
             </v-form>
             
             <v-col cols="12" class="ma-0 pa-0 mb-5 ml-2">
-              <v-btn :disabled="!Valid2" dark color="orange darken-2" @click="e6 = 2">
+              <v-btn class="white--text" :disabled="!Valid2" color="orange darken-2" @click="e6 = 2">
                 Continue
               </v-btn>
             </v-col>
@@ -240,7 +241,7 @@
               </v-list-item>
             </v-list>
             </v-form>
-            <v-btn :disabled="!Valid2" dark color="orange darken-2" @click="e6 = 3"> Continue </v-btn>
+            <v-btn :disabled="!Valid2" class='white--text' color="orange darken-2" @click="e6 = 3"> Continue </v-btn>
             <v-btn text @click="e6 = 1"> Back </v-btn>
           </v-stepper-content>
 
@@ -338,7 +339,7 @@
               </v-list-item>
             </v-list>
             </v-form>
-            <v-btn :disabled="!Valid3" dark color="orange darken-2" @click="e6 = 4"> Continue </v-btn>
+            <v-btn :disabled="!Valid3" class="white--text" color="orange darken-2" @click="e6 = 4"> Continue </v-btn>
             <v-btn text @click="e6 = 2"> Back </v-btn>
           </v-stepper-content>
 
@@ -437,7 +438,7 @@
               </v-list-item>
             </v-list>
             </v-form>
-            <v-btn :disabled="!Valid4" @click="CreateCV()" dark color="orange darken-2":loading="loading"> Continue </v-btn>
+            <v-btn :disabled="!Valid4" @click="CreateCV()" class="white--text" color="orange darken-2":loading="loading"> Continue </v-btn>
             <v-btn text @click="e6 = 3"> Back </v-btn>
           </v-stepper-content>
         </v-stepper>
@@ -451,6 +452,7 @@
 <script>
 import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+import { TokenService } from '../../services/storage.service'
 import ApiService from "../../services/api.service";
 import { mapGetters, mapActions, mapMutations } from "vuex";
 export default {
@@ -526,14 +528,15 @@ export default {
       this.loading = true
       if (this.Valid && this.Valid2 && this.Valid3 && this.Valid4) 
       {
-        Service.post(`http://localhost:3000/users/MyCV/${this.user_id}`,this.cv)
+        ApiService.post(`http://localhost:3000/users/MyCV/${this.user_id}`,this.cv)
         .then((r)=>{
           if(r.status==204)
           {
             this.loading = false;
             //this.dialog = false;
             this.snackbar1=true;
-            router.push(router.history.current.query.redirect || '/');
+            TokenService.saveCVstat(true);
+            this.$router.push('/User/My_CV');
             console.log(r)
           }
           else
@@ -556,8 +559,8 @@ export default {
       {
         this.Validx= true;
         console.log(payload);
-        this.AppliedJob.applicantPhone=payload.formattedNumber;
-        console.log(this.AppliedJob.applicantPhone);
+        this.cv.mobile_Phone=payload.formattedNumber;
+        console.log(this.cv.mobile_Phone);
         // this.hasLoaderActive=false;
         // this.hasErrorActive= false;
       }
@@ -574,7 +577,7 @@ export default {
 </script>
 <style scoped>
 .div {
-  background-color: #e0e0e0;
+  background-color: #FFF3E0;
   width: 100%;
 }
 </style>

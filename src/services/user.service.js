@@ -86,6 +86,7 @@ const UserService = {
             we returns the response data to save the user's info by the store's login function*/
             TokenService.saveToken(response.data.token);
             TokenService.saveUserId(response.data.payload.id); 
+            TokenService.saveCVstat(false);
             //Store user type for conditional rendering
             TokenService.saveUserType(response.data.type);
             //saving user as an object in local storage

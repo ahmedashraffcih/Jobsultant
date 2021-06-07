@@ -40,7 +40,8 @@
                 <v-list-item color="rgba(0, 0, 0, .4)" dark>
                   <v-list-item-content>
                     <v-list-item-title class="title">{{ user.fname }} {{ user.lname }}</v-list-item-title>
-                    <v-list-item-subtitle>{{ user.cv.job_Title }}</v-list-item-subtitle>
+                    <v-list-item-subtitle v-if="user.cv.job_Title">{{ user.cv.job_Title }}</v-list-item-subtitle>
+                    <v-list-item-subtitle v-if="!user.cv.job_Title">-</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
               </v-col>
