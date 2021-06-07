@@ -12,7 +12,7 @@
           </v-row>
           <v-row justify="center" class="mt-15">
             <v-col cols="3">
-              <v-text-field outlined color="white" label="Enter job title,skills,etc." dark filled rounded-4 autofocus> </v-text-field>
+              <v-text-field outlined color="white" label="Enter job title,skills,etc." dark filled rounded-4 autofocus > </v-text-field>
             </v-col>
             <v-col cols="1">
               <v-btn large height="55" dark color="orange darken-2">Search Jobs</v-btn>
@@ -85,7 +85,7 @@
         <v-col class="text-center" cols="12">
           <h1 class="text-h4 font-weight-meduim mb-4">Ready to talk?</h1>
           <h3 class="font-weight-light">Our team is here to help.</h3>
-          <v-btn class="mt-7 mr-5" dark outlined to="Employer/Emp_Register">Learn More</v-btn>
+          <v-btn class="mt-7 mr-5" dark outlined>Learn More</v-btn>
           <v-btn class="mt-7" dark outlined to="Employer/Emp_Register">Contact Us</v-btn>
         </v-col>
       </v-row>

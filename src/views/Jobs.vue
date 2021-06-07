@@ -214,8 +214,8 @@
                 <v-list-item-title class="title">{{user.fname}} {{user.lname}}</v-list-item-title>
                 <v-list-item-subtitle class="subtitle-2 mt-10">Last CV Refresh Date: 2020-11-03</v-list-item-subtitle>
                 <v-list-item-subtitle style="color:#FF9800" class="subtitle-2 mt-5">Preferred job title</v-list-item-subtitle>
-                <v-list-item-subtitle class="caption mt-2" v-if="!user.cv.job_Title">-</v-list-item-subtitle>
-                <v-list-item-subtitle class="caption mt-2" v-if="user.cv.job_Title">{{user.cv.job_Title}}</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption mt-2" v-if="!user.cv">-</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption mt-2" v-if="user.cv">{{user.cv.job_Title}}</v-list-item-subtitle>
                 
               </v-list-item-content>
               <v-list-item-avatar
@@ -299,14 +299,14 @@ export default {
       if(r.status==200){
         this.jobs= r.data;
         this.loadingjobs=false;
-        
+        this.getUser();
       }
       else{
         console.log(r);
       }
       console.log(this.jobs);
     });
-    this.getUser();
+    
     
   },
   data: () => ({
