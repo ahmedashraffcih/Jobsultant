@@ -117,6 +117,7 @@ export default {
               this.loading1 = false;
               this.alert1 = true;
               this.alert2 = false;
+              this.$router.push('/Employer/Emp_Manage_Jobs');
             } else {
               console.log(r);
               console.log(this.user);
