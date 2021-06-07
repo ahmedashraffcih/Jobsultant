@@ -79,8 +79,8 @@
       </v-card>
     </v-row>
     <!-- ======================================================================= -->
-    <v-snackbar v-model="snackbar1"  timeout="3000" color="error">Complete You Information as needed</v-snackbar>
-    <v-snackbar v-model="snackbar2" timeout="1000" color="success" outlined dark> Registered </v-snackbar>
+    <v-snackbar v-model="snackbar2" timeout = "5000" color="error" outlined dark><v-icon class="mr-2">mdi-alert-octagon-outline</v-icon> Complete You Information as needed </v-snackbar>
+    <v-snackbar v-model="snackbar1" timeout = "3000" color="success" outlined dark><v-icon class="mr-2">mdi-checkbox-marked-circle</v-icon> Registered </v-snackbar>
     <!-- ======================================================================= -->
   </div>
 </template>

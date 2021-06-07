@@ -327,14 +327,14 @@
     </v-row>
     <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
     <!-- ///////////////////////------------------------Snackbars Section-------------------------////////////////////////// -->
-    <v-snackbar v-model="snackbar1" timeout="2000" color="success" outlined dark> Your password changed successfully</v-snackbar>
-    <v-snackbar v-model="snackbar2" timeout="2000" color="error" outlined dark>
-      Please enter the same new password twice in order to confirm it
-    </v-snackbar>
-    <v-snackbar v-model="snackbar3" timeout="2000" color="error" outlined dark> Old password is wrong </v-snackbar>
-    <v-snackbar v-model="snackbar4" timeout="2000" color="error" outlined dark> There's no change </v-snackbar>
-    <v-snackbar v-model="snackbar5" timeout="2000" color="error" outlined dark> Email is already used </v-snackbar>
-    <v-snackbar v-model="snackbar6" timeout="2000" color="success" outlined dark> Your changes have been successfully saved </v-snackbar>
+
+    <v-snackbar v-model="snackbar1" timeout = "2000" color="success" dark><v-icon class="mr-2">mdi-checkbox-marked-circle</v-icon> Your password changed successfully </v-snackbar>
+    <v-snackbar v-model="snackbar2" timeout = "3000" color="warning" dark><v-icon class="mr-2">mdi-alert-outline</v-icon> Please enter the same new password twice in order to confirm it</v-snackbar>
+    <v-snackbar v-model="snackbar3" timeout = "5000" color="error" dark><v-icon class="mr-2">mdi-alert-octagon-outline</v-icon> Old password is wrong </v-snackbar>
+    <v-snackbar v-model="snackbar4" timeout = "3000" color="warning" dark><v-icon class="mr-2">mdi-alert-outline</v-icon> There's no change</v-snackbar>
+    <v-snackbar v-model="snackbar5" timeout = "5000" color="error" dark><v-icon class="mr-2">mdi-alert-octagon-outline</v-icon> Email is already used </v-snackbar>
+    <v-snackbar v-model="snackbar6" timeout = "2000" color="success" dark><v-icon class="mr-2">mdi-checkbox-marked-circle</v-icon> Your changes have been successfully saved </v-snackbar>
+    
     <v-overlay :value="overlay" opacity="0.9">
       <fingerprint-spinner class="justify-center" :animation-duration="1500" :size="120" color="#FF9800" />
     </v-overlay>

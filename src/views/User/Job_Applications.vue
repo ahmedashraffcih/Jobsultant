@@ -15,7 +15,7 @@
               <v-progress-linear value="100" height="30" :class="'color: '+(application.applicantStatus === 'no status' ) ? 'primary' : 'application.applicantStatus'">
                 <v-spacer></v-spacer>
                 <v-btn class="mr-2" icon>
-                  <v-icon @click="dialog = true" color="white">mdi-dots-horizontal</v-icon>
+                  <v-icon @click="dialog = true;appID=application._id" color="white">mdi-dots-horizontal</v-icon>
                 </v-btn>
               </v-progress-linear>
 
@@ -30,7 +30,7 @@
                       dark
                       @click="
                         dialog = false;
-                        CancelApply(application._id);
+                        CancelApply(appID);
                       "
                     >
                       Unapply
@@ -277,6 +277,7 @@
     <v-overlay :value="overlay" opacity="0.9">
     <fingerprint-spinner class="justify-center" :animation-duration="1500" :size="120" color="#FF9800" />
   </v-overlay>
+  <v-snackbar v-model="snackbar1" timeout = "3000" color="success" outlined dark><v-icon class="mr-2">mdi-checkbox-marked-circle</v-icon> Your Application Deleted Successfully </v-snackbar>
   </v-col>
   
 </template>
@@ -294,10 +295,12 @@ export default {
       dialog: false,
       tabs: null,
       overlay: true,
+      appID:"",
       applications: [],
       oneApplication: {},
       oneJob: {},
       statusvalue: "",
+      snackbar1:false,
     };
   },
   mounted() {
@@ -308,6 +311,7 @@ export default {
   },
   methods: {
     GetApplications() {
+      this.overlay=true;
       ApiService.get(`http://localhost:3000/jobApplications/Applications/${this.user_id}`).then((r) => {
         if (r.status == 200) {
           this.applications = r.data;
@@ -339,10 +343,12 @@ export default {
       });
     },
     CancelApply(id) {
+      console.log(this.appID);
       this.overlay=true;
       ApiService.delete(`http://localhost:3000/jobApplications/deleteApplication/${id}`).then((r) => {
         if (r.status == 204) {
           console.log("deleted");
+          this.snackbar1=true;
           this.GetApplications();
           this.overlay=false;
         } else {

@@ -19,11 +19,11 @@
           <v-card-text > Filter Your Search </v-card-text>
           <v-card-title>Career Level</v-card-title>
           <v-card-text>
-            <v-chip-group active-class="orange darken-2 white--text" column>
-              <v-chip>Intern</v-chip>
-              <v-chip>Mid-level</v-chip>
-              <v-chip>Senior-level</v-chip>
-              <v-chip>Managment</v-chip>
+            <v-chip-group active-class="orange darken-2 white--text" column >
+              <v-chip filter>Intern</v-chip>
+              <v-chip filter>Mid Level</v-chip>
+              <v-chip filter>Senior Level</v-chip>
+              <v-chip filter>Managment</v-chip>
             </v-chip-group>
           </v-card-text>
           <v-expansion-panels flat hover>
@@ -54,6 +54,7 @@
             indeterminate
           >     
           </v-progress-linear> -->
+          <v-skeleton-loader v-if="overlay == true" type="article, actions"></v-skeleton-loader>
           <v-card
             flat
             rounded="0"
@@ -269,7 +270,8 @@
 
       </v-col>
     </v-row>
-    <v-snackbar v-model="snackbar1" timeout = "2000" color="success" outlined dark> Your Application placed successfully</v-snackbar>
+    <v-snackbar v-model="snackbar2" timeout = "5000" color="error" outlined dark><v-icon class="mr-2">mdi-alert-octagon-outline</v-icon> Bad Information </v-snackbar>
+    <v-snackbar v-model="snackbar1" timeout = "3000" color="success" outlined dark><v-icon class="mr-2">mdi-checkbox-marked-circle</v-icon> Your Application placed successfully </v-snackbar>
     <v-overlay :value="overlay" opacity="0.9" >
         <fingerprint-spinner
           class="justify-center"
@@ -339,6 +341,7 @@ export default {
     AlertKey:"",
     JobLevel:"",
     snackbar1:false,
+    snackbar2:false,
     items:["Location","Job Type","Salary","Industry"],
     //------------------------ Phone Section ------------------------\\
     phoneNumber:null,
@@ -419,6 +422,7 @@ export default {
           else
           {
             this.loading = false;
+            this.snackbar2=true;
             console.log(r);
           }
       });

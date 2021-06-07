@@ -33,7 +33,7 @@
             <v-row>
               <v-col align-self="start" cols="12">
                 <v-avatar class="profile ml-4" color="grey" size="180">
-                  <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+                  <v-img src="../../assets/imgs/test.png"></v-img>
                 </v-avatar>
               </v-col>
               <v-col class="py-0 ml-2">
@@ -112,7 +112,7 @@
               <v-icon dense color="orange darken-2">mdi-plus</v-icon>
             </v-row>
           </v-row>
-          <v-card elevation="0 " v-for="(work, key) in user.cv.work_Experience" :key="key">
+          <v-card v-if="user.cv.work_Experience==' '" elevation="0 " v-for="(work, key) in user.cv.work_Experience" :key="key">
             <v-row>
               <v-card-title class="ml-7">{{ work.Job_title }}</v-card-title>
               <v-row justify="end" class="mr-10">
@@ -138,6 +138,11 @@
                 <v-list-item-subtitle v-if="!work.end_date">-</v-list-item-subtitle>
               </v-list-item>
             </v-list>
+          </v-card>
+          <v-card v-if="!user.cv.work_Experience==' '" outlined tile>
+            <v-row>
+              <v-card-title class="ml-7 subtitle-1">You don't Have previous experience</v-card-title>
+            </v-row>
           </v-card>
         </v-card>
 

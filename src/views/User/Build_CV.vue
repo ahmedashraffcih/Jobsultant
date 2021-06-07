@@ -2,8 +2,8 @@
   <div class="div">
     <v-row justify="center">
       <v-col cols="4">
-        <h1 v-if="userdata.firstName">Welcome to Jobsultant.com, {{userdata.firstName}}!</h1>
-        <h1 v-if="!userdata.firstName">Welcome to Jobsultant.com,!</h1>
+        <h1 v-if="userdata">Welcome to Jobsultant.com, {{userdata.firstName}}!</h1>
+        <h1 v-if="!userdata">Welcome to Jobsultant.com,!</h1>
         <p class="light-blue--text text--darken-4">Let's go ahead and build your CV. It will only take 3 minutes.</p>
         <v-stepper v-model="e6" vertical >
           <v-stepper-step :complete="e6 > 1" step="1" color="orange darken-2">
@@ -161,7 +161,7 @@
               </v-btn>
             </v-col>
             <v-col cols="12" class="ma-0 pa-0">
-              <v-btn text color="orange darken-2" @click="e6 = 2">
+              <v-btn text color="orange darken-2" @click="e6 = 2;work_Experience=' '">
                 I have no experience / still studying
               </v-btn>
             </v-col>
@@ -444,8 +444,8 @@
         </v-stepper>
       </v-col>
     </v-row>
-    <v-snackbar v-model="snackbar1" timeout="3000" color="success" outlined dark>Your CV Created Successfully</v-snackbar>
-    <v-snackbar v-model="snackbar2" timeout="1000" color="error" outlined dark> Bad Information </v-snackbar>
+    <v-snackbar v-model="snackbar2" timeout = "5000" color="error" dark><v-icon class="mr-2">mdi-alert-octagon-outline</v-icon> Bad Information </v-snackbar>
+    <v-snackbar v-model="snackbar1" timeout = "3000" color="success" dark><v-icon class="mr-2">mdi-checkbox-marked-circle</v-icon> Your CV Created Successfully </v-snackbar>
   </div>
 </template>
 
