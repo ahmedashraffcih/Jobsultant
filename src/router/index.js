@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import EmployerHome from "../views/EmployerHome.vue";
 import Blogs from "../views/Blogs.vue";
 import Jobs from "../views/Jobs.vue";
 import Login from "../views/Authentication/Login.vue";
@@ -27,6 +28,15 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    meta: {
+      public: true, // Allow access to even if not logged in
+    },
+  },
+  {
+    
+    path: "/EmployerHome",
+    name: "EmployerHome",
+    component: EmployerHome,
     meta: {
       public: true, // Allow access to even if not logged in
     },

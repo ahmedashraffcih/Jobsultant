@@ -24,20 +24,83 @@
         </v-col>
       </v-row>
     </v-parallax>
-    <v-parallax dark src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="400">
+
+    <v-card elevation="0" class="ma-0 pa-0" tile >
+      <v-row justify="center" class="py-5" align="center">
+        <v-col cols="4" >
+          <v-list-item class="my-5" >
+            <v-list-item-content>
+              <v-list-item-title class="display-1 mb-5">Explore the Right Jobs & Career<br>Opportunities</v-list-item-title>
+              <v-list-item-subtitle class="body-1">
+                Explore feed knows what you need, based on your career interests, 
+                will<br>find you what you are searching for. And don't worry about too many<br> opportunities, 
+                you can always save them for later.
+              </v-list-item-subtitle>
+              <v-list-item-subtitle>
+                <v-btn class="mt-10 " outlined v-if="!loggedIn" to="Authentication/Register">Get Started Now</v-btn>
+                <v-btn class="mt-10 " outlined v-if="loggedIn" to="/Jobs">Get Started Now</v-btn>
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-col>
+        <v-col cols="4" class=" d-flex flex-column align-end">
+          <v-img src="../assets/imgs/Design/Home1.png" width="530px"></v-img>
+        </v-col>
+      </v-row>
+    </v-card>
+
+    <v-card elevation="0" class="ma-0 pa-0" tile color="grey lighten-3">
+      <v-row justify="center" align="center" class="py-5">
+        <v-col cols="4" class=" d-flex flex-column  align-start">
+          <v-img src="../assets/imgs/Design/Home2.png" width="600px"></v-img>
+        </v-col>
+        <v-col cols="4"  class=" d-flex flex-column align-end">
+          <v-list-item >
+            <v-list-item-content>
+              <v-list-item-title class="display-1 mb-5">Track Your Application, the Easy Way</v-list-item-title>
+              <v-list-item-subtitle class="body-1">
+                Track your job application status whether it is viewed, shortlisted, rejected,<br>
+                or if a company accessed your contacts. With the tracking feature, you will <br>
+                be one step ahead on your job hunting plan.
+              </v-list-item-subtitle>
+              <v-list-item-subtitle>
+                <v-btn class="mt-10 " outlined v-if="!loggedIn" to="Authentication/Register">Get Started Now</v-btn>
+                <v-btn class="mt-10 " outlined v-if="loggedIn" to="User/Job_Applications">Get Started Now</v-btn>
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          
+        </v-col>
+      </v-row>
+    </v-card>
+
+    <v-parallax dark src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="350">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
-          <h1 class="text-h4 font-weight-meduim mb-4">Hire An Employee</h1>
+          <h1 class="text-h4 font-weight-meduim mb-4">Get ready for more opportunities!</h1>
           <h4 class="subheading font-weight-light">
-            Post your job on JobSultant.com to reach the perfect candidate from the Middle East's largest database of job seekers.<br />
-            Receive applicants already filtered and shortlisted to your preferences by Bayt technology..
+            You are minutes away from the right job.
           </h4>
-          <v-btn class="mt-7" dark outlined to="Employer/Emp_Register">Sign Up As A Company</v-btn>
+          <v-btn v-if="!loggedIn" class="mt-7" dark outlined to="Authentication/Register">Join Now</v-btn>
+          <v-btn v-if="loggedIn" class="mt-7" dark outlined to="/Jobs">Browse Now</v-btn>
         </v-col>
       </v-row>
     </v-parallax>
+
+    <v-card class="py-10">
+      <v-row align="center" justify="center">
+        <v-col class="text-center" cols="12">
+          <h1 class="text-h4 font-weight-meduim mb-2">Ready to talk?</h1>
+          <h4 class="subheading font-weight-light">
+            Our team is here to help.
+          </h4>
+          <v-btn class="mt-5 mr-5"  outlined to="/blogs">Learn More</v-btn>
+          <v-btn class="mt-5"  outlined to="/blogs">Contact Us</v-btn>
+        </v-col>
+      </v-row>
+    </v-card>
     <!-- Join As A company Card -->
-    <v-card elevation="0" class="ma-0 pa-0" tile color="grey lighten-3">
+    <!-- <v-card elevation="0" class="ma-0 pa-0" tile color="grey lighten-3">
       <v-row justify="center">
         <v-card-title>Recent From Blog</v-card-title>
       </v-row>
@@ -79,24 +142,15 @@
           </v-hover>
         </v-col>
       </v-row>
-    </v-card>
-    <v-parallax dark src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="400">
-      <v-row align="center" justify="center">
-        <v-col class="text-center" cols="12">
-          <h1 class="text-h4 font-weight-meduim mb-4">Ready to talk?</h1>
-          <h3 class="font-weight-light">Our team is here to help.</h3>
-          <v-btn class="mt-7 mr-5" dark outlined>Learn More</v-btn>
-          <v-btn class="mt-7" dark outlined to="Employer/Emp_Register">Contact Us</v-btn>
-        </v-col>
-      </v-row>
-    </v-parallax>
+    </v-card> -->
+    
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import { FingerprintSpinner } from "epic-spinners";
-
+import { mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   data: () => ({
     name: "Home",
@@ -107,6 +161,12 @@ export default {
   }),
   components: {
     FingerprintSpinner,
+  },
+  computed: {
+    //Get states from store
+    ...mapGetters("auth", ["loggedIn", "user_type"]),
+
+    // ...mapActions(['DISPLAY_SEARCH'])
   },
 };
 </script>

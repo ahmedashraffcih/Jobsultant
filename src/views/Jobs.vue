@@ -72,11 +72,6 @@
                   <v-list-item-subtitle class="caption mt-2">{{job.description}}</v-list-item-subtitle>
                   <v-list-item-subtitle class="caption mt-2">1/1/2020</v-list-item-subtitle>
                 </v-list-item-content>
-                <v-list-item-avatar
-                  tile
-                  size="60"
-                  color="grey">
-                </v-list-item-avatar>
               </v-list-item>
             </v-list>
           </v-card>

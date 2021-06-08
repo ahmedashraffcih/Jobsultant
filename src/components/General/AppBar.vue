@@ -1,7 +1,7 @@
 <template>
   <v-card class="overflow-hidden ma-0 pa-0" tile flat>
     <!-- flat to remove shadow-->
-    <v-app-bar class="nav" app color="light-blue darken-4" dark flat hide-on-scroll>
+    <v-app-bar class="nav" app color="light-blue darken-4" dark flat >
       <v-app-bar-nav-icon class="hidden-md-and-up" @click="drawer = true" />
       <!-- 3 dashes
     <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>-->
@@ -59,7 +59,7 @@
       <!-- Default App Bar & Authentication -->
       <v-btn v-if="!loggedIn" class="buttoncase mr-4" to="/Authentication/login" outlined>Log in</v-btn>
       <v-btn v-if="!loggedIn" class="buttoncase mr-4" to="/Authentication/Register" outlined>Register</v-btn>
-      <v-btn v-if="user_type != 'employer' || !loggedIn" class="buttoncase" to="/Employer/Emp_Register" outlined>For Employers</v-btn>
+      <v-btn v-if="user_type != 'employer' || !loggedIn" class="buttoncase" to="/EmployerHome" outlined>For Employers</v-btn>
       <v-menu offset-y bottom transition="slide-y-transition">
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on">
