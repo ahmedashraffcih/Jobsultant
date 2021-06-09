@@ -29,7 +29,7 @@
       </v-tabs>
 
       <v-tabs v-if="loggedIn && user_type == 'employer'" optional centered class="mr-15 pr-15 hidden-sm-and-down">
-        <v-tab light to="/">Home</v-tab>
+        <v-tab light to="/EmployerHome">Home</v-tab>
         <v-tab text to="/blogs">Blogs</v-tab>
         <v-tab to="/Employer/Emp_Profile">Company Profile</v-tab>
         <v-tab to="/Employer/Emp_Add_Job">Post Job</v-tab>

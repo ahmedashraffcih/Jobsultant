@@ -27,7 +27,7 @@
 
     <v-card elevation="0" class="ma-0 pa-0" tile >
       <v-row justify="center" class="py-5" align="center">
-        <v-col cols="4" >
+        <v-col class="col-lg-4 col-sm-9 col-md-6" >
           <v-list-item class="my-5" >
             <v-list-item-content>
               <v-list-item-title class="display-1 mb-5">Explore the Right Jobs & Career<br>Opportunities</v-list-item-title>
@@ -43,7 +43,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-col>
-        <v-col cols="4" class=" d-flex flex-column align-end">
+        <v-col cols="4" class=" d-flex flex-column align-end d-sm-none d-md-flex">
           <v-img src="../assets/imgs/Design/Home1.png" width="530px"></v-img>
         </v-col>
       </v-row>
@@ -51,10 +51,10 @@
 
     <v-card elevation="0" class="ma-0 pa-0" tile color="grey lighten-3">
       <v-row justify="center" align="center" class="py-5">
-        <v-col cols="4" class=" d-flex flex-column  align-start">
+        <v-col cols="4" class=" d-flex flex-column  align-start d-sm-none d-md-flex">
           <v-img src="../assets/imgs/Design/Home2.png" width="600px"></v-img>
         </v-col>
-        <v-col cols="4"  class=" d-flex flex-column align-end">
+        <v-col class="col-lg-4 col-sm-9 col-md-6">
           <v-list-item >
             <v-list-item-content>
               <v-list-item-title class="display-1 mb-5">Track Your Application, the Easy Way</v-list-item-title>

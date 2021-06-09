@@ -43,7 +43,15 @@ const UserService = {
                 TokenService.saveUserType(response.data.userType);
                 ApiService.setHeader();
                 //redirecting user after logging to Home page
-                router.push(router.history.current.query.redirect || '/');
+                if(response.data.userType=='employer')
+                {
+                    router.push(router.history.current.query.redirect || '/EmployerHome');
+                }
+                else
+                {
+                    router.push(router.history.current.query.redirect || '/');
+                }
+                
                 location.reload();
             }
             else

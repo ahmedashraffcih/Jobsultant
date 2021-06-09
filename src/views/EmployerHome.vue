@@ -1,19 +1,20 @@
 <template>
   <div class="home">
     <!-- Title Card -->
-    <v-parallax dark src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="700">
+    <v-parallax dark src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="600">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
-          <h1 class="display-3 white--text font-weight-bold">Hire Smarter. Grow Faster.</h1>
+          <h1 class="display-3 white--text font-weight-bold">Hire Smarter, Grow Faster.</h1>
           <h3 class="headline white--text font-weight-light mt-5">With Egypt’s #1 Online Recruitment Platform</h3>
-          <v-btn class="mt-10" large dark outlined to="Employer/Emp_Register">Start Hiring Now</v-btn>
+          <v-btn v-if="loggedIn" to="Employer/Emp_Manage_Jobs" class="mt-10" large dark outlined >Start Hiring Now</v-btn>
+          <v-btn v-if="!loggedIn" to="Employer/Emp_Register" class="mt-10" large dark outlined >Start Hiring Now</v-btn>
         </v-col>
       </v-row>
     </v-parallax>
     <!-- Join As A company Card -->
     <v-card elevation="0" class="ma-0 pa-0" tile >
       <v-row justify="center" class="py-5" align="center">
-        <v-col cols="4" >
+        <v-col class="col-lg-4 col-sm-9 col-md-6" >
           <v-list-item class="my-5" >
             <v-list-item-content>
               <v-list-item-title class="display-1 mb-5">Access Egypt’s largest database of<br> professional talents</v-list-item-title>
@@ -23,12 +24,13 @@
                 to senior managers,<br> directors, VPs, and C-levels.
               </v-list-item-subtitle>
               <v-list-item-subtitle>
-                <v-btn class="mt-10 " outlined to="Employer/Emp_Register">Get Started Now</v-btn>
+                <v-btn v-if="loggedIn" to="Employer/Emp_Manage_Jobs" class="mt-10 " outlined >Get Started Now</v-btn>
+                <v-btn v-if="!loggedIn" to="Employer/Emp_Register" class="mt-10 " outlined >Get Started Now</v-btn>
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-col>
-        <v-col cols="4" class=" d-flex flex-column align-end">
+        <v-col cols="4" class=" d-flex flex-column align-end d-sm-none d-md-flex">
           <v-img src="../assets/imgs/Design/hire1.png" width="500px"></v-img>
         </v-col>
       </v-row>
@@ -36,10 +38,10 @@
 
     <v-card elevation="0" class="ma-0 pa-0" tile color="grey lighten-3">
       <v-row justify="center" align="center" class="py-5">
-        <v-col cols="4" class=" d-flex flex-column  align-start">
+        <v-col cols="4" class=" d-flex flex-column align-start d-sm-none d-md-flex">
           <v-img src="../assets/imgs/Design/hire2.png" width="500px"></v-img>
         </v-col>
-        <v-col cols="4"  class=" d-flex flex-column align-end">
+        <v-col class="col-lg-4 col-sm-9 col-md-6">
           <v-list-item >
             <v-list-item-content>
               <v-list-item-title class="display-1 mb-5">Control your hiring process from<br>start to finish</v-list-item-title>
@@ -48,7 +50,8 @@
                 filter through your applicants and customize the recruitment stages<br>based on your own hiring process.
               </v-list-item-subtitle>
               <v-list-item-subtitle>
-                <v-btn class="mt-10 " outlined to="Employer/Emp_Register">Get Started Now</v-btn>
+                <v-btn  v-if="loggedIn" to="Employer/Emp_Manage_Jobs" class="mt-10 " outlined >Get Started Now</v-btn>
+                <v-btn  v-if="!loggedIn" to="Employer/Emp_Register" class="mt-10 " outlined >Get Started Now</v-btn>
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -63,17 +66,18 @@
           <h1 class="text-h4 font-weight-meduim mb-4">Ready to talk?</h1>
           <h3 class="font-weight-light">Our team is here to help.</h3>
           <v-btn class="mt-7 mr-5" dark outlined>Learn More</v-btn>
-          <v-btn class="mt-7" dark outlined to="Employer/Emp_Register">Contact Us</v-btn>
+          <v-btn class="mt-7" dark outlined to="Blogs">Contact Us</v-btn>
         </v-col>
       </v-row>
     </v-parallax>
   </div>
+  
 </template>
 
 <script>
 // @ is an alias to /src
 import { FingerprintSpinner } from "epic-spinners";
-
+import { mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   data: () => ({
     name: "Home",
@@ -84,6 +88,11 @@ export default {
   }),
   components: {
     FingerprintSpinner,
+  },
+  computed: {
+    //Get states from store
+    ...mapGetters("auth", ["loggedIn", "user_type"]),
+    // ...mapActions(['DISPLAY_SEARCH'])
   },
 };
 </script>
