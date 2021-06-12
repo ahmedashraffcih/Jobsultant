@@ -29,10 +29,10 @@
 
       <v-col cols="4">
         <v-card class="mx-auto mb-5" max-width="650">
-          <v-img height="100%" src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg">
+          <v-img height="100%" src="../../assets/imgs/CV.png" >
             <v-row>
               <v-col align-self="start" cols="12">
-                <v-avatar class="profile ml-4" color="grey" size="180">
+                <v-avatar class="avatar profile ml-4" color="grey" size="180">
                   <v-img v-if="user.cv.image" :src="user.cv.image"></v-img>
                   <v-img v-if="!user.cv.image" src="../../assets/imgs/test.png"></v-img>
                 </v-avatar>
@@ -271,5 +271,8 @@ export default {
 .div {
   background-color: #e0e0e0;
   width: 100%;
+}
+.avatar{
+  border: 2px solid #f57c00 !important;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <!-- Title Card -->
-    <v-parallax dark src="../assets/imgs/open.jpg" height="600">
+    <v-parallax dark src="../assets/imgs/open3.png" height="600">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           <v-row justify="center">
@@ -74,7 +74,7 @@
       </v-row>
     </v-card>
 
-    <v-parallax dark src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="350">
+    <v-parallax dark src="../assets/imgs/browse.png" height="350">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           <h1 class="text-h4 font-weight-meduim mb-4">Get ready for more opportunities!</h1>
@@ -171,13 +171,7 @@ export default {
 };
 </script>
 <style scoped>
-.opening {
-  background-image: url("../assets/imgs/open.jpg");
-  width: 100%;
-  height: 500px;
-  background-size: cover;
-  background-position: center;
-}
+
 .home {
   width: 100%;
   background-size: cover;

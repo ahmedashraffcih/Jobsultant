@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <!-- Title Card -->
-    <v-parallax class="home" dark src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="600">
+    <v-parallax class="home" dark src="../assets/imgs/Hire2.png" height="600">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           <h1 class="display-3 white--text font-weight-bold">Hire Smarter, Grow Faster.</h1>
@@ -60,7 +60,7 @@
       </v-row>
     </v-card>
 
-    <v-parallax dark src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="400">
+    <v-parallax dark src="../assets/imgs/contact.png" height="400">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           <h1 class="text-h4 font-weight-meduim mb-4">Ready to talk?</h1>

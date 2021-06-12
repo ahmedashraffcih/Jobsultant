@@ -215,6 +215,7 @@
                 
               </v-list-item-content>
               <v-list-item-avatar
+                class="avatar"
                 color="orange"
                 size="80"
                 >
@@ -465,5 +466,8 @@ export default {
 .div {
   background-color: #E0E0E0;
   width: 100%;
+}
+.avatar{
+  border: 1px solid #f57c00 !important;
 }
 </style>
