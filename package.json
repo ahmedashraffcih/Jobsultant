@@ -15,6 +15,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@ajoelp/json-to-formdata": "^1.2.1",
     "aws-sdk": "^2.817.0",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",

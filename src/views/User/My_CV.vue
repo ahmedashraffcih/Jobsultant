@@ -33,7 +33,8 @@
             <v-row>
               <v-col align-self="start" cols="12">
                 <v-avatar class="profile ml-4" color="grey" size="180">
-                  <v-img src="../../assets/imgs/test.png"></v-img>
+                  <v-img v-if="user.cv.image" :src="user.cv.image"></v-img>
+                  <v-img v-if="!user.cv.image" src="../../assets/imgs/test.png"></v-img>
                 </v-avatar>
               </v-col>
               <v-col class="py-0 ml-2">

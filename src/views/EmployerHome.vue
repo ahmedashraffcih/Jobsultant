@@ -1,13 +1,13 @@
 <template>
-  <div >
+  <div class="home">
     <!-- Title Card -->
     <v-parallax class="home" dark src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="600">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           <h1 class="display-3 white--text font-weight-bold">Hire Smarter, Grow Faster.</h1>
           <h3 class="headline white--text font-weight-light mt-5">With Egypt’s #1 Online Recruitment Platform</h3>
-          <v-btn v-if="loggedIn" to="Employer/Emp_Manage_Jobs" class="mt-10" large dark outlined >Start Hiring Now</v-btn>
-          <v-btn v-if="!loggedIn" to="Employer/Emp_Register" class="mt-10" large dark outlined >Start Hiring Now</v-btn>
+          <v-btn v-if="loggedIn&&user_type=='employer'" to="Employer/Emp_Manage_Jobs" class="mt-10" large dark outlined >Start Hiring Now</v-btn>
+          <v-btn v-if="!loggedIn||user_type=='normal user'" to="Employer/Emp_Register" class="mt-10" large dark outlined >Start Hiring Now</v-btn>
         </v-col>
       </v-row>
     </v-parallax>
@@ -24,8 +24,8 @@
                 to senior managers,<br> directors, VPs, and C-levels.
               </v-list-item-subtitle>
               <v-list-item-subtitle>
-                <v-btn v-if="loggedIn" to="Employer/Emp_Manage_Jobs" class="mt-10 " outlined >Get Started Now</v-btn>
-                <v-btn v-if="!loggedIn" to="Employer/Emp_Register" class="mt-10 " outlined >Get Started Now</v-btn>
+                <v-btn  v-if="loggedIn&&user_type=='employer'" to="Employer/Emp_Manage_Jobs" class="mt-10 " outlined >Get Started Now</v-btn>
+                <v-btn v-if="!loggedIn||user_type=='normal user'" to="Employer/Emp_Register" class="mt-10 " outlined >Get Started Now</v-btn>
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -50,8 +50,8 @@
                 filter through your applicants and customize the recruitment stages<br>based on your own hiring process.
               </v-list-item-subtitle>
               <v-list-item-subtitle>
-                <v-btn  v-if="loggedIn" to="Employer/Emp_Manage_Jobs" class="mt-10 " outlined >Get Started Now</v-btn>
-                <v-btn  v-if="!loggedIn" to="Employer/Emp_Register" class="mt-10 " outlined >Get Started Now</v-btn>
+                <v-btn  v-if="loggedIn&&user_type=='employer'" to="Employer/Emp_Manage_Jobs" class="mt-10 " outlined >Get Started Now</v-btn>
+                <v-btn  v-if="!loggedIn||user_type=='normal user'" to="Employer/Emp_Register" class="mt-10 " outlined >Get Started Now</v-btn>
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
