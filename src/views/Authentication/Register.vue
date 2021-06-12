@@ -106,6 +106,10 @@ export default {
       snackbar1: false,
       snackbar2: false,
       loading: false, //loading till user registerd
+      user:{
+        cv:{},
+        account:{},
+      },
 
       //Validation Rules
       nameRules: [
@@ -116,6 +120,9 @@ export default {
       emailRules: [(v) => !!v || "E-mail is required", (v) => /.+@.+\..+/.test(v) || "E-mail must be valid"],
       passRules: [(v) => !!v || "Password is required", (v) => (v && v.length >= 8) || "Name must be more than 8 characters"],
     };
+  },
+  computed: {
+    ...mapGetters("auth", ["user_id"]),
   },
   methods: {
     ValidPass() {
@@ -135,15 +142,16 @@ export default {
           firstname: this.firstname,
           lastname: this.lastname,
         }).then((r) => {
-          if (!r) {
-            this.snackbar2 = true;
+          if (r) {
+            this.snackbar1 = true;
             //set the loading off and register the user
             this.loading = false;
+            this.$router.push('/authentication/confirmation');
           }
         });
       } else {
         //Validation Error
-        this.snackbar1 = true;
+        this.snackbar2 = true;
         this.loading = false;
       }
     },

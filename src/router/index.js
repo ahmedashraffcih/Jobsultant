@@ -6,6 +6,7 @@ import Blogs from "../views/Blogs.vue";
 import Jobs from "../views/Jobs.vue";
 import Login from "../views/Authentication/Login.vue";
 import Register from "../views/Authentication/Register.vue";
+import confirmation from "../views/Authentication/confirmation.vue";
 import Account_Settings from "../views/User/Account_Settings.vue";
 import MyCV from "../views/User/My_CV.vue";
 import BuildCV from "../views/User/Build_CV.vue";
@@ -76,6 +77,11 @@ const routes = [
       public: true,  // Allow access to even if not logged in
       onlyWhenLoggedOut: true
     }
+  },
+  {
+    path: "/Authentication/confirmation",
+    name: "confirmation",
+    component: confirmation
   },
   {
     path: "/User/Account_Settings",

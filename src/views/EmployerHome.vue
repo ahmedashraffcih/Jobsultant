@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
+  <div >
     <!-- Title Card -->
-    <v-parallax dark src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="600">
+    <v-parallax class="home" dark src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="600">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           <h1 class="display-3 white--text font-weight-bold">Hire Smarter, Grow Faster.</h1>

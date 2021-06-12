@@ -1,7 +1,7 @@
 <template>
   <v-footer padless>
     <v-row justify="center">
-      <v-col cols="6">
+      <v-col cols="8">
         <v-card flat tile class="transparent white--text text-center">
           <v-card-title class="grey--text text--darken-3">Footer</v-card-title>
           <v-card-text class="grey--text  pt-0 text-left">
@@ -16,7 +16,7 @@
     </v-row>
 
     <v-row justify="center">
-      <v-col cols="6">
+      <v-col cols="8">
         <v-card flat tile class="transparent white--text text-center">
           <v-card-title class="grey--text text--darken-3">About Jobsultant.com</v-card-title>
           <v-row>

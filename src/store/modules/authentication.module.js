@@ -168,7 +168,7 @@ const actions = {
           //commit('SetUser', token)
 
           // Redirect the user to the page he first tried to visit or to the home view
-          router.push(router.history.current.query.redirect || '/User/build_cv');
+          //router.push(router.history.current.query.redirect || '/User/build_cv');
 
           return true
       } catch (e) {
