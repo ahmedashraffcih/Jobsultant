@@ -25,6 +25,14 @@
     <v-snackbar v-model="alert2" timeout="1000" color="warning" dark>
       <v-icon class="mr-2">mdi-alert-outline</v-icon> You need to confirm your e-mail
     </v-snackbar>
+    <v-overlay :value="overlay" opacity="0.9" >
+        <fingerprint-spinner
+          class="justify-center"
+          :animation-duration="1500"
+          :size="120"
+          color="#FF9800"
+        />
+    </v-overlay>
   </v-row>
 </template>
 
@@ -52,26 +60,17 @@ export default {
     ...mapGetters("auth", ["loggedIn"]),
     ...mapGetters("auth", ["user_id"]),
   },
+  mounted() {
+    this.getUser();
+  },
   methods: {
-    checkConfirmation() {
-      this.loading = false;
-
-      this.getUser();
-      if (TokenService.getverified == true) {
-        this.$router.push("/user/build_cv");
-        this.loading = false;
-        this.alert1 = true;
-      } else {
-        console.log("You need to confirm your e-mail");
-        this.loading = false;
-        this.alert2 = true;
-      }
-    },
     getUser() {
+      this.overlay=true;
       this.loading = true;
       ApiService.get(`http://localhost:3000/users/${this.user_id}`).then((r) => {
         if (r.status == 200) {
           this.user = r.data;
+          TokenService.saveverified(r.data.account.verified)
           console.log(this.user);
           this.overlay = false;
           this.loading = false;
@@ -79,6 +78,22 @@ export default {
           console.log(r);
         }
       });
+    },
+    checkConfirmation() {
+      this.overlay=true;
+      this.loading = false;
+      this.getUser();
+      if (TokenService.getverified() == 'true') {
+        this.overlay = false;
+        this.loading = false;
+        this.alert1 = true;
+        this.$router.push("/user/build_cv");
+      } else {
+        console.log("You need to confirm your e-mail");
+        this.overlay = false;
+        this.loading = false;
+        this.alert2 = true;
+      }
     },
   },
 };

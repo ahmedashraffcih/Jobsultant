@@ -18,7 +18,7 @@
                   <v-row>
                     <v-col cols="12" class="subtitle-2">
                       <span>What is the job title of this position?</span>
-                      <v-text-field flat dense outlined required v-model="cv.work_Experience.Job_title" :rules="nameRules" class="mt-2">
+                      <v-text-field flat dense outlined required v-model="cv.work_Experience.Job_title" :rules="nameRules" class="mt-2" placeholder="Job Title">
                       </v-text-field>
                     </v-col>
                   </v-row>
@@ -34,6 +34,7 @@
                         required
                         v-model="cv.work_Experience.company_name"
                         :rules="nameRules"
+                        placeholder="Company Name"
                         class="mt-2"
                       ></v-text-field>
                     </v-col>
@@ -56,6 +57,7 @@
                             v-bind="attrs"
                             v-on="on"
                             class="mt-3"
+                            placeholder="Start Date"
                           ></v-text-field>
                         </template>
                         <v-date-picker v-model="cv.work_Experience.start_date" scrollable>
@@ -89,6 +91,7 @@
                             v-bind="attrs"
                             v-on="on"
                             class="mt-3"
+                            placeholder="End Date"
                           ></v-text-field>
                         </template>
                         <v-date-picker v-model="cv.work_Experience.end_date" scrollable>
@@ -120,6 +123,7 @@
                         v-model="cv.work_Experience.location"
                         :rules="nameRules"
                         class="mt-3"
+                        placeholder="Location"
                       ></v-combobox>
                     </v-col>
                   </v-row>
@@ -156,28 +160,28 @@
                 <v-list-item dense class="pl-2">
                   <v-list-item-title>Job title(s)</v-list-item-title>
                   <v-list-item-subtitle>
-                    <v-text-field flat dense outlined required :rules="nameRules" v-model="cv.job_Title"></v-text-field>
+                    <v-text-field flat dense outlined required :rules="nameRules" v-model="cv.job_Title" placeholder="Desired Job Title"></v-text-field>
                   </v-list-item-subtitle>
                 </v-list-item>
 
                 <v-list-item dense class="pl-2">
                   <v-list-item-title>Job Location</v-list-item-title>
                   <v-list-item-subtitle>
-                    <v-text-field flat dense outlined required :rules="nameRules" v-model="cv.residence_Location"></v-text-field>
+                    <v-text-field flat dense outlined required :rules="nameRules" v-model="cv.residence_Location" placeholder="Job Location"></v-text-field>
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-list-item dense class="pl-2">
                   <v-list-item-title>Job Level</v-list-item-title>
 
                   <v-list-item-subtitle>
-                    <v-combobox :rules="nameRules" :items="joblevel" v-model="cv.job_Level" clearable flat required dense outlined solo> </v-combobox>
+                    <v-combobox :rules="nameRules" :items="joblevel" v-model="cv.job_Level" clearable flat required dense outlined solo placeholder="Job Level"> </v-combobox>
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-list-item dense class="pl-2">
                   <v-list-item-title>Your Skills</v-list-item-title>
 
                   <v-list-item-subtitle>
-                    <v-combobox :items="skills" outlined flat required dense v-model="cv.skills" hint="Maximum of 5 skills" multiple></v-combobox>
+                    <v-combobox :items="skills" outlined flat required dense v-model="cv.skills" hint="Maximum of 5 skills" placeholder="Skills" multiple></v-combobox>
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-list-item dense class="pl-2">
@@ -193,6 +197,7 @@
                       v-model="cv.languages"
                       hint="Maximum of 5 languages"
                       multiple
+                      placeholder="Languages"
                     ></v-combobox>
                   </v-list-item-subtitle>
                 </v-list-item>
@@ -212,7 +217,7 @@
                 <v-list-item dense class="pl-2">
                   <v-list-item-title>Degree</v-list-item-title>
                   <v-list-item-subtitle>
-                    <v-combobox clearable :rules="nameRules" :items="degree" v-model="cv.education.degree" flat required dense outlined solo>
+                    <v-combobox clearable :rules="nameRules" :items="degree" v-model="cv.education.degree" flat required dense outlined solo placeholder="Degree">
                     </v-combobox>
                   </v-list-item-subtitle>
                 </v-list-item>
@@ -221,27 +226,27 @@
                   <v-list-item-title>University or institution</v-list-item-title>
 
                   <v-list-item-subtitle>
-                    <v-combobox :rules="nameRules" v-model="cv.education.university" clearable flat required dense outlined solo> </v-combobox>
+                    <v-combobox :rules="nameRules" v-model="cv.education.university" clearable flat required dense outlined solo placeholder="University"> </v-combobox>
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-list-item dense class="pl-2">
                   <v-list-item-title>Location</v-list-item-title>
 
                   <v-list-item-subtitle>
-                    <v-combobox clearable v-model="cv.education.location" flat required dense outlined solo :rules="nameRules"> </v-combobox>
+                    <v-combobox clearable v-model="cv.education.location" flat required dense outlined solo :rules="nameRules" placeholder="Location"> </v-combobox>
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-list-item dense class="pl-2">
                   <v-list-item-title>Field of study (Major)</v-list-item-title>
 
                   <v-list-item-subtitle>
-                    <v-combobox v-model="cv.education.field" clearable flat required dense outlined solo :rules="nameRules"> </v-combobox>
+                    <v-combobox v-model="cv.education.field" clearable flat required dense outlined solo :rules="nameRules" placeholder="Field"> </v-combobox>
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-list-item dense class="pl-2">
                   <v-list-item-title>Graduation Date</v-list-item-title>
                   <v-list-item-subtitle>
-                    <v-combobox clearable v-model="cv.education.graduation_date" flat required dense outlined solo :rules="nameRules"> </v-combobox>
+                    <v-combobox clearable v-model="cv.education.graduation_date" flat required dense outlined solo :rules="nameRules" placeholder="Graduation Date"> </v-combobox>
                   </v-list-item-subtitle>
                 </v-list-item>
               </v-list>
@@ -261,7 +266,7 @@
                   <v-list-item-subtitle>
                     <v-dialog ref="dialog" v-model="modal2" :return-value.sync="cv.birth_Date" persistent width="290px">
                       <template v-slot:activator="{ on, attrs }">
-                        <v-text-field v-model="cv.birth_Date" readonly outlined flat dense v-bind="attrs" v-on="on"></v-text-field>
+                        <v-text-field v-model="cv.birth_Date" readonly outlined flat dense v-bind="attrs" v-on="on" placeholder="Birth Date"></v-text-field>
                       </template>
                       <v-date-picker v-model="cv.birth_Date" scrollable>
                         <v-spacer></v-spacer>
@@ -280,14 +285,14 @@
                   <v-list-item-title>Your nationality</v-list-item-title>
 
                   <v-list-item-subtitle>
-                    <v-combobox :rules="nameRules" v-model="cv.nationality" clearable flat required dense outlined solo></v-combobox>
+                    <v-combobox :rules="nameRules" v-model="cv.nationality" clearable flat required dense outlined solo placeholder="Nationality"></v-combobox>
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-list-item dense class="pl-2">
                   <v-list-item-title>Gender</v-list-item-title>
 
                   <v-list-item-subtitle>
-                    <v-select v-model="cv.gender" clearable flat required dense outlined :rules="nameRules" :items="items"> </v-select>
+                    <v-select v-model="cv.gender" clearable flat required dense outlined :rules="nameRules" :items="items" placeholder="Gender"> </v-select>
                   </v-list-item-subtitle>
                 </v-list-item>
 
@@ -311,13 +316,13 @@
                 <v-list-item dense class="pl-2">
                   <v-list-item-title class="pb-5">Profile Picture</v-list-item-title>
                   <v-list-item-subtitle>
-                    <v-file-input color="light-blue darken-3" show-size  outlined dense prepend-icon="mdi-camera" v-model="cv.image">
+                    <v-file-input color="light-blue darken-3" show-size  outlined dense prepend-icon="mdi-camera" v-model="cv.image" placeholder="CV Picture">
                     </v-file-input>
                   </v-list-item-subtitle>
                 </v-list-item>
               </v-list>
             </v-form>
-            <v-btn :disabled="!Valid4" @click="CreateCV()" class="white--text" color="orange darken-2" :loading="loading"> Continue </v-btn>
+            <v-btn :disabled="!Valid4" @click="CreateCV()" class="white--text" color="orange darken-2" :loading="loading"> Submit </v-btn>
             <v-btn text @click="e6 = 3"> Back </v-btn>
           </v-stepper-content>
         </v-stepper>
