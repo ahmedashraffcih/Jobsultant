@@ -10,6 +10,7 @@ import confirmation from "../views/Authentication/confirmation.vue";
 import Account_Settings from "../views/User/Account_Settings.vue";
 import MyCV from "../views/User/My_CV.vue";
 import BuildCV from "../views/User/Build_CV.vue";
+import Recommended from "../views/User/Recommended.vue";
 import JobApps from "../views/User/Job_Applications.vue";
 import Emp_Register from "../views/Employer/Emp_Register.vue";
 import Emp_Profile from "../views/Employer/Emp_Profile.vue";
@@ -97,6 +98,11 @@ const routes = [
     path: "/User/Build_CV",
     name: "Build_CV",
     component: BuildCV,
+  },
+  {
+    path: "/User/Recommended",
+    name: "Recommended",
+    component: Recommended,
   },
   {
     path: "/User/Job_Applications",

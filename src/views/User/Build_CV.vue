@@ -429,12 +429,17 @@ export default {
           this.snackbar1 = true;
           TokenService.saveCVstat(true);
           this.$router.push("/User/My_CV");
+          router.push(router.history.current.query.redirect || '/');
           console.log(r);
         } else {
           this.loading = false;
           console.log(r);
         }
-      });
+      })
+      .catch((error) => {
+          this.loading = false;
+          this.overlay = false;
+        });
     },
     // CreateCV() {
     //   this.loading = true

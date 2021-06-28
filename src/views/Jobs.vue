@@ -394,6 +394,7 @@ export default {
           console.log(r)
           if(r.status==200){
             this.oneJob=r.data;
+            this.oneJob.skills=r.data.skills.split(',');
             console.log(this.oneJob);
             this.loading=false
           }

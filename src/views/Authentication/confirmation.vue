@@ -77,7 +77,10 @@ export default {
         } else {
           console.log(r);
         }
-      });
+      }).catch((error) => {
+          this.loading = false;
+          this.overlay = false;
+        });
     },
     checkConfirmation() {
       this.overlay=true;

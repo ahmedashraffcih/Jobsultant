@@ -23,6 +23,7 @@
       <v-tabs v-if="loggedIn && user_type == 'normal user'" optional centered class="hidden-sm-and-down">
         <v-tab light to="/">Home</v-tab>
         <v-tab text to="/jobs">Jobs</v-tab>
+        <v-tab text to="/user/Recommended">Recommended</v-tab>
         <v-tab text to="/blogs">Blogs</v-tab>
         <v-tab to="/user/account_settings">My Account</v-tab>
         <v-tab to="/user/My_CV">My CV</v-tab>
