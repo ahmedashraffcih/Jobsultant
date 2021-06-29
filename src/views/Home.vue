@@ -5,7 +5,7 @@
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           <v-row justify="center">
-            <h1 class="display-4 white--text mt-10">JobSultant</h1>
+            <h1 style='font-family: "Dela Gothic One"; font-size: 70px;'>JobSultant</h1>
           </v-row>
           <v-row justify="center">
             <h2 class="white--text font-weight-regular mt-5">Find Jobs, Network and Learn</h2>

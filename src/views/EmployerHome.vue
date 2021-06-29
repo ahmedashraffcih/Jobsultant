@@ -4,7 +4,7 @@
     <v-parallax class="home" dark src="../assets/imgs/Hire2.png" height="600">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
-          <h1 class="display-3 white--text font-weight-bold">Hire Smarter, Grow Faster.</h1>
+          <h1 style='font-family: "Dela Gothic One"; font-size: 60px;'>Hire Smarter, Grow Faster.</h1>
           <h3 class="headline white--text font-weight-light mt-5">With Egypt’s #1 Online Recruitment Platform</h3>
           <v-btn v-if="loggedIn&&user_type=='employer'" to="Employer/Emp_Manage_Jobs" class="mt-10" large dark outlined >Start Hiring Now</v-btn>
           <v-btn v-if="!loggedIn||user_type=='normal user'" to="Employer/Emp_Register" class="mt-10" large dark outlined >Start Hiring Now</v-btn>

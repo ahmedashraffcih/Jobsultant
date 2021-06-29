@@ -30,4 +30,10 @@ export default {
   })
 };
 </script>
-<style scoped></style>
+<style>
+@font-face {
+  font-family: "Dela Gothic One";
+  src: local("Dela Gothic One"),
+   url(assets/fonts/DelaGothicOne-Regular.ttf) format("truetype");
+}
+</style>
