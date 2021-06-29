@@ -36,4 +36,9 @@ export default {
   src: local("Dela Gothic One"),
    url(assets/fonts/DelaGothicOne-Regular.ttf) format("truetype");
 }
+@font-face {
+  font-family: "Nexa";
+  src: local("Nexa"),
+   url(assets/fonts/Nexa.otf) format("truetype");
+}
 </style>

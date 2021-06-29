@@ -44,7 +44,8 @@
 
       <v-col cols="3">
         <v-card flat>
-          <v-card-title>X in Jobs</v-card-title>
+          <v-card-title v-if="this.search">{{search}} in Jobs</v-card-title>
+          <v-card-title v-if="!this.search">Jobs</v-card-title>
 
 <!-- 
           <v-progress-linear
@@ -98,9 +99,9 @@
               <v-list-item-content>
                 <v-list-item-title class="title">{{oneJob.title}}</v-list-item-title>
                 <v-list-item-subtitle style="color:#FF9800" class="subtitle-1">{{oneJob.company}}</v-list-item-subtitle>
-                <v-list-item-subtitle class="subtitle-2 mt-5">{{oneJob.career_level}}</v-list-item-subtitle>
-                <v-list-item-subtitle class="caption mt-5">{{oneJob.description}}</v-list-item-subtitle>
-                <v-list-item-subtitle class="caption mt-5">1/1/2020</v-list-item-subtitle>
+                <v-list-item-subtitle class="subtitle-2 mt-3">{{oneJob.career_Level}} Level</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption mt-1">{{oneJob.description}}</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption mt-2">1/1/2020</v-list-item-subtitle>
               </v-list-item-content>
 
               <v-list-item-avatar
@@ -188,15 +189,13 @@
 
           <v-card-title class="title">Job Description</v-card-title>
           <v-card-text>{{oneJob.description}}</v-card-text>
-
+          <v-divider></v-divider>
           <v-card-title class="title">Skills</v-card-title>
           <ul class="ml-3">
             <li v-for="skill in oneJob.skills">{{skill}}</li>
           </ul>
-          
-          <v-card-title class="title">Job Details</v-card-title>
-          <v-card-text>{{oneJob.job_Details}}</v-card-text>
-          <v-progress-linear value="100" height="15" color="orange darken-2"></v-progress-linear>
+          <v-card-text>Total Applicants : {{oneJob.total_Applications}}</v-card-text>
+          <v-progress-linear value="100" height="10" color="orange darken-2"></v-progress-linear>
         </v-card>
       </v-col>
 
@@ -208,10 +207,11 @@
             <v-list-item three-line>
               <v-list-item-content>
                 <v-list-item-title class="title">{{user.fname}} {{user.lname}}</v-list-item-title>
-                <v-list-item-subtitle class="subtitle-2 mt-10">Last CV Refresh Date: 2020-11-03</v-list-item-subtitle>
-                <v-list-item-subtitle style="color:#FF9800" class="subtitle-2 mt-5">Preferred job title</v-list-item-subtitle>
-                <v-list-item-subtitle class="caption mt-2" v-if="!user.cv">-</v-list-item-subtitle>
-                <v-list-item-subtitle class="caption mt-2" v-if="user.cv">{{user.cv.job_Title}}</v-list-item-subtitle>
+                
+                <v-list-item-subtitle style="color:#FF9800" class="subtitle-2 mt-2">Preferred job title</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption mt-1" v-if="!user.cv">-</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption mt-1" v-if="user.cv">{{user.cv.job_Title}}</v-list-item-subtitle>
+                <v-list-item-subtitle class="subtitle-2 mt-4">Last CV Refresh Date: 2020-11-03</v-list-item-subtitle>
                 
               </v-list-item-content>
               <v-list-item-avatar
@@ -219,7 +219,9 @@
                 color="orange"
                 size="80"
                 >
-                <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img></v-list-item-avatar>
+                <v-img v-if="user.cv.image" :src="user.cv.image"></v-img>
+                <v-img v-if="!user.cv.image" src="../assets/imgs/profile.jpg"></v-img>
+              </v-list-item-avatar>
             </v-list-item>
           </v-list>
         </v-card>

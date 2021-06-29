@@ -4,7 +4,7 @@
       <v-row justify="center">
         <v-col cols="10">
           <v-row justify="center">
-            <h1 class="black--text ">Jobsultant.com Blog</h1>
+            <h1 class="text-center" style='font-family: "Dela Gothic One"; font-size: 35px;'>Jobsultant Blog</h1>
           </v-row>
           <v-row justify="center">
             <div class="light-blue--text text--darken-4 mt-2" >For people who care about their careers</div>

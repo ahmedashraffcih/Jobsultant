@@ -4,7 +4,7 @@
     <v-parallax class="home" dark src="../assets/imgs/Hire2.png" height="600">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
-          <h1 style='font-family: "Dela Gothic One"; font-size: 60px;'>Hire Smarter, Grow Faster.</h1>
+          <h1 style='font-family: "Dela Gothic One"; font-size: 55px;'>Hire Smarter, Grow Faster.</h1>
           <h3 class="headline white--text font-weight-light mt-5">With Egypt’s #1 Online Recruitment Platform</h3>
           <v-btn v-if="loggedIn&&user_type=='employer'" to="Employer/Emp_Manage_Jobs" class="mt-10" large dark outlined >Start Hiring Now</v-btn>
           <v-btn v-if="!loggedIn||user_type=='normal user'" to="Employer/Emp_Register" class="mt-10" large dark outlined >Start Hiring Now</v-btn>
@@ -17,7 +17,7 @@
         <v-col class="col-lg-4 col-sm-9 col-md-6" >
           <v-list-item class="my-5" >
             <v-list-item-content>
-              <v-list-item-title class="display-1 mb-5">Access Egypt’s largest database of<br> professional talents</v-list-item-title>
+              <v-list-item-title class="titles mb-5">Access Egypt’s largest database of<br> professional talents</v-list-item-title>
               <v-list-item-subtitle class="body-1">
                 Whatever the job function, industry, or career level you are hiring for, you’ll<br>find it at WUZZUF. 
                 Leverage our rich and continuously growing database of<br>professionals all the way from interns and fresh grads 
@@ -44,7 +44,7 @@
         <v-col class="col-lg-4 col-sm-9 col-md-6">
           <v-list-item >
             <v-list-item-content>
-              <v-list-item-title class="display-1 mb-5">Control your hiring process from<br>start to finish</v-list-item-title>
+              <v-list-item-title class="titles mb-5">Control your hiring process from<br>start to finish</v-list-item-title>
               <v-list-item-subtitle class="body-1">
                 Inbox 2.0 is here! Enjoy a smooth and smart inbox where you can easily<br>
                 filter through your applicants and customize the recruitment stages<br>based on your own hiring process.
@@ -63,7 +63,7 @@
     <v-parallax dark src="../assets/imgs/contact.png" height="400">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
-          <h1 class="text-h4 font-weight-meduim mb-4">Ready to talk?</h1>
+          <h1 class="titles mb-4">Ready to talk?</h1>
           <h3 class="font-weight-light">Our team is here to help.</h3>
           <v-btn class="mt-7 mr-5" dark outlined>Learn More</v-btn>
           <v-btn class="mt-7" dark outlined to="Blogs">Contact Us</v-btn>
@@ -119,5 +119,9 @@ export default {
 .show-btns {
   color: #ef6c00 !important;
   transition: color 0.4s ease-in-out;
+}
+.titles {
+  font-family: "Nexa"; 
+  font-size: 32px;
 }
 </style>

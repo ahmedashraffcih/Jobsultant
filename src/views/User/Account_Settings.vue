@@ -2,7 +2,7 @@
   <div class="div">
     <v-row justify="center">
       <v-col cols="5">
-        <h1 class="display-1 mt-3 mb-10 ">My Account</h1>
+        <h1 class="mt-3 mb-3 " style='font-family: "Nexa"; font-size: 40px;'>Account settings</h1>
         <v-card class="mb-5">
           <v-row>
             <v-card-title class="ml-13">Personal Information</v-card-title>

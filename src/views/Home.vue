@@ -30,7 +30,7 @@
         <v-col class="col-lg-4 col-sm-9 col-md-6" >
           <v-list-item class="my-5" >
             <v-list-item-content>
-              <v-list-item-title class="display-1 mb-5">Explore the Right Jobs & Career<br>Opportunities</v-list-item-title>
+              <v-list-item-title class="titles mb-5">Explore the Right Jobs & Career<br>Opportunities</v-list-item-title>
               <v-list-item-subtitle class="body-1">
                 Explore feed knows what you need, based on your career interests, 
                 will<br>find you what you are searching for. And don't worry about too many<br> opportunities, 
@@ -57,7 +57,7 @@
         <v-col class="col-lg-4 col-sm-9 col-md-6">
           <v-list-item >
             <v-list-item-content>
-              <v-list-item-title class="display-1 mb-5">Track Your Application, the Easy Way</v-list-item-title>
+              <v-list-item-title class="titles mb-5">Track Your Application, the Easy Way</v-list-item-title>
               <v-list-item-subtitle class="body-1">
                 Track your job application status whether it is viewed, shortlisted, rejected,<br>
                 or if a company accessed your contacts. With the tracking feature, you will <br>
@@ -77,7 +77,7 @@
     <v-parallax dark src="../assets/imgs/browse.png" height="350">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
-          <h1 class="text-h4 font-weight-meduim mb-4">Get ready for more opportunities!</h1>
+          <h1 class="titles mb-4">Get ready for more opportunities!</h1>
           <h4 class="subheading font-weight-light">
             You are minutes away from the right job.
           </h4>
@@ -90,7 +90,7 @@
     <v-card class="py-10">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
-          <h1 class="text-h4 font-weight-meduim mb-2">Ready to talk?</h1>
+          <h1 class="titles mb-2">Ready to talk?</h1>
           <h4 class="subheading font-weight-light">
             Our team is here to help.
           </h4>
@@ -187,5 +187,9 @@ export default {
 .show-btns {
   color: #ef6c00 !important;
   transition: color 0.4s ease-in-out;
+}
+.titles {
+  font-family: "Nexa"; 
+  font-size: 32px;
 }
 </style>
