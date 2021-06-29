@@ -140,7 +140,7 @@ const routes = [
     component: Emp_Manage_Jobs
   },
   {
-    path: "/Employer/Emp_View_Candidates",
+    path: "/Employer/Emp_View_Candidates/:id",
     name: "Emp_View_Candidates",
     component: Emp_View_Candidates
   },
