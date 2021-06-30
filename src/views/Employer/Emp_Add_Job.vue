@@ -1,5 +1,5 @@
 <template>
-  <v-row class="grey lighten-3" justify="center">
+  <v-row class="grey lighten-3 backimg" justify="center" :style="{ backgroundImage: 'url(' + image + ')' }">>
     <v-col cols="6">
       <v-card class="mb-5" elevation="0">
         <v-card-title class="ml-6">Add New Job!</v-card-title>
@@ -82,6 +82,7 @@ export default {
       levels: ["Senior", "Junior", "Entry level"],
       skills: ["Gaming", "Programming", "Vue", "Vuetify"],
       search: null,
+      image:"https://images.unsplash.com/photo-1570126646281-5ec88111777f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bWVldGluZyUyMGFnZW5kYXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80",
       // Rules
       skillsRulles: [(v) => v.length >= 3 || "Minimum of 3 skills"],
       fieldRules: [(v) => !!v || "Field is required"],
@@ -144,6 +145,10 @@ export default {
 </script>
 
 <style scoped>
+.backimg{
+  background-size: contain;
+  background-repeat: round;
+}
 .form-header {
   padding: 10px;
   padding-left: 20px;

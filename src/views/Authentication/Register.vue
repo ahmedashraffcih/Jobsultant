@@ -1,5 +1,5 @@
 <template>
-  <div class="div">
+  <div class="div backimg" :style="{ backgroundImage: 'url(' + image + ')' }">
     <v-row justify="center">
       <v-card class="mt-10 mb-10" width="700px">
         <!-- ======================================================================= -->
@@ -91,6 +91,7 @@ export default {
   name: "Register",
   data() {
     return {
+      image:"https://wallpapercave.com/wp/wp6658601.jpg",
       //Intinate the variables that will store user's data
       firstname: "",
       lastname: "",
@@ -159,6 +160,10 @@ export default {
 };
 </script>
 <style scoped>
+.backimg{
+  background-size: contain;
+  background-repeat: round;
+}
 .div {
   background-color: #FFF3E0;
   width: 100%;

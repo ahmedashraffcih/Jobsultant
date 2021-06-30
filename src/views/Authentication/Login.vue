@@ -1,5 +1,5 @@
 <template class="template">
-  <div class="div">
+  <div class="div backimg" :style="{ backgroundImage: 'url(' + image + ')' }">
     <v-row justify="center">
       <v-card class="mt-10 mb-10" width="500px">
         <v-card-title class="justify-center">Log in to your account</v-card-title>
@@ -81,6 +81,7 @@ export default {
   data() {
     return {
       //Intinate the variables that will store user's data
+      image:"https://d.newsweek.com/en/full/1578683/cma.jpg",
       email: "",
       password: "",
       //---------//
@@ -145,6 +146,9 @@ export default {
 </script>
 
 <style scoped>
+.backimg{
+  background-size: cover;
+}
 .div {
   background-color: #FFF3E0;
   width: 100%;
