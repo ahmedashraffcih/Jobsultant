@@ -1,7 +1,7 @@
 <template>
-  <div class="div backimg" :style="{ backgroundImage: 'url(' + image + ')' }">
-    <v-row justify="center">
-      <v-card class="mt-10 mb-10" width="700px">
+  <div class="div">
+    <v-row class="mt-3" justify="center">
+      <v-card class="mt-15 mb-10" width="650px" rounded="lg">
         <!-- ======================================================================= -->
         <v-card-title class="justify-center">Create a Free Account</v-card-title>
         <v-card-subtitle class="text-center"
@@ -70,7 +70,7 @@
               <v-col cols="10" class="pt-0 mt-0">
                 <v-btn rounded dark large block color="#4267B2"><v-icon left dark class="mr-5">mdi-facebook</v-icon>Sign Up With Facebook</v-btn>
               </v-col>
-              <v-col cols="10" class="mb-3">
+              <v-col cols="10" >
                 <v-btn rounded large block dark color="#E53935"><v-icon left dark class="mr-5">mdi-google</v-icon>Sign Up With Google</v-btn>
               </v-col>
             </v-row>
@@ -91,7 +91,6 @@ export default {
   name: "Register",
   data() {
     return {
-      image:"https://wallpapercave.com/wp/wp6658601.jpg",
       //Intinate the variables that will store user's data
       firstname: "",
       lastname: "",
@@ -160,12 +159,12 @@ export default {
 };
 </script>
 <style scoped>
-.backimg{
+.div {
+  background-image: url("../../assets/imgs/cna.png");
+  background-color: #FFF3E0;
   background-size: contain;
   background-repeat: round;
-}
-.div {
-  background-color: #FFF3E0;
+  height:100vh;
   width: 100%;
 }
 </style>

@@ -1,7 +1,7 @@
 <template class="template">
-  <div class="div backimg" :style="{ backgroundImage: 'url(' + image + ')' }">
-    <v-row justify="center">
-      <v-card class="mt-10 mb-10" width="500px">
+  <div class="div" >
+    <v-row class="mt-15" justify="center">
+      <v-card class="mt-10 mb-10 pa-5" width="500px" rounded="lg">
         <v-card-title class="justify-center">Log in to your account</v-card-title>
         <v-card-subtitle class="text-center">Don't have an account yet? <a style="text-decoration: none;" href="/Authentication/register">Register here</a></v-card-subtitle>
         <v-alert color="error" :value="error" icon="close">The username or password wrong</v-alert>
@@ -81,7 +81,6 @@ export default {
   data() {
     return {
       //Intinate the variables that will store user's data
-      image:"https://d.newsweek.com/en/full/1578683/cma.jpg",
       email: "",
       password: "",
       //---------//
@@ -146,11 +145,12 @@ export default {
 </script>
 
 <style scoped>
-.backimg{
-  background-size: cover;
-}
 .div {
   background-color: #FFF3E0;
+  background-image: url("../../assets/imgs/cma.png");
   width: 100%;
+  height: 100vh;
+  background-size: cover;
 }
+
 </style>

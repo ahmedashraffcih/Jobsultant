@@ -10,7 +10,7 @@
         </v-row>
       </v-container>
     </v-main>
-    <Footer v-if="!['confirmation'].includes($route.name)" />
+    <Footer v-if="!['confirmation','Login','Register'].includes($route.name)" />
   </v-app>
 </template>
 
