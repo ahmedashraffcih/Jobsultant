@@ -54,7 +54,7 @@
                       <v-list-item-title class="headline mb-1 font-weight-normal"> {{ job.career_Level }} {{ job.title }} </v-list-item-title>
                       <v-list-item-subtitle class="text-subtitle-1 mb-2">{{ job.description }}</v-list-item-subtitle>
                       <v-list-item-subtitle>
-                        <v-chip color="#01579B" text-color="white" class="mr-2" small v-for="skill in job.skills.split(',')">{{ skill }} </v-chip>
+                        <v-chip color="#01579B" text-color="white" class="mr-2" small v-for="i,skill in job.skills.split(',')" :key='i' >{{ i }} </v-chip>
                       </v-list-item-subtitle>
                       <v-list-item-subtitle class="text-subtitle-2 success--text" v-if="job.total_Applications">
                         {{ job.total_Applications }} Applied
@@ -378,6 +378,7 @@ export default {
       ApiService.get(`http://localhost:3000/jobs/listJob/${id}`).then((r) => {
         if (r.status == 200) {
           this.oneJob = r.data;
+          this.oneJob.skills=r.data.skills.split(',');
           console.log(this.oneJob);
           this.overlay = false;
         } else {
