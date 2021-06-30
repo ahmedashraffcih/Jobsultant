@@ -1,5 +1,5 @@
 <template>
-  <v-row class="grey lighten-3" justify="center">
+  <v-row class="grey lighten-3 backimg" justify="center">
     <v-col cols="8">
       <div class="form-header rounded-lg">
         <h1 class="ml-5">Manage Jobs!</h1>
@@ -86,7 +86,7 @@
                         </v-icon>
                       </v-btn>
                       <!-- VIEW  SMALL BUTTON HERE -->
-                      <v-btn icon class=" d-md-none" color="success" @click="ViewApplicants(job._id)">
+                      <v-btn icon class=" d-md-none" color="success" :to="`/Employer/Emp_View_Candidates/` + job._id">
                         <v-icon dark right>
                           mdi-account-multiple
                         </v-icon>
@@ -429,10 +429,7 @@ export default {
       });
     },
 
-    ViewApplicants(id){
-      //router.push({ path: `/Employer/Emp_View_Candidates/${this.id}` })
-      this.$router.push(`/Employer/Emp_View_Candidates/` + `/` + id);
-    }
+    
   },
 };
 </script>
