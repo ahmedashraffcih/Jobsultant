@@ -4,7 +4,7 @@
       <!-- Filters card -->
       <v-col cols="2">
         <v-card>
-          <v-card-title>Improve Your Profile</v-card-title>
+          <v-card-title class="titles">Improve Your Profile</v-card-title>
           <v-divider></v-divider>
           <v-card-text class="light-blue--text text--darken-4" >
             Reach profile strength of 80% to be in the top 10% of highly visibleusers.
@@ -52,7 +52,7 @@
 
         <v-card class="mb-5">
           <v-row>
-            <v-card-title class="ml-7">Personal Information</v-card-title>
+            <v-card-title class="titles ml-7">Personal Information</v-card-title>
             <v-row justify="end" class="mr-10">
               <v-icon color="orange darken-2" dense>mdi-pencil</v-icon>
             </v-row>
@@ -87,7 +87,7 @@
 
         <v-card class="mb-5">
           <v-row>
-            <v-card-title class="ml-7">Contact Information</v-card-title>
+            <v-card-title class="titles ml-7">Contact Information</v-card-title>
             <v-row justify="end" class="mr-10">
               <v-icon color="orange darken-2" dense>mdi-pencil</v-icon>
             </v-row>
@@ -108,14 +108,14 @@
 
         <v-card class="mb-5">
           <v-row>
-            <v-card-title class="ml-7">Work Experience</v-card-title>
+            <v-card-title class="titles ml-7">Work Experience</v-card-title>
             <v-row justify="end" class="mr-10">
               <v-icon dense color="orange darken-2">mdi-plus</v-icon>
             </v-row>
           </v-row>
           <v-card v-if="user.cv.work_Experience==' '" elevation="0 " v-for="(work, key) in user.cv.work_Experience" :key="key">
             <v-row>
-              <v-card-title class="ml-7">{{ work.Job_title }}</v-card-title>
+              <v-card-title class="titles ml-7">{{ work.Job_title }}</v-card-title>
               <v-row justify="end" class="mr-10">
                 <v-icon dense color="orange darken-2">mdi-pencil</v-icon>
                 <v-icon class="ml-2" color="orange darken-2" dense>mdi-close</v-icon>
@@ -142,14 +142,14 @@
           </v-card>
           <v-card v-if="!user.cv.work_Experience==' '" outlined tile>
             <v-row>
-              <v-card-title class="ml-7 subtitle-1">You don't Have previous experience</v-card-title>
+              <v-card-title class="ml-7" style='font-family: "Montserrat";font-size:16px '>You don't Have previous experience</v-card-title>
             </v-row>
           </v-card>
         </v-card>
 
         <v-card class="mb-5">
           <v-row>
-            <v-card-title class="ml-7">Education</v-card-title>
+            <v-card-title class="titles ml-7">Education</v-card-title>
             <v-row justify="end" class="mr-10">
               <v-icon dense color="orange darken-2">mdi-plus</v-icon>
             </v-row>
@@ -157,7 +157,7 @@
 
           <v-card elevation="0 " v-for="(edu, key) in user.cv.education" :key="key">
             <v-row>
-              <v-card-title class="ml-7" v-if="edu.degree">{{ edu.degree }} {{ " ," + edu.field }}</v-card-title>
+              <v-card-title class="titles ml-7" v-if="edu.degree">{{ edu.degree }} {{ " ," + edu.field }}</v-card-title>
               <v-card-title class="ml-7" v-if="!edu.degree">-</v-card-title>
               <v-row justify="end" class="mr-10">
                 <v-icon dense color="orange darken-2">mdi-pencil</v-icon>
@@ -183,7 +183,7 @@
 
         <v-card class="mb-5">
           <v-row>
-            <v-card-title class="ml-7">Skills</v-card-title>
+            <v-card-title class="titles ml-7">Skills</v-card-title>
             <v-row justify="end" class="mr-10">
               <v-icon dense color="orange darken-2">mdi-pencil</v-icon>
             </v-row>
@@ -199,7 +199,7 @@
 
         <v-card class="mb-5">
           <v-row>
-            <v-card-title class="ml-7">Languges</v-card-title>
+            <v-card-title class="titles ml-7">Languges</v-card-title>
             <v-row justify="end" class="mr-10">
               <v-icon dense color="orange darken-2">mdi-pencil</v-icon>
             </v-row>
@@ -278,5 +278,10 @@ export default {
 }
 .avatar{
   border: 2px solid #f57c00 !important;
+}
+.titles{
+  font-family: "Montserrat"; 
+  font-size: 18px; 
+  font-weight: bold;
 }
 </style>

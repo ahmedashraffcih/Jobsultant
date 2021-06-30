@@ -2,10 +2,10 @@
   <div class="div">
     <v-row justify="center">
       <v-col cols="5">
-        <h1 class="mt-3 mb-3 " style='font-family: "Nexa"; font-size: 40px;'>Account settings</h1>
+        <h1 class="mt-3 mb-3 " style='font-family: "Montserrat"; font-size: 32px; font-weight: 700;'>Account settings</h1>
         <v-card class="mb-5">
           <v-row>
-            <v-card-title class="ml-13">Personal Information</v-card-title>
+            <v-card-title class="titles ml-13">Personal Information</v-card-title>
             <v-row justify="end" class="mr-15">
               <v-dialog transition="dialog-bottom-transition" max-width="1000" v-model="dialog3">
                 <template v-slot:activator="{ on, attrs }">
@@ -14,7 +14,7 @@
                 <template v-slot:default="dialog3">
                   <v-card>
                     <v-toolbar color="light-blue darken-4" dark>
-                      <v-toolbar-title class="ml-5">Edit Personal Information</v-toolbar-title>
+                      <v-toolbar-title class="titles ml-5">Edit Personal Information</v-toolbar-title>
                       <v-spacer></v-spacer>
                       <v-icon class="mr-2" @click="dialog3.value = false">mdi-close</v-icon>
                     </v-toolbar>
@@ -137,7 +137,7 @@
         <!-- ///////////////////////----------------------Contact info Section------------------------////////////////////////// -->
         <v-card class="mb-5">
           <v-row>
-            <v-card-title class="ml-13">Contact Information</v-card-title>
+            <v-card-title class="titles ml-13">Contact Information</v-card-title>
             <v-row justify="end" class="mr-15">
               <v-dialog transition="dialog-bottom-transition" max-width="800" v-model="dialog2">
                 <template v-slot:activator="{ on, attrs }">
@@ -146,7 +146,7 @@
                 <template v-slot:default="dialog2">
                   <v-card>
                     <v-toolbar color="light-blue darken-4" dark>
-                      <v-toolbar-title class="ml-5">Edit Contact Information</v-toolbar-title>
+                      <v-toolbar-title class="titles ml-5">Edit Contact Information</v-toolbar-title>
                       <v-spacer></v-spacer>
                       <v-icon class="mr-2" @click="dialog2.value = false">mdi-close</v-icon>
                     </v-toolbar>
@@ -219,7 +219,7 @@
         <!-- /////////////////////////----------------------Password Section------------------------//////////////////////////// -->
         <v-card class="mb-5">
           <v-row>
-            <v-card-title class="ml-13">Password</v-card-title>
+            <v-card-title class="titles ml-13">Password</v-card-title>
             <v-row justify="end" class="mr-15">
               <v-dialog transition="dialog-bottom-transition" max-width="600" v-model="dialog">
                 <template v-slot:activator="{ on, attrs }">
@@ -228,7 +228,7 @@
                 <template v-slot:default="dialog">
                   <v-card>
                     <v-toolbar color="light-blue darken-4" dark>
-                      <v-toolbar-title class="ml-5">Change Your Password</v-toolbar-title>
+                      <v-toolbar-title class="titles ml-3">Change Your Password</v-toolbar-title>
                       <v-spacer></v-spacer>
                       <v-icon class="mr-2" @click="dialog.value = false">mdi-close</v-icon>
                     </v-toolbar>
@@ -301,7 +301,7 @@
         <!-- /////////////////////////-----------------------Notify Section-------------------------//////////////////////////// -->
         <v-card class="mb-5">
           <v-row>
-            <v-card-title class="ml-13">Email notification</v-card-title>
+            <v-card-title class="titles ml-13">Email notification</v-card-title>
             <v-row justify="end" class="mr-15">
               <v-icon color="orange darken-2">mdi-pencil</v-icon>
             </v-row>
@@ -316,7 +316,7 @@
         <!-- /////////////////////////-----------------------Delete Section-------------------------//////////////////////////// -->
         <v-card class="mb-5">
           <v-row>
-            <v-card-title class="ml-13">Delete My Account</v-card-title>
+            <v-card-title class="titles ml-13">Delete My Account</v-card-title>
           </v-row>
           <v-list-item>
             <v-list-item-title class="ml-10">Permanently remove your account from Jobsultant.com</v-list-item-title>
@@ -569,5 +569,10 @@ export default {
 .div {
   background-color: #e0e0e0;
   width: 100%;
+}
+.titles{
+  font-family: "Montserrat"; 
+  font-size: 20px; 
+  font-weight: bold;
 }
 </style>

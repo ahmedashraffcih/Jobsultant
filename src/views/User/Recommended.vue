@@ -8,7 +8,7 @@
             <v-list class="ml-2 mr-2 ">
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title class="title">{{ user.fname }} {{ user.lname }}</v-list-item-title>
+                  <v-list-item-title class="titles">{{ user.fname }} {{ user.lname }}</v-list-item-title>
                   <v-list-item-subtitle style="color:#FF9800" class="subtitle-3 mt-2">Preferred job title</v-list-item-subtitle>
                   <v-list-item-subtitle class="caption mt-2" v-if="!user.cv">-</v-list-item-subtitle>
                   <v-list-item-subtitle class="caption mt-2" v-if="user.cv">{{ user.cv.job_Title }}</v-list-item-subtitle>
@@ -24,7 +24,7 @@
 
         <v-col>
           <v-card flat>
-            <v-card-title class="ml-2">Recommended For You</v-card-title>
+            <v-card-title class="titles ml-2">Recommended For You</v-card-title>
             <v-col cols="6" class="ml-6 pa-0">
               <v-text-field dense class="searchbar" outlined label="Search" v-model="search" rounded-0> </v-text-field>
             </v-col>
@@ -47,7 +47,7 @@
                       <v-list>
                         <v-list-item three-line>
                           <v-list-item-content>
-                            <v-list-item-title class="title">{{ job.title }}</v-list-item-title>
+                            <v-list-item-title class="titles">{{ job.title }}</v-list-item-title>
                             <v-list-item-subtitle style="color:#FF9800" class="subtitle-1">{{ job.company }}</v-list-item-subtitle>
                             <v-list-item-subtitle class="subtitle-2 mt-5">{{ job.career_Level }} Level</v-list-item-subtitle>
                             <v-list-item-subtitle class="caption mt-2">{{ job.description }}</v-list-item-subtitle>
@@ -364,5 +364,11 @@ export default {
 }
 .avatar {
   border: 1px solid #f57c00 !important;
+}
+
+.titles{
+  font-family: "Montserrat"; 
+  font-size: 18px; 
+  font-weight: bold;
 }
 </style>

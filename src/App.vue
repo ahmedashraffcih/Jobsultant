@@ -41,4 +41,20 @@ export default {
   src: local("Nexa"),
    url(assets/fonts/Nexa.otf) format("truetype");
 }
+@font-face {
+  font-family: "Montserrat";
+  src: local("Montserrat"),
+   url(assets/fonts/Montserrat/Montserrat-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Montserrat-mid";
+  src: local("Montserrat-mid"),
+   url(assets/fonts/Montserrat/Montserrat-Light.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Montserrat-black";
+  src: local("Montserrat-black"),
+   url(assets/fonts/Montserrat/Montserrat-ExtraBold.ttf) format("truetype");
+}
+
 </style>

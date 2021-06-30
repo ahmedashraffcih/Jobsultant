@@ -4,7 +4,7 @@
       <!-- Filters card -->
       <v-col cols="2">
         <v-card flat>
-          <v-card-title>Filter</v-card-title>
+          <v-card-title class="titles1">Filter</v-card-title>
           <v-divider></v-divider>
           <v-col cols="11" class="mt-3">
             <v-text-field
@@ -16,8 +16,8 @@
               rounded-0>
             </v-text-field>
           </v-col>
-          <v-card-text > Filter Your Search </v-card-text>
-          <v-card-title>Career Level</v-card-title>
+          <v-card-text class="grey--text text--darken-2" style='font-family: "Montserrat"; font-size: 14px;'> Filter Your Search </v-card-text>
+          <v-card-title class="titles">Career Level</v-card-title>
           <v-card-text>
             <v-chip-group active-class="orange darken-2 white--text" column >
               <v-chip filter>Intern</v-chip>
@@ -44,8 +44,8 @@
 
       <v-col cols="3">
         <v-card flat>
-          <v-card-title v-if="this.search">{{search}} in Jobs</v-card-title>
-          <v-card-title v-if="!this.search">Jobs</v-card-title>
+          <v-card-title class="titles1" v-if="this.search">{{search}} in Jobs</v-card-title>
+          <v-card-title class="titles1" v-if="!this.search">Jobs</v-card-title>
 
 <!-- 
           <v-progress-linear
@@ -67,9 +67,9 @@
             <v-list>
               <v-list-item three-line>
                 <v-list-item-content>
-                  <v-list-item-title class="title">{{job.title}}</v-list-item-title>
-                  <v-list-item-subtitle style="color:#FF9800" class="subtitle-1">{{job.company}}</v-list-item-subtitle>
-                  <v-list-item-subtitle class="subtitle-2 mt-5" >{{job.career_Level}} Level</v-list-item-subtitle>
+                  <v-list-item-title class="titles">{{job.title}}</v-list-item-title>
+                  <v-list-item-subtitle style="color:#FF9800;" class="mt-1 subtitle-1">{{job.company}}</v-list-item-subtitle>
+                  <v-list-item-subtitle class="subtitle-2 mt-3" >{{job.career_Level}} Level</v-list-item-subtitle>
                   <v-list-item-subtitle class="caption mt-2">{{job.description}}</v-list-item-subtitle>
                   <v-list-item-subtitle class="caption mt-2">1/1/2020</v-list-item-subtitle>
                 </v-list-item-content>
@@ -97,7 +97,7 @@
             </v-row>
             <v-list-item three-line>
               <v-list-item-content>
-                <v-list-item-title class="title">{{oneJob.title}}</v-list-item-title>
+                <v-list-item-title class='titles'>{{oneJob.title}}</v-list-item-title>
                 <v-list-item-subtitle style="color:#FF9800" class="subtitle-1">{{oneJob.company}}</v-list-item-subtitle>
                 <v-list-item-subtitle class="subtitle-2 mt-3">{{oneJob.career_Level}} Level</v-list-item-subtitle>
                 <v-list-item-subtitle class="caption mt-1">{{oneJob.description}}</v-list-item-subtitle>
@@ -206,7 +206,7 @@
           <v-list>
             <v-list-item three-line>
               <v-list-item-content>
-                <v-list-item-title class="title">{{user.fname}} {{user.lname}}</v-list-item-title>
+                <v-list-item-title class="titles">{{user.fname}} {{user.lname}}</v-list-item-title>
                 
                 <v-list-item-subtitle style="color:#FF9800" class="subtitle-2 mt-2">Preferred job title</v-list-item-subtitle>
                 <v-list-item-subtitle class="caption mt-1" v-if="!user.cv">-</v-list-item-subtitle>
@@ -227,7 +227,7 @@
         </v-card>
 
         <v-card>
-          <v-card-title>Save this search and receive similar jobs:</v-card-title>
+          <v-card-title class="titles">Save this search and receive similar jobs:</v-card-title>
           <v-card-text>
             <v-form>
               <v-row>
@@ -472,5 +472,15 @@ export default {
 }
 .avatar{
   border: 1px solid #f57c00 !important;
+}
+.titles1{
+  font-family: "Montserrat-black"; 
+  font-size: 18px; 
+  font-weight: bold;
+}
+.titles{
+  font-family: "Montserrat"; 
+  font-size: 18px; 
+  font-weight: bold;
 }
 </style>

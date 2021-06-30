@@ -5,7 +5,7 @@
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           <h1 style='font-family: "Dela Gothic One"; font-size: 55px;'>Hire Smarter, Grow Faster.</h1>
-          <h3 class="headline white--text font-weight-light mt-5">With Egypt’s #1 Online Recruitment Platform</h3>
+          <h3 class="subtitles white--text mt-5">With Egypt’s #1 Online Recruitment Platform</h3>
           <v-btn v-if="loggedIn&&user_type=='employer'" to="Employer/Emp_Manage_Jobs" class="mt-10" large dark outlined >Start Hiring Now</v-btn>
           <v-btn v-if="!loggedIn||user_type=='normal user'" to="Employer/Emp_Register" class="mt-10" large dark outlined >Start Hiring Now</v-btn>
         </v-col>
@@ -18,10 +18,10 @@
           <v-list-item class="my-5" >
             <v-list-item-content>
               <v-list-item-title class="titles mb-5">Access Egypt’s largest database of<br> professional talents</v-list-item-title>
-              <v-list-item-subtitle class="body-1">
+              <v-list-item-subtitle class="captions">
                 Whatever the job function, industry, or career level you are hiring for, you’ll<br>find it at WUZZUF. 
-                Leverage our rich and continuously growing database of<br>professionals all the way from interns and fresh grads 
-                to senior managers,<br> directors, VPs, and C-levels.
+                Leverage our rich and continuously growing database <br>of professionals all the way from interns and fresh grads 
+                to senior <br>managers, directors, VPs, and C-levels.
               </v-list-item-subtitle>
               <v-list-item-subtitle>
                 <v-btn  v-if="loggedIn&&user_type=='employer'" to="Employer/Emp_Manage_Jobs" class="mt-10 " outlined >Get Started Now</v-btn>
@@ -45,7 +45,7 @@
           <v-list-item >
             <v-list-item-content>
               <v-list-item-title class="titles mb-5">Control your hiring process from<br>start to finish</v-list-item-title>
-              <v-list-item-subtitle class="body-1">
+              <v-list-item-subtitle class="captions">
                 Inbox 2.0 is here! Enjoy a smooth and smart inbox where you can easily<br>
                 filter through your applicants and customize the recruitment stages<br>based on your own hiring process.
               </v-list-item-subtitle>
@@ -64,7 +64,7 @@
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           <h1 class="titles mb-4">Ready to talk?</h1>
-          <h3 class="font-weight-light">Our team is here to help.</h3>
+          <h3 class="subtitles" style="font-size:16px">Our team is here to help.</h3>
           <v-btn class="mt-7 mr-5" dark outlined>Learn More</v-btn>
           <v-btn class="mt-7" dark outlined to="Blogs">Contact Us</v-btn>
         </v-col>
@@ -123,5 +123,13 @@ export default {
 .titles {
   font-family: "Nexa"; 
   font-size: 32px;
+}
+.subtitles {
+  font-family: "Montserrat-mid"; 
+  font-size: 24px;
+}
+.captions {
+  font-family: "Montserrat"; 
+  font-size: 16px;
 }
 </style>

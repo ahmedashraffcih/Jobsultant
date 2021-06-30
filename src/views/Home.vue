@@ -8,7 +8,7 @@
             <h1 style='font-family: "Dela Gothic One"; font-size: 70px;'>JobSultant</h1>
           </v-row>
           <v-row justify="center">
-            <h2 class="white--text font-weight-regular mt-5">Find Jobs, Network and Learn</h2>
+            <h2 class="subtitles mt-5">Find Jobs, Network and Learn</h2>
           </v-row>
           <v-row justify="center" class="mt-15">
             <v-col cols="3">
@@ -31,7 +31,7 @@
           <v-list-item class="my-5" >
             <v-list-item-content>
               <v-list-item-title class="titles mb-5">Explore the Right Jobs & Career<br>Opportunities</v-list-item-title>
-              <v-list-item-subtitle class="body-1">
+              <v-list-item-subtitle class="captions">
                 Explore feed knows what you need, based on your career interests, 
                 will<br>find you what you are searching for. And don't worry about too many<br> opportunities, 
                 you can always save them for later.
@@ -58,7 +58,7 @@
           <v-list-item >
             <v-list-item-content>
               <v-list-item-title class="titles mb-5">Track Your Application, the Easy Way</v-list-item-title>
-              <v-list-item-subtitle class="body-1">
+              <v-list-item-subtitle class="captions">
                 Track your job application status whether it is viewed, shortlisted, rejected,<br>
                 or if a company accessed your contacts. With the tracking feature, you will <br>
                 be one step ahead on your job hunting plan.
@@ -78,7 +78,7 @@
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           <h1 class="titles mb-4">Get ready for more opportunities!</h1>
-          <h4 class="subheading font-weight-light">
+          <h4 class="subtitles " style="font-size:16px">
             You are minutes away from the right job.
           </h4>
           <v-btn v-if="!loggedIn" class="mt-7" dark outlined to="Authentication/Register">Join Now</v-btn>
@@ -91,7 +91,7 @@
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           <h1 class="titles mb-2">Ready to talk?</h1>
-          <h4 class="subheading font-weight-light">
+          <h4 class="subtitles " style="font-size:16px">
             Our team is here to help.
           </h4>
           <v-btn class="mt-5 mr-5"  outlined to="/blogs">Learn More</v-btn>
@@ -191,5 +191,13 @@ export default {
 .titles {
   font-family: "Nexa"; 
   font-size: 32px;
+}
+.subtitles {
+  font-family: "Montserrat-mid"; 
+  font-size: 24px;
+}
+.captions {
+  font-family: "Montserrat"; 
+  font-size: 16px;
 }
 </style>
