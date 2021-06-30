@@ -30,16 +30,16 @@
         <v-tabs-items v-model="tabs" class="taps-styling">
           <v-tab-item class="margin-item">
             <v-skeleton-loader v-if="loading == true" :loading="loading" width="562" class="mb-5 ml-10" type="article, actions"> </v-skeleton-loader>
-            <v-row class="overflow-hidden ml-5" justify="center">
-              <v-col  cols="6" v-for="job in Jobs" :key="job._id">
-                <v-card  width="530" elevation="2" class="mb-5 px-4" v-show="loaded">
+            <v-row class="overflow-hidden mx-7 mb-7" justify="center" fluid align="center">
+              <v-col cols="6" v-for="job in Jobs" :key="job._id" fluid >
+                <v-card elevation="2" class="px-4" v-show="loaded">
                   <v-list-item three-line>
                     <v-list-item-content class="content-height">
-                      <v-row>
-                        <v-col cols="7" class="text-subtitle-1 font-weight-medium font-italic">
+                      <v-row justify="space-between">
+                        <v-col class="text-subtitle-1 font-weight-medium font-italic">
                           {{ job.company }}
                         </v-col>
-                        <v-col cols="4" class=" ml-10 d-none d-md-flex">
+                        <v-col cols="auto">
                           <v-chip v-if="job.type == 'Full-Time'" color="green darken-1" outlined class="font-weight-medium ml-14">
                             {{ job.type }}
                           </v-chip>
@@ -78,7 +78,7 @@
                         color="success"
                         class=" d-none d-md-flex"
                         dark
-                        :to="`/Employer/Emp_View_Candidates/` + `/` + job._id"
+                        :to="`/Employer/Emp_View_Candidates/` + job._id"
                       >
                         View
                         <v-icon small dark right>
@@ -139,7 +139,7 @@
                       <v-btn
                         small
                         color="red darken-2"
-                        class="  d-none d-md-flex"
+                        class="d-none d-md-flex"
                         dark
                         @click="
                           dialog = true;
