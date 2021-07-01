@@ -56,19 +56,6 @@ npm run lint
 * Github: [@NouhJr](https://github.com/NouhJr)
 * LinkedIn: [@omar-nouh-292929153](https://linkedin.com/in/omar-nouh-292929153)
 
-👤 **Seif Hany**
-
-* Github: [@Seifah17](https://github.com/Seifah17)
-* LinkedIn: [@seif-alden-hany](https://linkedin.com/in/seif-alden-hany)
-
-👤 **Khaled Mosbah**
-
-* Github: [@Mosba7](https://github.com/Mosba7)
-* LinkedIn: [@khaled-mosbah-714410161](https://linkedin.com/in/khaled-mosbah-714410161)
-
-👤 **Ahmed Tamer**
-
-* LinkedIn: [@ahmedtamer1139](https://linkedin.com/in/ahmedtamer1139)
 
 ## Show your support
 
