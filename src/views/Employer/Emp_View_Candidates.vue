@@ -1,18 +1,18 @@
 <template>
   <div class="div">
-    <v-row justify="center">
+    <v-row justify="center" class="mt-5">
       <!-- PAGE HEADER -->
-      <v-col class="form-header rounded-lg " height="140px" cols="6">
+      <v-col class="form-header rounded-lg" cols="5">
         <h1 class="font-weight-light">
           Applicants for
           <span class="font-weight-regular">{{ oneJob.title }}</span> position
         </h1>
         <v-row>
-          <v-col cols="7">
+          <v-col cols="6">
             <p class="text-h6 font-weight-light" v-if="Total">{{ Total }} applicants!</p>
             <p class="text-h6 font-weight-light" v-if="!Total">No applicants Yet!</p>
           </v-col>
-          <v-col cols="3">
+          <v-col cols="auto" class="ml-9">
             <v-btn class="ml-15" dark color="#01579B" to="/Employer/Emp_View_Shortlisted">
               View Shortlisted Candidates
             </v-btn>
@@ -31,6 +31,7 @@
                   cardcondition = true;
                   GetOneApplication(applicant._id);
                   GetDetails(applicant._id);
+                  setDefault()
                 "
               >
                 <v-card-title>
@@ -54,26 +55,26 @@
       </v-col>
 
       <!-- PROFILE DATA -->
-      <v-col class="rounded-lg" cols="3" v-if="cardcondition">
-        <v-card>
+      <v-col class="rounded-lg pt-2" cols="3" v-if="cardcondition">
+        <v-card class="rounded-lg elevation-0 pb-5">
           <v-progress-linear absolute v-if="loadingProfile" color="orange darken-2" indeterminate> </v-progress-linear>
           <v-row>
             <v-col cols="8">
               <v-card-title>
-                <a class="a" href="#">{{ username }} Profile</a>
+                <a class="a ml-2" href="#">{{ username }} Profile</a>
               </v-card-title>
-              <v-card-subtitle class="text-subtitle-1">{{ workExp }}</v-card-subtitle>
+              <v-card-subtitle class="text-subtitle-1 ml-2">{{ workExp }}</v-card-subtitle>
             </v-col>
 
             <v-col>
-              <v-list-item-avatar class="avatar" color="orange" size="100">
+              <v-list-item-avatar class="avatar" color="orange" size="80">
                 <v-img :src="Details.image"></v-img>
               </v-list-item-avatar>
             </v-col>
           </v-row>
           <v-divider></v-divider>
           <v-list>
-            <v-list-item three-line>
+            <v-list-item three-line class="ml-2">
               <v-list-item-content>
                 <v-list-item-title class="title">Location</v-list-item-title>
                 <v-list-item-subtitle style="color:#0D47A1" class="subtitle-1">{{ Details.residence_Location }}</v-list-item-subtitle>
@@ -89,7 +90,7 @@
                 <v-list-item-subtitle style="color:#0D47A1" class="subtitle-1">{{ Details.job_Level }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
-            <v-row class="ml-2" justify="start">
+            <v-row class="ml-3" justify="start">
               <v-col cols="4">
                 <v-btn
                   :loading="loadingShortlist"
@@ -221,6 +222,7 @@ export default {
         if (r.status == 200) {
           this.Applications = r.data.Applications;
           (this.skeletonloaded = true), (this.skeletonloading = false);
+          //this.setDefault();
           this.overlay = false;
           console.log("Get application success");
         } else {
@@ -249,6 +251,7 @@ export default {
           this.Total = r.data.Total_Applications;
           (this.skeletonloaded = true), (this.skeletonloading = false);
           this.overlay = false;
+          this.loadingProfile = false;
           console.log("Get Total success");
           //console.log(this.oneJob);
         } else {
@@ -278,14 +281,32 @@ export default {
 
     Shortlist() {
       this.oneApplication.applicantStatus = "Shortlisted";
+      this.oneApplication.applicantionStatus = "success";
     },
     Reject() {
       this.oneApplication.applicantStatus = "Rejected";
+      this.oneApplication.applicantionStatus = "Error";
     },
-
+    setDefault()
+    {
+        this.oneApplication.applicantStatus = "In Review";
+        this.oneApplication.applicantionStatus = "warning";
+        ApiService.put(`http://localhost:3000/jobApplications/listApplications/${this.oneApplication._id}`, this.oneApplication).then((r) => {
+          if (r.status == 204) 
+          {
+            console.log('warning');
+            console.log(this.oneApplication._id)
+            console.log(r);
+          } 
+          else 
+          {
+            console.log(r);
+          }
+        });
+    },
     ChangeStatus() {
       console.log("Accessed change status");
-      if (this.oneApplication.applicantStatus == "Shortlisted") {
+      if (this.oneApplication.applicantStatus == "success") {
         this.loadingShortlist = true;
         ApiService.put(`http://localhost:3000/jobApplications/listApplications/${this.oneApplication._id}`, this.oneApplication).then((r) => {
           if (r.status == 204) {
@@ -298,7 +319,7 @@ export default {
             console.log("API error");
           }
         });
-      } else if(this.oneApplication.applicantStatus == "Rejected") {
+      } else if(this.oneApplication.applicantStatus == "error") {
         this.loadingReject = true;
         ApiService.put(`http://localhost:3000/jobApplications/listApplications/${this.oneApplication._id}`, this.oneApplication).then((r) => {
           if (r.status == 204) {
@@ -338,5 +359,6 @@ export default {
 .div {
   background-color: #e0e0e0;
   width: 100%;
+  height: 100vh;
 }
 </style>

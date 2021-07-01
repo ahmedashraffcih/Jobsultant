@@ -12,7 +12,25 @@
           <!-- @click="GetAppliedJob(application.jobID)" -->
           <v-col cols="12">
             <v-card v-for="application in applications" :key="application._id" class="mb-5">
-              <v-progress-linear value="100" height="30" :class="'color: '+(application.applicantStatus === 'no status' ) ? 'primary' : 'application.applicantStatus'">
+              <v-progress-linear v-if='(application.applicantStatus == "no status")' value="100" height="30" color="primary">
+                <v-spacer></v-spacer>
+                <v-btn class="mr-2" icon>
+                  <v-icon @click="dialog = true;appID=application._id" color="white">mdi-dots-horizontal</v-icon>
+                </v-btn>
+              </v-progress-linear>
+              <v-progress-linear v-if='(application.applicantStatus == "warning")' value="100" height="30" color="warning">
+                <v-spacer></v-spacer>
+                <v-btn class="mr-2" icon>
+                  <v-icon @click="dialog = true;appID=application._id" color="white">mdi-dots-horizontal</v-icon>
+                </v-btn>
+              </v-progress-linear>
+              <v-progress-linear v-if='(application.applicantStatus == "error")' value="100" height="30" color="error">
+                <v-spacer></v-spacer>
+                <v-btn class="mr-2" icon>
+                  <v-icon @click="dialog = true;appID=application._id" color="white">mdi-dots-horizontal</v-icon>
+                </v-btn>
+              </v-progress-linear>
+              <v-progress-linear v-if='(application.applicantStatus == "success")' value="100" height="30" color="success">
                 <v-spacer></v-spacer>
                 <v-btn class="mr-2" icon>
                   <v-icon @click="dialog = true;appID=application._id" color="white">mdi-dots-horizontal</v-icon>
@@ -72,10 +90,10 @@
                 </v-col>
                 <v-col cols="6" align="center" align-self="center">
                   <v-icon size="100px" v-if="application.applicantStatus == 'no status'" color="primary">mdi-progress-upload</v-icon>
-                  <v-icon size="100px" v-if="application.applicantStatus == 'review'" color="warning">mdi-progress-clock</v-icon>
+                  <v-icon size="100px" v-if="application.applicantStatus == 'warning'" color="warning">mdi-progress-clock</v-icon>
                   <v-icon size="100px" v-if="application.applicantStatus == 'error'" color="error">mdi-close-circle-outline</v-icon>
                   <v-icon size="100px" v-if="application.applicantStatus == 'shortlisted'" color="success">mdi-check-circle-outline</v-icon>
-                  <v-card-text>{{ (application.applicantStatus === 'no status' ) ? 'Pending' : 'application.applicantStatus' }}</v-card-text>
+                  <v-card-text>{{ (application.applicantStatus === 'no status' ) ? 'Pending' : application.applicantStatus }}</v-card-text>
                 </v-col>
               </v-row>
             </v-card>
