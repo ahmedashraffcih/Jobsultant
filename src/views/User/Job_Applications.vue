@@ -292,9 +292,14 @@
         <p>lol</p>
       </v-tab-item>
     </v-tabs-items>
-    <v-overlay :value="overlay" opacity="0.9">
-    <fingerprint-spinner class="justify-center" :animation-duration="1500" :size="120" color="#FF9800" />
-  </v-overlay>
+    <v-overlay :value="overlay" opacity="0.95" color="#01579B" >
+        <semipolar-spinner
+          class="justify-center"
+          :animation-duration="1500"
+          :size="120"
+          color="#FF9800"
+        />
+    </v-overlay>
   <v-snackbar v-model="snackbar1" timeout = "3000" color="success" outlined dark><v-icon class="mr-2">mdi-checkbox-marked-circle</v-icon> Your Application Deleted Successfully </v-snackbar>
   </v-col>
   
@@ -303,10 +308,11 @@
 <script>
 import ApiService from "../../services/api.service";
 import { mapGetters, mapActions, mapMutations } from "vuex";
-import { FingerprintSpinner } from 'epic-spinners'
+import { FingerprintSpinner,SemipolarSpinner } from 'epic-spinners'
 export default {
   components:{
-      FingerprintSpinner
+      FingerprintSpinner,
+      SemipolarSpinner
   },
   data() {
     return {

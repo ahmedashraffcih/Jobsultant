@@ -25,8 +25,8 @@
     <v-snackbar v-model="alert2" timeout="1000" color="warning" dark>
       <v-icon class="mr-2">mdi-alert-outline</v-icon> You need to confirm your e-mail
     </v-snackbar>
-    <v-overlay :value="overlay" opacity="0.9" >
-        <fingerprint-spinner
+    <v-overlay :value="overlay" opacity="0.95" color="#01579B" >
+        <semipolar-spinner
           class="justify-center"
           :animation-duration="1500"
           :size="120"
@@ -38,7 +38,7 @@
 
 <script>
 // @ is an alias to /src
-import { FingerprintSpinner } from "epic-spinners";
+import { FingerprintSpinner,SemipolarSpinner } from "epic-spinners";
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import { TokenService } from "../../services/storage.service";
 import ApiService from "../../services/api.service";
@@ -55,6 +55,7 @@ export default {
   }),
   components: {
     FingerprintSpinner,
+    SemipolarSpinner
   },
   computed: {
     ...mapGetters("auth", ["loggedIn"]),

@@ -270,8 +270,8 @@
     </v-row>
     <v-snackbar v-model="snackbar2" timeout = "5000" color="error" outlined dark><v-icon class="mr-2">mdi-alert-octagon-outline</v-icon> Bad Information </v-snackbar>
     <v-snackbar v-model="snackbar1" timeout = "3000" color="success" outlined dark><v-icon class="mr-2">mdi-checkbox-marked-circle</v-icon> Your Application placed successfully </v-snackbar>
-    <v-overlay :value="overlay" opacity="0.9" >
-        <fingerprint-spinner
+    <v-overlay :value="overlay" opacity="0.95" color="#01579B" >
+        <semipolar-spinner
           class="justify-center"
           :animation-duration="1500"
           :size="120"
@@ -283,14 +283,15 @@
 
 <script>
 import ApiService from "../services/api.service";
-import { FingerprintSpinner } from 'epic-spinners'
+import { FingerprintSpinner,SemipolarSpinner    } from 'epic-spinners'
 import { mapGetters,mapActions,mapMutations } from "vuex";
 import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 export default {
   components:{
       VuePhoneNumberInput,
-      FingerprintSpinner
+      FingerprintSpinner,
+      SemipolarSpinner   
   },
   mounted() {
     this.loadingjobs=true

@@ -214,8 +214,13 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-overlay :value="overlay" opacity="0.9">
-      <fingerprint-spinner class="justify-center" :animation-duration="1500" :size="120" color="#FF9800" />
+    <v-overlay :value="overlay" opacity="0.95" color="#01579B" >
+        <semipolar-spinner
+          class="justify-center"
+          :animation-duration="1500"
+          :size="120"
+          color="#FF9800"
+        />
     </v-overlay>
   </div>
 </template>
@@ -223,10 +228,11 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import ApiService from "../../services/api.service";
-import { FingerprintSpinner } from "epic-spinners";
+import { FingerprintSpinner,SemipolarSpinner } from "epic-spinners";
 export default {
   components: {
     FingerprintSpinner,
+    SemipolarSpinner
   },
   data: () => ({
     group: null,

@@ -51,7 +51,15 @@
                             <v-list-item-subtitle style="color:#FF9800" class="subtitle-1">{{ job.company }}</v-list-item-subtitle>
                             <v-list-item-subtitle class="subtitle-2 mt-5">{{ job.career_Level }} Level</v-list-item-subtitle>
                             <v-list-item-subtitle class="caption mt-2">
-                              <v-chip color="#F57C00" text-color="white" class="mr-2" small v-for="i,skill in job.rco.Key_Skills.split('|')" :key='i' >{{ i }} </v-chip>
+                              <v-chip
+                                color="#F57C00"
+                                text-color="white"
+                                class="mr-2 mb-1"
+                                small
+                                v-for="(i, skill) in job.rco.Key_Skills.split('|')"
+                                :key="i"
+                                >{{ i }}
+                              </v-chip>
                             </v-list-item-subtitle>
                             <v-list-item-subtitle class="caption mt-2">1/1/2020</v-list-item-subtitle>
                           </v-list-item-content>
@@ -59,8 +67,12 @@
                       </v-list>
                     </v-col>
                     <v-col>
-                      <vue-ellipse-progress :progress="job.match" :size="120"  :color="job.match >=75  ? '#00C853' : '#FFD600'">
-                        <span> {{job.match}}%</span>
+                      <vue-ellipse-progress
+                        :progress="job.match"
+                        :size="120"
+                        :color="job.match >= 80 ? '#00C853' : job.match < 50 ? '#D50000' : '#FFD600'"
+                      >
+                        <span> {{ job.match }}%</span>
                         <span slot="legend-caption">Matching</span>
                       </vue-ellipse-progress>
                     </v-col>
@@ -161,11 +173,11 @@
                 </v-dialog>
               </v-col>
               <v-col cols="5">
-                <v-card-title class="title">Job Description</v-card-title>
+                <v-card-title class="titles">Job Description</v-card-title>
                 <v-card-text>{{ oneJob.description }}</v-card-text>
               </v-col>
               <v-col>
-                <v-card-title class="title">Skills</v-card-title>
+                <v-card-title class="titles">Skills</v-card-title>
                 <ul class="ml-3">
                   <li v-for="skill in oneJob.skills">{{ skill }}</li>
                 </ul>
@@ -184,15 +196,22 @@
       ><v-icon class="mr-2">mdi-checkbox-marked-circle</v-icon>
       Your Application placed successfully
     </v-snackbar>
-    <v-overlay :value="overlay" opacity="0.9">
-      <fingerprint-spinner class="justify-center" :animation-duration="1500" :size="120" color="#FF9800" />
+    <v-overlay :value="overlay" opacity="0.95" color="#01579B">
+      <v-row class="justify-center">
+        <breeding-rhombus-spinner class="justify-center" :animation-duration="2000" :size="100" color="#FF9800" />
+      </v-row>
+      <v-row class="justify-center mt-10">
+        <vue-typed-js :strings="['That could take some time','Getting you the perfect jobs']" color="#FF9800" 	:typeSpeed="75" :loop="true" 	:startDelay="1000">
+          <h1 style="color:#FF9800; font-family: 'Montserrat';font-size: 18px;" class="text-center">Please be patient,<br> <span class="typing"></span></h1>
+        </vue-typed-js>
+      </v-row>
     </v-overlay>
   </div>
 </template>
 
 <script>
 import ApiService from "../../services/api.service";
-import { FingerprintSpinner } from "epic-spinners";
+import { FingerprintSpinner, BreedingRhombusSpinner } from "epic-spinners";
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import VuePhoneNumberInput from "vue-phone-number-input";
 import "vue-phone-number-input/dist/vue-phone-number-input.css";
@@ -200,6 +219,7 @@ export default {
   components: {
     VuePhoneNumberInput,
     FingerprintSpinner,
+    BreedingRhombusSpinner,
   },
   mounted() {
     this.GetRecommended();
@@ -220,11 +240,11 @@ export default {
     recommended: [],
     job: "",
     oneJob: {
-      rco:{
-        Job_Title:'',
-        Key_Skills:'',
+      rco: {
+        Job_Title: "",
+        Key_Skills: "",
       },
-      match:null,
+      match: null,
     },
     AppliedJob: {
       jobID: "",
@@ -256,20 +276,17 @@ export default {
     ...mapGetters("auth", ["user_id"]),
     //Search bar
     filteredJobs: function() {
-      for(let i = 0;i <9; i++ )
-      {
+      for (let i = 0; i < 9; i++) {
         return this.jobs.filter((job) => {
-        return job.rco.Job_Title.toLowerCase().match(this.search.toLowerCase());
-      });
+          return job.rco.Job_Title.toLowerCase().match(this.search.toLowerCase());
+        });
       }
-      
     },
   },
   methods: {
     GetRecommended() {
       this.loadingjobs = true;
-      this.overlay=true;
-      console.log("sadas");
+      this.overlay = true;
       ApiService.get(`http://localhost:3000/home/${this.user_id}`)
         .then((r) => {
           if (r.status == 200) {
@@ -291,7 +308,7 @@ export default {
 
     GetJob(id) {
       this.loading = true;
-      
+      console.log(id);
       ApiService.get(`http://localhost:3000/listjob/${this.user_id}/${id}`).then((r) => {
         console.log(r);
         if (r.status == 200) {
@@ -321,7 +338,7 @@ export default {
       });
     },
     getUser() {
-      this.overlay=true;
+      this.overlay = true;
       ApiService.get(`http://localhost:3000/users/${this.user_id}`).then((r) => {
         if (r.status == 200) {
           this.user = r.data;
@@ -329,7 +346,7 @@ export default {
           this.overlay = false;
         } else {
           console.log(r);
-          this.overlay=false;
+          this.overlay = false;
         }
       });
     },
@@ -360,9 +377,9 @@ export default {
   border: 1px solid #f57c00 !important;
 }
 
-.titles{
-  font-family: "Montserrat"; 
-  font-size: 18px; 
+.titles {
+  font-family: "Montserrat";
+  font-size: 18px;
   font-weight: bold;
 }
 </style>

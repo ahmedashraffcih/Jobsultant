@@ -11,6 +11,7 @@ import VueEllipseProgress from 'vue-ellipse-progress';
 import ReadMore from 'vue-read-more';
 import VueSocialSharing from 'vue-social-sharing'
 import './plugins/base'
+import VueTypedJs from 'vue-typed-js'
 
 Vue.config.productionTip = false;
 Vue.use(VueTelInputVuetify, {
@@ -20,6 +21,7 @@ Vue.use(VueTelInputVuetify, {
 Vue.use(VueEllipseProgress);
 Vue.use(ReadMore);
 Vue.use(VueSocialSharing);
+Vue.use(VueTypedJs);
 
 axios.defaults.baseURL = 'http://localhost:3000/'
 // Set the base URL of the API
