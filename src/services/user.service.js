@@ -95,6 +95,7 @@ const UserService = {
             TokenService.saveToken(response.data.token);
             TokenService.saveUserId(response.data.payload.id); 
             TokenService.saveverified(false);
+            TokenService.saveCV(false);
             //Store user type for conditional rendering
             TokenService.saveUserType(response.data.type);
             //saving user as an object in local storage
@@ -189,6 +190,7 @@ const UserService = {
         TokenService.removeUserType()
         ApiService.removeHeader()
         TokenService.removeverified()
+        TokenService.removeCV()
         // NOTE: Again, we'll cover the 401 Interceptor a bit later. 
     }
 }

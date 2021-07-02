@@ -427,9 +427,8 @@ export default {
           this.loading = false;
           //this.dialog = false;
           this.snackbar1 = true;
-          TokenService.saveCVstat(true);
+          TokenService.saveCV(true);
           this.$router.push("/User/My_CV");
-          router.push(router.history.current.query.redirect || '/');
           console.log(r);
         } else {
           this.loading = false;

@@ -4,6 +4,7 @@ const USER_ID_KEY = 'user_id'
 const USER = 'UserData'
 const USER_TYPE = 'User_Type'
 const verified = 'verified'
+const CVCREATED = 'CV'
 
 /**
  * Manage the how Access Tokens are being stored and retreived from storage.
@@ -48,9 +49,21 @@ const TokenService = {
     },
 
     removeverified() {
-        localStorage.removeItem(verified)
+        localStorage.removeItem(CVCREATED)
     },
 
+    getCV() {
+        return localStorage.getItem(CVCREATED)
+    },
+   
+    saveCV(created) {
+        localStorage.setItem(CVCREATED, created)
+    },
+
+    removeCV() {
+        localStorage.removeItem(CVCREATED)
+    },
+    
     StoreUser(payload) {
         localStorage.setItem(USER, payload)
     },
