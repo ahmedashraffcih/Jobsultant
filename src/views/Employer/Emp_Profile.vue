@@ -31,7 +31,7 @@
           <v-card outlined>
             <v-row>
               <v-col>
-                <v-card-title class="ml-10 text-h4">About:</v-card-title>
+                <v-card-title class="ml-10 titles">About:</v-card-title>
               </v-col>
 
               <v-col cols="2" class="mt-4">
@@ -46,32 +46,32 @@
             <v-list class="ml-10 mb-5">
               <v-list-item>
                 <v-list-item-title>Name : </v-list-item-title>
-                <v-list-item-subtitle>{{ employer.companyName }}</v-list-item-subtitle>
+                <v-list-item-subtitle class="light-blue--text text--darken-4">{{ employer.companyName }}</v-list-item-subtitle>
               </v-list-item>
               <v-list-item>
                 <v-list-item-title>Phone : </v-list-item-title>
-                <v-list-item-subtitle v-if="employer.companyPhone">{{ employer.companyPhone }}</v-list-item-subtitle>
-                <v-list-item-subtitle v-if="!employer.companyPhone">-</v-list-item-subtitle>
+                <v-list-item-subtitle class="light-blue--text text--darken-4" v-if="employer.companyPhone">{{ employer.companyPhone }}</v-list-item-subtitle>
+                <v-list-item-subtitle class="light-blue--text text--darken-4" v-if="!employer.companyPhone">-</v-list-item-subtitle>
               </v-list-item>
               <v-list-item>
                 <v-list-item-title>Industry : </v-list-item-title>
-                <v-list-item-subtitle v-if="employer.industry">{{ employer.industry }}</v-list-item-subtitle>
-                <v-list-item-subtitle v-if="!employer.industry">-</v-list-item-subtitle>
+                <v-list-item-subtitle class="light-blue--text text--darken-4" v-if="employer.industry">{{ employer.industry }}</v-list-item-subtitle>
+                <v-list-item-subtitle class="light-blue--text text--darken-4" v-if="!employer.industry">-</v-list-item-subtitle>
               </v-list-item>
               <v-list-item>
                 <v-list-item-title>Website : </v-list-item-title>
-                <v-list-item-subtitle v-if="employer.website">{{ employer.website }}</v-list-item-subtitle>
-                <v-list-item-subtitle v-if="!employer.website">-</v-list-item-subtitle>
+                <v-list-item-subtitle class="light-blue--text text--darken-4" v-if="employer.website">{{ employer.website }}</v-list-item-subtitle>
+                <v-list-item-subtitle class="light-blue--text text--darken-4" v-if="!employer.website">-</v-list-item-subtitle>
               </v-list-item>
               <v-list-item>
                 <v-list-item-title>Company Size : </v-list-item-title>
-                <v-list-item-subtitle v-if="employer.size">{{ employer.size }} employees</v-list-item-subtitle>
-                <v-list-item-subtitle v-if="!employer.size">-</v-list-item-subtitle>
+                <v-list-item-subtitle class="light-blue--text text--darken-4" v-if="employer.size">{{ employer.size }} employees</v-list-item-subtitle>
+                <v-list-item-subtitle class="light-blue--text text--darken-4" v-if="!employer.size">-</v-list-item-subtitle>
               </v-list-item>
               <v-list-item>
                 <v-list-item-title>Headquarters : </v-list-item-title>
-                <v-list-item-subtitle v-if="employer.location">{{ employer.location }} </v-list-item-subtitle>
-                <v-list-item-subtitle v-if="!employer.location">-</v-list-item-subtitle>
+                <v-list-item-subtitle class="light-blue--text text--darken-4" v-if="employer.location">{{ employer.location }} </v-list-item-subtitle>
+                <v-list-item-subtitle class="light-blue--text text--darken-4" v-if="!employer.location">-</v-list-item-subtitle>
               </v-list-item>
             </v-list>
           </v-card>
@@ -80,7 +80,7 @@
         <v-col cols="4" class="pr-6">
           <v-row>
             <v-card outlined elevation="0.7" height="140px" class="mb-5" width="1000px">
-              <v-card-title class="ml-3 text-h5">Share with friends:</v-card-title>
+              <v-card-title class="ml-3 titles">Share with friends:</v-card-title>
               <v-card-actions>
                 <template>
                   <ShareNetwork
@@ -107,7 +107,7 @@
             <v-card outlined elevation="0.7" width="800px" height="262px">
               <v-col>
                 <v-row>
-                  <v-card-title class="ml-4 text-h5">Contact Information:</v-card-title>
+                  <v-card-title class="ml-4 titles">Contact Information:</v-card-title>
                   <v-row justify="end" class="mr-10">
                     <v-dialog transition="dialog-bottom-transition" max-width="1000" v-model="Personal_Dialog">
                       <template v-slot:activator="{ on, attrs }">
@@ -116,8 +116,8 @@
 
                       <template v-slot:default="Personal_Dialog">
                         <v-card>
-                          <v-toolbar color="#24305E" dark>
-                            <v-toolbar-title class="ml-5">Edit Personal Information</v-toolbar-title>
+                          <v-toolbar color="light-blue darken-4" dark>
+                            <v-toolbar-title class="titles ml-5">Edit Personal Information</v-toolbar-title>
                             <v-spacer></v-spacer>
                             <v-icon class="mr-2" @click="Personal_Dialog.value = false">mdi-close</v-icon>
                           </v-toolbar>
@@ -178,7 +178,7 @@
                             </v-form>
 
                             <v-row class="justify-end mr-1">
-                              <v-btn class="white--text" width="150px" color="#24305E" @click="editContactInfo()" :loading="loading">
+                              <v-btn class="white--text" width="150px" color="light-blue darken-4" @click="editContactInfo()" :loading="loading">
                                 Apply
                               </v-btn>
                             </v-row>
@@ -192,17 +192,17 @@
                   <v-list class="ml-6" height="72px" width="500px">
                     <v-list-item>
                       <v-list-item-title>Name : </v-list-item-title>
-                      <v-list-item-subtitle>{{ employer.fname }} {{ employer.lname }}</v-list-item-subtitle>
+                      <v-list-item-subtitle class="light-blue--text text--darken-4">{{ employer.fname }} {{ employer.lname }}</v-list-item-subtitle>
                     </v-list-item>
                     <v-list-item>
                       <v-list-item-title>Title : </v-list-item-title>
-                      <v-list-item-subtitle v-if="employer.title">{{ employer.title }}</v-list-item-subtitle>
-                      <v-list-item-subtitle v-if="!employer.title">-</v-list-item-subtitle>
+                      <v-list-item-subtitle class="light-blue--text text--darken-4" v-if="employer.title">{{ employer.title }}</v-list-item-subtitle>
+                      <v-list-item-subtitle class="light-blue--text text--darken-4" v-if="!employer.title">-</v-list-item-subtitle>
                     </v-list-item>
                     <v-list-item>
                       <v-list-item-title>Phone : </v-list-item-title>
-                      <v-list-item-subtitle v-if="employer.phone">{{ employer.phone }}</v-list-item-subtitle>
-                      <v-list-item-subtitle v-if="!employer.phone">-</v-list-item-subtitle>
+                      <v-list-item-subtitle class="light-blue--text text--darken-4" v-if="employer.phone">{{ employer.phone }}</v-list-item-subtitle>
+                      <v-list-item-subtitle class="light-blue--text text--darken-4" v-if="!employer.phone">-</v-list-item-subtitle>
                     </v-list-item>
                   </v-list>
                 </v-row>
@@ -215,7 +215,7 @@
       <v-row>
         <v-col cols="12">
           <v-card outlined>
-            <v-card-title class="text-h4 ml-10">Open Vacancies at {{ employer.companyName }}!</v-card-title>
+            <v-card-title class="titles ml-10">Open Vacancies at {{ employer.companyName }}!</v-card-title>
             <v-btn class="ml-14 mb-8" small color="light-blue darken-4" dark to="/Employer/Emp_Manage_Jobs">
               <h3>Manage Jobs</h3>
               <v-icon small dark right>
@@ -231,7 +231,7 @@
           <v-card outlined>
             <v-row class="ml-1">
               <!-- ///////////////// Overview Card Starts Here ///////////////// -->
-              <v-card-title class="text-h4 ml-10">Overview:</v-card-title>
+              <v-card-title class="titles ml-10">Overview:</v-card-title>
               <v-row justify="end" class="mr-14">
                 <v-dialog transition="dialog-bottom-transition" max-width="1000" persistent v-model="Overview_Dialog">
                   <template v-slot:activator="{ on, attrs }">
@@ -240,8 +240,8 @@
 
                   <template v-slot:default="Overview_Dialog">
                     <v-card>
-                      <v-toolbar color="#24305E" dark>
-                        <v-toolbar-title class="ml-5">Edit Company Overview</v-toolbar-title>
+                      <v-toolbar color="light-blue darken-4" dark>
+                        <v-toolbar-title class="titles ml-5">Edit Company Overview</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <v-icon class="mr-2" @click="Overview_Dialog.value = false">mdi-close</v-icon>
                       </v-toolbar>
@@ -274,7 +274,7 @@
                         </v-form>
 
                         <v-row class="justify-end mr-1">
-                          <v-btn class="white--text" width="150px" color="#24305E" @click="editOverview()" :loading="loading2">
+                          <v-btn class="white--text" width="150px" color="light-blue darken-4" @click="editOverview()" :loading="loading2">
                             Apply
                           </v-btn>
                         </v-row>
@@ -443,5 +443,14 @@ export default {
   padding-left: 20px;
   margin-bottom: 15px;
   background-color: white;
+}
+.titles1{
+  font-family: "Montserrat-black"; 
+  font-size: 18px;
+}
+.titles{
+  font-family: "Montserrat"; 
+  font-size: 22px; 
+  font-weight: bold;
 }
 </style>

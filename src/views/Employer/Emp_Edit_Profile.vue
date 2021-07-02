@@ -2,12 +2,12 @@
   <v-row class="grey lighten-3" justify="center">
     <v-col cols="6">
       <div class="form-header rounded-lg">
-        <h1>About your company</h1>
-        <p>Tell job seekers what they need to know!</p>
+        <h1 class="titles1">About Your Company</h1>
+        <p class="light-blue--text text--darken-4">Tell job seekers what they need to know!</p>
       </div>
       <form class="form-header rounded-lg">
         <div>
-          <h2 class="mb-4">Company Basic Information:</h2>
+          <h2 class="mb-4 titles">Company Basic Information:</h2>
         </div>
         <v-text-field v-model="employer.companyName" :rules="CompRules" :counter="20" label="Company Name" outlined dense></v-text-field>
 
@@ -25,7 +25,7 @@
         ></v-select>
 
         <div>
-          <h2>More Details about Your Company:</h2>
+          <h2 class="titles">More Details about Your Company:</h2>
         </div>
 
         <v-text-field v-model="employer.website" label="Website" :rules="webRules" outlined dense></v-text-field>
@@ -161,5 +161,15 @@ export default {
 }
 .MarginIndustry {
   margin-top: 20px;
+}
+.titles1{
+  font-family: "Montserrat-black"; 
+  font-size: 25px;
+  font-weight: bold;
+}
+.titles{
+  font-family: "Montserrat"; 
+  font-size: 20px; 
+  font-weight: bold;
 }
 </style>

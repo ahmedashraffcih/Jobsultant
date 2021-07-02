@@ -1,14 +1,14 @@
 <template>
-  <v-row class="grey lighten-3" justify="center">
+  <v-row class="grey lighten-3 div" justify="center">
     <v-col cols="4">
         <div class="form-header rounded-lg">
-            <h1>Employer / Company Registration</h1>
+            <h1 class="titles1">Employer / Company Registration</h1>
             <p class="light-blue--text text--darken-4">Hire Smarter, Grow Faster</p>
         </div>
 
       <v-stepper v-model="e6" vertical mb-10>
         <v-form v-model="Valid">
-          <v-stepper-step :complete="e6 > 1" step="1"  color="orange darken-2">
+          <v-stepper-step :complete="e6 > 1" step="1"  class="titles" color="orange darken-2">
             Contact Information
           </v-stepper-step>
 
@@ -88,7 +88,7 @@
             </v-col>
           </v-stepper-content>
 
-          <v-stepper-step :complete="e6 > 2" step="2" color="orange darken-2">
+          <v-stepper-step :complete="e6 > 2" step="2" class="titles" color="orange darken-2">
             Login Information
           </v-stepper-step>
 
@@ -155,7 +155,7 @@
             <v-btn text @click="e6 = 1"> Back </v-btn>
           </v-stepper-content>
 
-          <v-stepper-step :complete="e6 > 3" step="3" color="orange darken-2">
+          <v-stepper-step :complete="e6 > 3" step="3" class="titles" color="orange darken-2">
             Company Basic Information
           </v-stepper-step>
 
@@ -347,6 +347,16 @@ export default {
 </script>
 
 <style scoped>
+.titles1{
+  font-family: "Montserrat-black"; 
+  font-size: 20px;
+  font-weight: bold;
+}
+.titles{
+  font-family: "Montserrat"; 
+  font-size: 17px; 
+  font-weight: bold;
+}
 .form-header {
 padding: 10px;
 padding-left: 20px;
@@ -355,5 +365,13 @@ background-color: white;
 }
 .phone-number-width{
   width: 475px;
+}
+.div {
+  background-image: url("../../assets/imgs/cna.png");
+  background-color: #FFF3E0;
+  background-size: contain;
+  background-repeat: round;
+  height:100vh;
+  width: 100%;
 }
 </style>

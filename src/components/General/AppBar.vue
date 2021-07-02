@@ -35,7 +35,6 @@
         <v-tab to="/Employer/Emp_Profile">Company Profile</v-tab>
         <v-tab to="/Employer/Emp_Add_Job">Post Job</v-tab>
         <v-tab to="/Employer/Emp_Manage_Jobs">Manage Jobs</v-tab>
-        <v-tab to="#">Dashboard</v-tab>
       </v-tabs>
 
       <v-tabs v-if="!loggedIn" optional centered class="ml-12 pl-12 hidden-sm-and-down">

@@ -2,7 +2,7 @@
   <v-row class="grey lighten-3 backimg" justify="center">
     <v-col cols="8">
       <div class="form-header rounded-lg">
-        <h1 class="ml-5">Manage Jobs!</h1>
+        <h1 class="titles1 ml-5">Manage Jobs!</h1>
         <p class="light-blue--text text--darken-4 ml-5">
           Adminstrate your posted Jobs!
         </p>
@@ -11,7 +11,7 @@
       <div class="form-header rounded-lg">
         <v-row>
           <v-col md="10">
-            <h2 class="ml-5">Latest Posted Jobs</h2>
+            <h2 class="titles ml-5">Latest Posted Jobs</h2>
           </v-col>
           <v-col>
             <v-btn rounded right color="orange darken-2" dark to="/Employer/Emp_Add_Job">
@@ -51,7 +51,7 @@
                           </v-chip>
                         </v-col>
                       </v-row>
-                      <v-list-item-title class="headline mb-1 font-weight-normal"> {{ job.career_Level }} {{ job.title }} </v-list-item-title>
+                      <v-list-item-title class="titles mb-1 font-weight-normal"> {{ job.career_Level }} {{ job.title }} </v-list-item-title>
                       <v-list-item-subtitle class="text-subtitle-1 mb-2">{{ job.description }}</v-list-item-subtitle>
                       <v-list-item-subtitle>
                         <v-chip color="#01579B" text-color="white" class="mr-2" small v-for="i,skill in job.skills.split(',')" :key='i' >{{ i }} </v-chip>
@@ -184,8 +184,8 @@
                   <!-- EDIT DIALOG STARTS HERE -->
                   <v-dialog v-model="EditDialog" max-width="580">
                     <v-card>
-                      <v-toolbar color="#01579b" dark>
-                        <v-toolbar-title>Edit Your Job Post</v-toolbar-title>
+                      <v-toolbar color="light-blue darken-4" dark>
+                        <v-toolbar-title class="titles">Edit Your Job Post</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <v-btn icon dark @click="EditDialog = false">
                           <v-icon>mdi-close</v-icon>
@@ -435,6 +435,16 @@ export default {
 </script>
 
 <style scoped>
+.titles1{
+  font-family: "Montserrat-black"; 
+  font-size: 25px;
+  font-weight: bold;
+}
+.titles{
+  font-family: "Montserrat"; 
+  font-size: 20px; 
+  font-weight: bold;
+}
 .form-header {
   padding: 10px;
   padding-left: 20px;

@@ -2,12 +2,12 @@
   <v-row class="grey lighten-3 backimg" justify="center" :style="{ backgroundImage: 'url(' + image + ')' }">>
     <v-col cols="6">
       <v-card class="mb-5" elevation="0">
-        <v-card-title class="ml-6">Add New Job!</v-card-title>
+        <v-card-title class="ml-6 titles1">Add New Job!</v-card-title>
         <v-card-subtitle class="ml-6 light-blue--text text--darken-4">Tell job seekers what they need to know!</v-card-subtitle>
       </v-card>
       <v-card elevation="0">
         <v-form class="form-header rounded-lg">
-          <v-card-title>Job Details</v-card-title>
+          <v-card-title class="titles">Job Details</v-card-title>
           <v-row justify="center" class="pl-7 pr-7">
             <v-text-field v-model="Job.title" :rules="TitleRules" label="Job Title" required outlined dense max-width="100px"></v-text-field>
           </v-row>
@@ -148,6 +148,16 @@ export default {
 .backimg{
   background-size: contain;
   background-repeat: round;
+}
+.titles1{
+  font-family: "Montserrat-black"; 
+  font-size: 25px;
+  font-weight: bold;
+}
+.titles{
+  font-family: "Montserrat"; 
+  font-size: 20px; 
+  font-weight: bold;
 }
 .form-header {
   padding: 10px;
