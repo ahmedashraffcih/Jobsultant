@@ -39,7 +39,7 @@
                   class="mb-1"
                   @click="
                     cardcondition = true;
-                    GetJob(job._id);
+                    GetJob(job.rco._id);
                   "
                 >
                   <v-row align="center">
@@ -47,18 +47,20 @@
                       <v-list>
                         <v-list-item three-line>
                           <v-list-item-content>
-                            <v-list-item-title class="titles">{{ job.title }}</v-list-item-title>
+                            <v-list-item-title class="titles" style="word-wrap: break-word">{{ job.rco.Job_Title }}</v-list-item-title>
                             <v-list-item-subtitle style="color:#FF9800" class="subtitle-1">{{ job.company }}</v-list-item-subtitle>
                             <v-list-item-subtitle class="subtitle-2 mt-5">{{ job.career_Level }} Level</v-list-item-subtitle>
-                            <v-list-item-subtitle class="caption mt-2">{{ job.description }}</v-list-item-subtitle>
+                            <v-list-item-subtitle class="caption mt-2">
+                              <v-chip color="#F57C00" text-color="white" class="mr-2" small v-for="i,skill in job.rco.Key_Skills.split('|')" :key='i' >{{ i }} </v-chip>
+                            </v-list-item-subtitle>
                             <v-list-item-subtitle class="caption mt-2">1/1/2020</v-list-item-subtitle>
                           </v-list-item-content>
                         </v-list-item>
                       </v-list>
                     </v-col>
                     <v-col>
-                      <vue-ellipse-progress :progress="requirmentsPercent" :size="120" :legend-value="requirmentsDone" color="#FF9800">
-                        <span slot="legend-value"> %</span>
+                      <vue-ellipse-progress :progress="job.match" :size="120"  :color="job.match >=75  ? '#00C853' : '#FFD600'">
+                        <span> {{job.match}}%</span>
                         <span slot="legend-caption">Matching</span>
                       </vue-ellipse-progress>
                     </v-col>
@@ -85,8 +87,8 @@
                 <v-list class="ml-2">
                   <v-list-item three-line>
                     <v-list-item-content>
-                      <v-list-item-title class="title">{{ oneJob.title }}</v-list-item-title>
-                      <v-list-item-subtitle style="color:#FF9800" class="subtitle-1">{{ oneJob.company }}</v-list-item-subtitle>
+                      <v-list-item-title class="titles">{{ oneJob.rco.Job_Title }}</v-list-item-title>
+                      <v-list-item-subtitle style="color:#FF9800" class="subtitle-1 mt-1">Matching Percent : {{ oneJob.match }}</v-list-item-subtitle>
                       <v-list-item-subtitle class="subtitle-2 mt-2">{{ oneJob.career_level }}</v-list-item-subtitle>
                       <v-list-item-subtitle class="caption mt-1">1/1/2020</v-list-item-subtitle>
                     </v-list-item-content>
@@ -200,12 +202,11 @@ export default {
     FingerprintSpinner,
   },
   mounted() {
-    this.GetJobs();
+    this.GetRecommended();
     //this.GetRecommended();
   },
   data: () => ({
     //page
-    requirmentsDone: 75,
     page: 1,
     itemsPerPage: 4,
     overlay: false,
@@ -216,8 +217,15 @@ export default {
     },
 
     jobs: [],
+    recommended: [],
     job: "",
-    oneJob: {},
+    oneJob: {
+      rco:{
+        Job_Title:'',
+        Key_Skills:'',
+      },
+      match:null,
+    },
     AppliedJob: {
       jobID: "",
       applicantEmail: "",
@@ -248,31 +256,16 @@ export default {
     ...mapGetters("auth", ["user_id"]),
     //Search bar
     filteredJobs: function() {
-      return this.jobs.filter((job) => {
-        return job.title.toLowerCase().match(this.search.toLowerCase());
+      for(let i = 0;i <9; i++ )
+      {
+        return this.jobs.filter((job) => {
+        return job.rco.Job_Title.toLowerCase().match(this.search.toLowerCase());
       });
-    },
-    requirmentsPercent() {
-      return (this.requirmentsDone * 100) / 100;
+      }
+      
     },
   },
   methods: {
-    GetJobs() {
-      this.overlay=true;
-      this.loadingjobs = true;
-      ApiService.get("http://localhost:3000/jobs/list").then((r) => {
-        if (r.status == 200) {
-          this.jobs = r.data;
-          this.loadingjobs = false;
-          this.overlay = false;
-          this.getUser();
-        } else {
-          console.log(r);
-          this.overlay = false;
-        }
-        console.log(this.jobs);
-      });
-    },
     GetRecommended() {
       this.loadingjobs = true;
       this.overlay=true;
@@ -283,6 +276,7 @@ export default {
             this.jobs = r.data;
             this.loadingjobs = false;
             this.overlay = false;
+            this.getUser();
           } else {
             console.log(r);
             this.overlay = false;
@@ -297,12 +291,12 @@ export default {
 
     GetJob(id) {
       this.loading = true;
-
-      ApiService.get(`http://localhost:3000/jobs/listjob/${id}`).then((r) => {
+      
+      ApiService.get(`http://localhost:3000/listjob/${this.user_id}/${id}`).then((r) => {
         console.log(r);
         if (r.status == 200) {
           this.oneJob = r.data;
-          this.oneJob.skills = r.data.skills.split(",");
+          this.oneJob.skills = r.data.rco.Key_Skills.split("|");
           console.log(this.oneJob);
           this.loading = false;
         } else {
