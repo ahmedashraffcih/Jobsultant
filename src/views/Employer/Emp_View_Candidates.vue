@@ -9,7 +9,7 @@
         </h1>
         <v-row>
           <v-col cols="7">
-            <p class="text-h6 font-weight-light" v-if="Total">{{ Total }} applicants!</p>
+            <p class="text-h6 font-weight-light" v-if="Total">{{ Total }} applicant(s)!</p>
             <p class="text-h6 font-weight-light" v-if="!Total">No applicants Yet!</p>
           </v-col>
           <v-col cols="3">
@@ -27,15 +27,22 @@
                 class="mb-3"
                 @click="
                   cardcondition = true;
-                  GetDetails(applicant._id);
-                  
+                  GetOneApplication(applicant._id);
                 "
               >
-                <v-card-title>
-                  <a class="a" href="#">{{ username }}</a>
-                </v-card-title>
+                <v-card-title> {{ applicant.applicantFname }} {{ applicant.applicantLname }} </v-card-title>
 
-                <v-card-subtitle class="text-subtitle-1">{{ workExp }}</v-card-subtitle>
+                <v-card-subtitle class="text-subtitle-1" v-if=""> Application Status:
+                  <v-chip v-if="applicant.applicantStatus== 'no status'" color="primary" outlined class="font-weight-medium">
+                    {{ applicant.applicantStatus }}
+                  </v-chip>
+                  <v-chip v-if="applicant.applicantStatus== 'Rejected'" color="error" outlined class="font-weight-medium">
+                    {{ applicant.applicantStatus }}
+                  </v-chip>
+                  <v-chip v-if="applicant.applicantStatus== 'Shortlisted'" color="success" outlined class="font-weight-medium">
+                    {{ applicant.applicantStatus }}
+                  </v-chip>
+                </v-card-subtitle>
 
                 <v-row justify="center">
                   <v-col cols="6">
@@ -57,15 +64,18 @@
           <v-progress-linear absolute v-if="loadingProfile" color="orange darken-2" indeterminate> </v-progress-linear>
           <v-row>
             <v-col cols="8">
-              <v-card-title>
-                <a class="a" href="#">{{ username }} Profile</a>
+              <v-card-title v-if="oneApplication.Application">
+                {{ oneApplication.Application.applicantFname }} {{ oneApplication.Application.applicantLname }} Profile
               </v-card-title>
-              <v-card-subtitle class="text-subtitle-1">{{ workExp }}</v-card-subtitle>
+              <v-card-subtitle class="text-subtitle-1" v-if="oneApplication.User_Details">
+                {{ oneApplication.User_Details.work_Experience[0].Job_title }}
+                at {{ oneApplication.User_Details.work_Experience[0].company_name }}
+              </v-card-subtitle>
             </v-col>
 
             <v-col>
               <v-list-item-avatar class="avatar" color="orange" size="80">
-                <v-img :src="Details.image"></v-img>
+                <v-img v-if="oneApplication.User_Details" :src="oneApplication.User_Details.image"></v-img>
               </v-list-item-avatar>
             </v-col>
           </v-row>
@@ -73,48 +83,81 @@
           <v-list>
             <v-list-item three-line>
               <v-list-item-content>
-                <v-list-item-title class="title">Location</v-list-item-title>
-                <v-list-item-subtitle style="color: #0d47a1" class="subtitle-1">{{ Details.residence_Location }}</v-list-item-subtitle>
-                <v-list-item-title class="title mt-5">Phone Number</v-list-item-title>
-                <v-list-item-subtitle style="color: #0d47a1" class="subtitle-1">{{ Details.mobile_Phone }}</v-list-item-subtitle>
-                <v-list-item-title class="title mt-5">Skills</v-list-item-title>
-                <ul style="color: #0d47a1">
-                  <li v-for="skill in Details.skills">{{ skill }}</li>
+                <v-list-item-title class="title">Job Title</v-list-item-title>
+                <v-list-item-subtitle style="color: #0d47a1" class="subtitle-1" v-if="oneApplication.User_Details">{{
+                  oneApplication.User_Details.job_Title
+                }}</v-list-item-subtitle>
+                <v-list-item-title class="title mt-3">Career Level</v-list-item-title>
+                <v-list-item-subtitle style="color: #0d47a1" class="subtitle-1" v-if="oneApplication.User_Details">{{
+                  oneApplication.User_Details.job_Level
+                }}</v-list-item-subtitle>
+                <v-list-item-title class="title mt-3">Skills</v-list-item-title>
+                <ul style="color: #0d47a1" v-if="oneApplication.User_Details">
+                  <li v-for="skill in oneApplication.User_Details.skills">{{ skill }}</li>
                 </ul>
-                <v-list-item-title class="title mt-5">Job Title</v-list-item-title>
-                <v-list-item-subtitle style="color: #0d47a1" class="subtitle-1">{{ Details.job_Title }}</v-list-item-subtitle>
-                <v-list-item-title class="title mt-5">Career Level</v-list-item-title>
-                <v-list-item-subtitle style="color: #0d47a1" class="subtitle-1">{{ Details.job_Level }}</v-list-item-subtitle>
+                <v-list-item-title class="title mt-3">Education</v-list-item-title>
+                <v-list-item-subtitle style="color: #0d47a1" class="subtitle-1" v-if="oneApplication.User_Details">
+                  {{ oneApplication.User_Details.education[0].degree }}
+                  of {{ oneApplication.User_Details.education[0].field }}
+                </v-list-item-subtitle>
+                <v-list-item-title class="title mt-3">Location</v-list-item-title>
+                <v-list-item-subtitle style="color: #0d47a1" class="subtitle-1" v-if="oneApplication.User_Details">{{
+                  oneApplication.User_Details.residence_Location
+                }}</v-list-item-subtitle>
+                <v-list-item-title class="title mt-3">E-mail</v-list-item-title>
+                <v-list-item-subtitle style="color: #0d47a1" class="subtitle-1" v-if="oneApplication.User_Details">{{
+                  oneApplication.Application.applicantEmail
+                }}</v-list-item-subtitle>
+                <v-list-item-title class="title mt-3">Phone Number</v-list-item-title>
+                <v-list-item-subtitle style="color: #0d47a1" class="subtitle-1" v-if="oneApplication.User_Details">{{
+                  oneApplication.User_Details.mobile_Phone
+                }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-row class="ml-1" justify="start">
               <v-col cols="3">
-                <v-btn 
-                    :loading="loadingShortlist" 
-                    dark 
-                    color="#01579B" 
-                    @click="
-                        Shortlist();
-                        ChangeStatus();
-                    "
-                > 
-                    Shortlist 
+                <v-btn
+                  :loading="loadingShortlist"
+                  dark
+                  color="#01579B"
+                  @click="
+                    Shortlist();
+                    ChangeStatus();
+                  "
+                >
+                  Shortlist
                 </v-btn>
               </v-col>
 
               <v-col class="ml-5" cols="5">
-                <v-btn 
-                    :loading="loadingReject"  
-                    dark 
-                    color="orange darken-2" 
-                    @click="
-                      Reject();
-                      ChangeStatus();
-                    "
-                > 
-                    Reject 
+                <v-btn dark color="orange darken-2" @click="dialog = true">
+                  Reject
                 </v-btn>
               </v-col>
+              <!-- Reject Dialog -->
+              <v-dialog v-model="dialog" max-width="500" persistent :retain-focus="false">
+                <v-card class="pa-5">
+                  <v-card-title>Please Select Rejection Reason(s):</v-card-title>
+                  <v-checkbox v-model="reasons" class="ml-5" label="Wrong skill set" color="red" value="Wrong skill set" hide-details></v-checkbox>
+                  <v-checkbox v-model="reasons" class="ml-5" label="Poor Experience" color="red" value="Poor Experience" hide-details></v-checkbox>
+                  <v-checkbox v-model="reasons" class="ml-5" label="Lacks required level of education/training." color="red" value="Lacks required level of education/training." hide-details></v-checkbox>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn outlined color="orange darken-2" @click="dialog = false"> Cancel </v-btn>
+                    <v-btn
+                      color="orange darken-2"
+                      dark
+                      @click="
+                        Reject();
+                        ChangeStatus();
+                      "
+                      :loading="loadingReject"
+                    >
+                      Reject
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
               <!-- last -->
             </v-row>
           </v-list>
@@ -122,10 +165,10 @@
       </v-col>
 
       <v-snackbar v-model="Listedsnackbar" timeout="2000" color="success" outlined dark>
-           Applicant Shortlisted 
+        Applicant Shortlisted
       </v-snackbar>
       <v-snackbar v-model="Rejectedsnackbar" timeout="2000" color="error" outlined dark>
-           Applicant Rejected 
+        Applicant Rejected
       </v-snackbar>
       <v-overlay :value="overlay" opacity="0.9">
         <fingerprint-spinner class="justify-center" :animation-duration="1500" :size="120" color="#FF9800" />
@@ -145,6 +188,7 @@ export default {
       //userdata
       username: "Ahmed Ashraf",
       workExp: ".Net developer at ITWORXS",
+      User: {},
       Details: {},
       JobID: "",
       ApplyID: "",
@@ -171,6 +215,11 @@ export default {
       snackbar2: false,
       Listedsnackbar: false,
       Rejectedsnackbar: false,
+
+      //dialog
+      dialog: false,
+      //Checkbox
+      reasons: [],
     };
   },
   components: {
@@ -202,6 +251,17 @@ export default {
         }
       });
     },
+    getUser(id) {
+      ApiService.get(`http://localhost:3000/users/${id}`).then((r) => {
+        if (r.status == 200) {
+          this.User = r.data;
+          console.log(this.User);
+        } else {
+          console.log(r);
+        }
+      });
+      return this.User;
+    },
     GetApplication() {
       console.log("Accessed get application");
       ApiService.get(`http://localhost:3000/jobApplications/${this.JobID}`).then((r) => {
@@ -209,7 +269,7 @@ export default {
           this.Applications = r.data.Applications;
           (this.skeletonloaded = true), (this.skeletonloading = false);
           this.overlay = false;
-          console.log("Get application success");
+          console.log(this.Applications);
           //console.log(this.oneJob);
         } else {
           console.log(r);
@@ -218,9 +278,11 @@ export default {
       return this.Application;
     },
     GetOneApplication(id) {
+      this.loadingProfile = true;
       ApiService.get(`http://localhost:3000/jobApplications/listApplications/${id}`).then((r) => {
         if (r.status == 200) {
           this.oneApplication = r.data;
+          this.loadingProfile = false;
           console.log("get one appllication true");
           console.log("This is one application");
           console.log(this.oneApplication);
@@ -245,37 +307,40 @@ export default {
       });
       return this.Total;
     },
-    GetDetails(id) {
-      this.loadingProfile = true;
-      console.log("Accessed get details");
-      ApiService.get(`http://localhost:3000/jobApplications/details/${id}`).then((r) => {
-        if (r.status == 200) {
-          this.Details = r.data;
-          this.loadingProfile = false;
-          this.GetOneApplication(id);
-          console.log("Get details success");
-          console.log(this.Details);
-          //console.log(this.oneJob);
-        } else {
-          console.log(r);
-        }
-      });
-      return this.Details;
-    },
+    //GetDetails(id) {
+    //  this.loadingProfile = true;
+    //  console.log("Accessed get details");
+    //  ApiService.get(`http://localhost:3000/jobApplications/details/${id}`).then((r) => {
+    //    if (r.status == 200) {
+    //      this.Details = r.data.User_Details;
+    //      this.loadingProfile = false;
+    //      this.GetOneApplication(id);
+    //      console.log("Get details success");
+    //      console.log(this.Details);
+    //      //console.log(this.oneJob);
+    //    } else {
+    //      console.log(r);
+    //    }
+    //  });
+    //  return this.Details;
+    //},
     Shortlist() {
-      this.oneApplication.applicantStatus = "Shortlisted";
-      this.oneApplication.applicantionStatus = "success";
+      this.oneApplication.Application.applicantStatus = "Shortlisted";
+      this.oneApplication.Application.applicantionStatus = "success";
     },
     Reject() {
-      this.oneApplication.applicantStatus = "Rejected";
-      this.oneApplication.applicantionStatus = "Error";
+      this.oneApplication.Application.applicantStatus = "Rejected";
+      this.oneApplication.Application.applicantionStatus = "Error";
     },
-    
+
     ChangeStatus() {
       console.log("Accessed change status");
-      if (this.oneApplication.applicantStatus == "Shortlisted") {
+      if (this.oneApplication.Application.applicantStatus == "Shortlisted") {
         this.loadingShortlist = true;
-        ApiService.put(`http://localhost:3000/jobApplications/listApplications/${this.oneApplication._id}`, this.oneApplication).then((r) => {
+        ApiService.put(
+          `http://localhost:3000/jobApplications/listApplications/${this.oneApplication.Application._id}`,
+          this.oneApplication.Application
+        ).then((r) => {
           if (r.status == 204) {
             this.loadingShortlist = false;
             this.Listedsnackbar = true;
@@ -286,12 +351,16 @@ export default {
             console.log("API error");
           }
         });
-      } else if(this.oneApplication.applicantStatus == "Rejected") {
+      } else if (this.oneApplication.Application.applicantStatus == "Rejected") {
         this.loadingReject = true;
-        ApiService.put(`http://localhost:3000/jobApplications/listApplications/${this.oneApplication._id}`, this.oneApplication).then((r) => {
+        ApiService.put(
+          `http://localhost:3000/jobApplications/listApplications/${this.oneApplication.Application._id}`,
+          this.oneApplication.Application
+        ).then((r) => {
           if (r.status == 204) {
             this.loadingReject = false;
             this.Rejectedsnackbar = true;
+            this.dialog= false;
             console.log("Rejected Successfully");
             console.log(r);
           } else {
