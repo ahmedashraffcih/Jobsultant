@@ -12,7 +12,7 @@
           <!-- @click="GetAppliedJob(application.jobID)" -->
           <v-col cols="12">
             <v-card v-for="application in applications" :key="application._id" class="mb-5">
-              <v-progress-linear v-if='(application.applicantionStatus == "no status")' value="100" height="30" color="primary">
+              <v-progress-linear v-if='(application.applicantionStatus == "pending")' value="100" height="30" color="primary">
                 <v-spacer></v-spacer>
                 <v-btn class="mr-2" icon>
                   <v-icon @click="dialog = true;appID=application._id" color="white">mdi-dots-horizontal</v-icon>
@@ -59,7 +59,7 @@
 
               <v-row>
                 <v-col cols="6">
-                  <v-card-title class="ml-4" v-if="application.jobObject">{{ application.jobObject.title }}</v-card-title>
+                  <v-card-title class="ml-4" v-if="application.jobObject">{{ application.jobObject.Job_Title }}</v-card-title>
                   <v-card-title class="ml-4" v-if="!application.jobObject">Job Title</v-card-title>
                   <v-card-subtitle>
                     <v-list>
@@ -83,7 +83,7 @@
                       </v-list-item>
                       <v-list-item>
                         <v-list-item-title>CV Relevancy :</v-list-item-title>
-                        <v-list-item-subtitle>0/5</v-list-item-subtitle>
+                        <v-list-item-subtitle>{{application.percentage_Of_Success}}%</v-list-item-subtitle>
                       </v-list-item>
                     </v-list>
                   </v-card-subtitle>
@@ -98,192 +98,6 @@
               </v-row>
             </v-card>
             <v-card>
-              <v-progress-linear value="100" height="30" color="primary">
-                <v-spacer></v-spacer>
-                <v-btn class="mr-2" icon>
-                  <v-icon @click="dialog = true" color="white">mdi-dots-horizontal</v-icon>
-                </v-btn>
-              </v-progress-linear>
-
-              <v-dialog v-model="dialog" max-width="600">
-                <v-card class="pa-5">
-                  <v-card-title>Are you sure you want to unapply?</v-card-title>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn outlined color="orange darken-2" @click="dialog = false"> Cancel </v-btn>
-                    <v-btn dark color="orange darken-2" @click="dialog = false"> Unapply </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-
-              <v-row>
-                <v-col cols="6">
-                  <v-card-title class="ml-4">Job Title</v-card-title>
-                  <v-card-subtitle>
-                    <v-list>
-                      <v-list-item>
-                        <v-list-item-content>
-                          <v-list-item-title>Company Name</v-list-item-title>
-                          <v-list-item-subtitle>Egypt - Cairo</v-list-item-subtitle>
-                        </v-list-item-content>
-                      </v-list-item>
-                    </v-list>
-                    <v-list max-width="350px" dense>
-                      <v-list-item>
-                        <v-list-item-title>Date Applied :</v-list-item-title>
-                        <v-list-item-subtitle>04/08/2021</v-list-item-subtitle>
-                      </v-list-item>
-                      <v-list-item>
-                        <v-list-item-title>Viewed Applications :</v-list-item-title>
-                        <v-list-item-subtitle>151</v-list-item-subtitle>
-                      </v-list-item>
-                      <v-list-item>
-                        <v-list-item-title>CV Relevancy :</v-list-item-title>
-                        <v-list-item-subtitle>0/5</v-list-item-subtitle>
-                      </v-list-item>
-                    </v-list>
-                  </v-card-subtitle>
-                </v-col>
-                <v-col cols="6" align="center" align-self="center">
-                  <v-icon size="100px" color="primary">mdi-progress-upload</v-icon>
-                  <v-card-text>Pending</v-card-text>
-                </v-col>
-              </v-row>
-            </v-card>
-          </v-col>
-        </v-row>
-        <v-row justify="center">
-          <v-col cols="12">
-            <v-card>
-              <v-progress-linear value="100" height="25" color="warning">
-                <v-spacer></v-spacer>
-                <v-btn class="mr-2" icon>
-                  <v-icon color="white">mdi-dots-horizontal</v-icon>
-                </v-btn>
-              </v-progress-linear>
-              <v-row>
-                <v-col cols="6">
-                  <v-card-title class="ml-4">Job Title</v-card-title>
-                  <v-card-subtitle>
-                    <v-list>
-                      <v-list-item>
-                        <v-list-item-content>
-                          <v-list-item-title>Company Name</v-list-item-title>
-                          <v-list-item-subtitle>Egypt - Cairo</v-list-item-subtitle>
-                        </v-list-item-content>
-                      </v-list-item>
-                    </v-list>
-                    <v-list max-width="350px" dense>
-                      <v-list-item>
-                        <v-list-item-title>Date Applied :</v-list-item-title>
-                        <v-list-item-subtitle>04/08/2021</v-list-item-subtitle>
-                      </v-list-item>
-                      <v-list-item>
-                        <v-list-item-title>Viewed Applications :</v-list-item-title>
-                        <v-list-item-subtitle>151</v-list-item-subtitle>
-                      </v-list-item>
-                      <v-list-item>
-                        <v-list-item-title>CV Relevancy :</v-list-item-title>
-                        <v-list-item-subtitle>0/5</v-list-item-subtitle>
-                      </v-list-item>
-                    </v-list>
-                  </v-card-subtitle>
-                </v-col>
-                <v-col cols="6" align="center" align-self="center">
-                  <v-icon size="100px" color="warning">mdi-progress-clock</v-icon>
-                  <v-card-text>In Review</v-card-text>
-                </v-col>
-              </v-row>
-            </v-card>
-          </v-col>
-        </v-row>
-        <v-row justify="center">
-          <v-col cols="12">
-            <v-card>
-              <v-progress-linear value="100" height="25" color="error">
-                <v-spacer></v-spacer>
-                <v-btn class="mr-2" icon>
-                  <v-icon color="white">mdi-dots-horizontal</v-icon>
-                </v-btn>
-              </v-progress-linear>
-              <v-row>
-                <v-col cols="6">
-                  <v-card-title class="ml-4">Job Title</v-card-title>
-                  <v-card-subtitle>
-                    <v-list>
-                      <v-list-item>
-                        <v-list-item-content>
-                          <v-list-item-title>Company Name</v-list-item-title>
-                          <v-list-item-subtitle>Egypt - Cairo</v-list-item-subtitle>
-                        </v-list-item-content>
-                      </v-list-item>
-                    </v-list>
-                    <v-list max-width="350px" dense>
-                      <v-list-item>
-                        <v-list-item-title>Date Applied :</v-list-item-title>
-                        <v-list-item-subtitle>04/08/2021</v-list-item-subtitle>
-                      </v-list-item>
-                      <v-list-item>
-                        <v-list-item-title>Viewed Applications :</v-list-item-title>
-                        <v-list-item-subtitle>151</v-list-item-subtitle>
-                      </v-list-item>
-                      <v-list-item>
-                        <v-list-item-title>CV Relevancy :</v-list-item-title>
-                        <v-list-item-subtitle>0/5</v-list-item-subtitle>
-                      </v-list-item>
-                    </v-list>
-                  </v-card-subtitle>
-                </v-col>
-                <v-col cols="6" align="center" align-self="center">
-                  <v-icon size="100px" color="error">mdi-close-circle-outline</v-icon>
-                  <v-card-text>Rejected</v-card-text>
-                </v-col>
-              </v-row>
-            </v-card>
-          </v-col>
-        </v-row>
-        <v-row justify="center">
-          <v-col cols="12">
-            <v-card>
-              <v-progress-linear value="100" height="25" color="success">
-                <v-spacer></v-spacer>
-                <v-btn class="mr-2" icon>
-                  <v-icon color="white">mdi-dots-horizontal</v-icon>
-                </v-btn>
-              </v-progress-linear>
-              <v-row>
-                <v-col cols="6">
-                  <v-card-title class="ml-4">Job Title</v-card-title>
-                  <v-card-subtitle>
-                    <v-list>
-                      <v-list-item>
-                        <v-list-item-content>
-                          <v-list-item-title>Company Name</v-list-item-title>
-                          <v-list-item-subtitle>Egypt - Cairo</v-list-item-subtitle>
-                        </v-list-item-content>
-                      </v-list-item>
-                    </v-list>
-                    <v-list max-width="350px" dense>
-                      <v-list-item>
-                        <v-list-item-title>Date Applied :</v-list-item-title>
-                        <v-list-item-subtitle>04/08/2021</v-list-item-subtitle>
-                      </v-list-item>
-                      <v-list-item>
-                        <v-list-item-title>Viewed Applications :</v-list-item-title>
-                        <v-list-item-subtitle>151</v-list-item-subtitle>
-                      </v-list-item>
-                      <v-list-item>
-                        <v-list-item-title>CV Relevancy :</v-list-item-title>
-                        <v-list-item-subtitle>0/5</v-list-item-subtitle>
-                      </v-list-item>
-                    </v-list>
-                  </v-card-subtitle>
-                </v-col>
-                <v-col cols="6" align="center" align-self="center">
-                  <v-icon size="100px" color="success">mdi-check-circle-outline</v-icon>
-                  <v-card-text>Shortlisted</v-card-text>
-                </v-col>
-              </v-row>
             </v-card>
           </v-col>
         </v-row>

@@ -62,16 +62,15 @@
             outlined
             v-for="job in filteredJobs.slice((page-1)*itemsPerPage,itemsPerPage * page)"
             :key="job._id"
-            @click="cardcondition=true; GetJob(job._id);">
+            @click="cardcondition=true; GetJob(job.rco._id);">
             
             <v-list>
               <v-list-item three-line>
                 <v-list-item-content>
-                  <v-list-item-title class="titles">{{job.title}}</v-list-item-title>
-                  <v-list-item-subtitle style="color:#FF9800;" class="mt-1 subtitle-1">{{job.company}}</v-list-item-subtitle>
-                  <v-list-item-subtitle class="subtitle-2 mt-3" >{{job.career_Level}} Level</v-list-item-subtitle>
-                  <v-list-item-subtitle class="caption mt-2">{{job.description}}</v-list-item-subtitle>
-                  <v-list-item-subtitle class="caption mt-2">1/1/2020</v-list-item-subtitle>
+                  <v-list-item-title class="titles">{{job.rco.Job_Title}}</v-list-item-title>
+                  <v-list-item-subtitle style="color:#FF9800;" class="mt-1 subtitle-1">{{job.rco.company}}</v-list-item-subtitle>
+                  <v-list-item-subtitle class="subtitle-2 mt-3" >{{job.rco.career_Level}} Level</v-list-item-subtitle>
+                  <v-list-item-subtitle class="caption mt-2">{{job.rco.type}}</v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -97,10 +96,9 @@
             </v-row>
             <v-list-item three-line>
               <v-list-item-content>
-                <v-list-item-title class='titles'>{{oneJob.title}}</v-list-item-title>
-                <v-list-item-subtitle style="color:#FF9800" class="subtitle-1">{{oneJob.company}}</v-list-item-subtitle>
-                <v-list-item-subtitle class="subtitle-2 mt-3">{{oneJob.career_Level}} Level</v-list-item-subtitle>
-                <v-list-item-subtitle class="caption mt-1">{{oneJob.description}}</v-list-item-subtitle>
+                <v-list-item-title class='titles'>{{oneJob.rco.Job_Title}}</v-list-item-title>
+                <v-list-item-subtitle style="color:#FF9800" class="subtitle-1">{{oneJob.rco.company}}</v-list-item-subtitle>
+                <v-list-item-subtitle class="subtitle-2 mt-3">{{oneJob.rco.career_Level}} Level</v-list-item-subtitle>
                 <v-list-item-subtitle class="caption mt-2">1/1/2020</v-list-item-subtitle>
               </v-list-item-content>
 
@@ -125,7 +123,7 @@
                 <v-toolbar
                   color="light-blue darken-4"
                   dark>
-                  <v-toolbar-title class="ml-5">Apply to {{oneJob.company}}</v-toolbar-title>
+                  <v-toolbar-title class="ml-5">Apply to {{oneJob.rco.company}}</v-toolbar-title>
                   <v-spacer></v-spacer>
                   <v-icon @click="dialog.value = false">mdi-close</v-icon>
                 </v-toolbar>
@@ -185,17 +183,13 @@
               </v-card>
             </template>
           </v-dialog>
-          <v-divider></v-divider>
 
-          <v-card-title class="title">Job Description</v-card-title>
-          <v-card-text>{{oneJob.description}}</v-card-text>
           <v-divider></v-divider>
           <v-card-title class="title">Skills</v-card-title>
           <ul class="ml-3">
             <li v-for="skill in oneJob.skills">{{skill}}</li>
           </ul>
-          <v-card-text>Total Applicants : {{oneJob.total_Applications}}</v-card-text>
-          <v-progress-linear value="100" height="10" color="orange darken-2"></v-progress-linear>
+          <v-progress-linear class="mt-2" value="100" height="10" color="orange darken-2"></v-progress-linear>
         </v-card>
       </v-col>
 
@@ -294,19 +288,7 @@ export default {
       SemipolarSpinner   
   },
   mounted() {
-    this.loadingjobs=true
-    ApiService.get('http://localhost:3000/jobs/list')
-    .then((r)=>{
-      if(r.status==200){
-        this.jobs= r.data;
-        this.loadingjobs=false;
-        this.getUser();
-      }
-      else{
-        console.log(r);
-      }
-      console.log(this.jobs);
-    });
+    this.Getjobs()
     
     
   },
@@ -320,7 +302,13 @@ export default {
     jobs:[],
     result:[],
     job:"",
-    oneJob:{},
+    oneJob: {
+      rco: {
+        Job_Title: "",
+        Key_Skills: "",
+      },
+      match: null,
+    },
     AppliedJob:{
       jobID:"",
       applicantEmail:"",
@@ -365,51 +353,52 @@ export default {
     //Search bar
     filteredJobs: function () {
       return this.jobs.filter((job)=>{
-        return job.title.toLowerCase().match(this.search.toLowerCase());
+        return job.rco.Job_Title.toLowerCase().match(this.search.toLowerCase());
       });
     },
   },
   methods: {
    
-    GetJobs()
-    {
-      if(this.job){
-        ApiService.get('http://localhost:3000/jobs/list')
-        .then((r)=>{
-          if(r.status==200){
-            this.jobs=r.data;
-            this.updateVisibleJobs();
-            console.log(user.cv.job_Title)
-          }
-          else{
+    Getjobs() {
+      this.overlay = true;
+      ApiService.get(`http://localhost:3000/home/${this.user_id}`)
+        .then((r) => {
+          if (r.status == 200) {
+            this.jobs = r.data;
+            this.overlay = false;
+            this.getUser();
+          } else {
             console.log(r);
+            this.overlay = false;
           }
+          console.log(this.jobs);
+        })
+        .catch((error) => {
+          console.log(error);
+          this.overlay = false;
         });
-      }
     },
 
-    GetJob(id)
-    {
-      this.loading=true
-      
-       ApiService.get(`http://localhost:3000/jobs/listjob/${id}`)
-        .then((r)=>{
-          console.log(r)
-          if(r.status==200){
-            this.oneJob=r.data;
-            this.oneJob.skills=r.data.skills.split(',');
-            console.log(this.oneJob);
-            this.loading=false
-          }
-          else{
-            console.log(r);
-          }
-        });
+    GetJob(id) {
+      this.loading = true;
+      console.log(id);
+      ApiService.get(`http://localhost:3000/listjob/${this.user_id}/${id}`).then((r) => {
+        console.log(r);
+        if (r.status == 200) {
+          this.oneJob = r.data;
+          this.oneJob.skills = r.data.rco.Key_Skills.split("|");
+          console.log(this.oneJob);
+          this.loading = false;
+        } else {
+          console.log(r);
+        }
+      });
     },
+
     ApplyJob()
     {
       this.loading = true;
-      this.AppliedJob.jobID=this.oneJob._id
+      this.AppliedJob.jobID=this.oneJob.rco._id
       ApiService.post(`http://localhost:3000/users/${this.user_id}`,this.AppliedJob)
         .then((r)=>{
           if(r.status==204)
