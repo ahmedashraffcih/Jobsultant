@@ -300,8 +300,13 @@
     <v-snackbar v-model="OverviewError" timeout="2000" color="error" outlined dark>
       Overview can not be empty or less than 150 characters
     </v-snackbar>
-    <v-overlay :value="overlay" opacity="0.9">
-      <fingerprint-spinner class="justify-center" :animation-duration="1500" :size="120" color="#FF9800" />
+    <v-overlay :value="overlay" opacity="0.95" color="#01579B" >
+        <semipolar-spinner
+          class="justify-center"
+          :animation-duration="1500"
+          :size="120"
+          color="#FF9800"
+        />
     </v-overlay>
   </v-row>
 </template>
@@ -310,7 +315,7 @@
 import VuePhoneNumberInput from "vue-phone-number-input";
 import "vue-phone-number-input/dist/vue-phone-number-input.css";
 import { mapGetters, mapActions, mapMutations } from "vuex";
-import { FingerprintSpinner } from "epic-spinners";
+import { FingerprintSpinner,SemipolarSpinner } from "epic-spinners";
 import ApiService from "../../services/api.service";
 import TokenService from "../../services/storage.service";
 
@@ -362,6 +367,7 @@ export default {
   components: {
     VuePhoneNumberInput,
     FingerprintSpinner,
+    SemipolarSpinner
   },
 
   computed: {
