@@ -32,7 +32,7 @@
             <v-skeleton-loader v-if="loading == true" :loading="loading" width="562" class="mb-5 ml-10" type="article, actions"> </v-skeleton-loader>
             <v-row class="overflow-hidden mx-7 mb-7" justify="center" fluid align="center">
               <v-col cols="6" v-for="job in Jobs" :key="job._id" fluid >
-                <v-card elevation="2" class="px-4" v-show="loaded">
+                <v-card elevation="2" class="px-4" v-show="loaded" v-if="job.status == 'Active'">
                   <v-list-item three-line>
                     <v-list-item-content class="content-height">
                       <v-row justify="space-between">
@@ -123,7 +123,15 @@
                       </v-btn>
                       <!-- Archive BUTTON HERE -->
 
-                      <v-btn small class="d-none d-md-flex" color="orange darken-2" dark>
+                      <v-btn 
+                        small 
+                        class="d-none d-md-flex" 
+                        color="orange darken-2" 
+                        dark 
+                        @click="
+                          ArchieveDialog = true;
+                          GetJob(job._id);
+                        ">
                         Archive
                         <v-icon small dark right>
                           mdi-close-octagon
@@ -167,6 +175,20 @@
                       </v-btn>
                     </v-row>
                   </v-card-actions>
+                  <!-- Archieve DIALOGE HERE -->
+                  <v-dialog v-model="ArchieveDialog" max-width="500" persistent :retain-focus="false">
+                    <v-card class="pa-5">
+                      <v-card-title>Permenantly delete Archeive post?</v-card-title>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn outlined color="orange darken-2" @click="ArchieveDialog = false"> Cancel </v-btn>
+                        <v-btn color="orange darken-2" dark @click="ArchiveJob(); ChangeJobStatus();" :loading="Archieveloading">
+                          Archieve
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                  <!-- Archieve DIALOGE ENDS HERE -->
                   <!-- DELETE DIALOGE HERE -->
                   <v-dialog v-model="dialog" max-width="500" persistent :retain-focus="false">
                     <v-card class="pa-5">
@@ -291,9 +313,87 @@
             </v-row>
           </v-tab-item>
 
-          <v-tab-item>
+          <v-tab-item class="margin-item">
             <!-- Archieved Posts Go Here -->
-            <p>lol</p>
+            <v-row class="overflow-hidden mx-7 mb-7" justify="center" fluid align="center">
+              <v-col cols="6" v-for="job in Jobs" :key="job._id" fluid>
+                <v-card elevation="2" class="px-4" v-if="job.status == 'Archieved'">
+                  <v-list-item three-line>
+                    <v-list-item-content class="content-height">
+                      <v-row justify="space-between">
+                        <v-col class="text-subtitle-1 font-weight-medium font-italic">
+                          {{ job.company }}
+                        </v-col>
+                        <v-col cols="auto">
+                          <v-chip v-if="job.type == 'Full-Time'" color="green darken-1" outlined class="font-weight-medium ml-14">
+                            {{ job.type }}
+                          </v-chip>
+                          <v-chip v-if="job.type == 'Part-Time'" color="primary" outlined class="font-weight-medium ml-14">
+                            {{ job.type }}
+                          </v-chip>
+                          <v-chip v-if="job.type == 'Internship'" color="deep-orange" outlined class="font-weight-medium ml-14">
+                            {{ job.type }}
+                          </v-chip>
+                        </v-col>
+                      </v-row>
+                      <v-list-item-title class="titles mb-1 font-weight-normal"> {{ job.career_Level }} {{ job.title }} </v-list-item-title>
+                      <v-list-item-subtitle class="text-subtitle-1 mb-2">{{ job.description }}</v-list-item-subtitle>
+                      <v-list-item-subtitle>
+                        <v-chip color="#01579B" text-color="white" class="mr-2" small v-for="i,skill in job.skills.split(',')" :key='i' >{{ i }} </v-chip>
+                      </v-list-item-subtitle>
+                      <v-list-item-subtitle class="text-subtitle-2 success--text" v-if="job.total_Applications">
+                        {{ job.total_Applications }} Applied
+                        <v-list-item-icon>
+                          <v-icon dense left color="success">mdi-check-bold</v-icon>
+                        </v-list-item-icon>
+                      </v-list-item-subtitle>
+                      <v-list-item-subtitle class="text-subtitle-2 success--text" v-if="!job.total_Applications">
+                        0 Applied
+                        <v-list-item-icon>
+                          <v-icon dense left color="success">mdi-check-bold</v-icon>
+                        </v-list-item-icon>
+                      </v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-card-actions>
+                    <v-row class="pb-5" justify="space-around">
+                      <!-- Activate BUTTON HERE -->
+                      <v-btn
+                        small
+                        color="success"
+                        class=" d-none d-md-flex"
+                        dark
+                        @click="
+                          ActivateDialog = true;
+                          GetJob(job._id);
+                        "
+                      >
+                        Activate
+                        <v-icon small dark right>
+                          mdi-check-bold
+                        </v-icon>
+                      </v-btn>
+                      <!-- Activate BUTTON ENDS HERE -->
+
+                    </v-row>
+                  </v-card-actions>
+                  <!-- Activate DIALOGE HERE -->
+                  <v-dialog v-model="ActivateDialog" max-width="500" persistent :retain-focus="false">
+                    <v-card class="pa-5">
+                      <v-card-title>Are you sure you want to Re-activate post?</v-card-title>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn outlined color="orange darken-2" @click="ActivateDialog = false"> Cancel </v-btn>
+                        <v-btn color="orange darken-2" dark @click="ActivateJob(); ChangeJobStatus();" :loading="Activateloading">
+                          Activate
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                  <!-- Activate DIALOGE ENDS HERE -->
+                </v-card>
+              </v-col>
+            </v-row>
           </v-tab-item>
         </v-tabs-items>
       </div>
@@ -339,11 +439,15 @@ export default {
       loaded: false,
       Deleteloading: false,
       Editloading: false,
+      Archieveloading: false,
+      Activateloading: false,
       overlay: true,
 
       // Dialogs
       dialog: false,
       EditDialog: false,
+      ArchieveDialog: false,
+      ActivateDialog: false,
 
       // Flags
       EditFlag: false,
@@ -417,6 +521,43 @@ export default {
           console.log(r);
         }
       });
+    },
+
+    ArchiveJob(){
+      this.oneJob.status = "Archieved";
+    },
+    ActivateJob(){
+      this.oneJob.status = "Active";
+    },
+
+    ChangeJobStatus() {
+      if(this.oneJob.status == "Archieved"){
+        this.Archieveloading = true;
+        ApiService.put(`http://localhost:3000/jobs/ArchiveJob/${this.oneJob._id}` ,this.oneJob).then((r) => {
+          if (r.status == 204) {
+            this.Archieveloading = false;
+            this.ArchieveDialog = false;
+            console.log(this.oneJob.status);
+            this.GetJobs();
+            console.log(r);
+          } else {
+            console.log(r);
+          }
+        });
+      } else if(this.oneJob.status == "Active"){
+        this.Activateloading = true;
+        ApiService.put(`http://localhost:3000/jobs/ArchiveJob/${this.oneJob._id}` ,this.oneJob).then((r) => {
+          if (r.status == 204) {
+            this.Activateloading = false;
+            this.ActivateDialog = false;
+            console.log(this.oneJob.status);
+            this.GetJobs();
+            console.log(r);
+          } else {
+            console.log(r);
+          }
+        });
+      }
     },
 
     DeleteJob(id) {
