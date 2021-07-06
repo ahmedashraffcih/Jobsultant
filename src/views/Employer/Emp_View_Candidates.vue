@@ -32,14 +32,15 @@
               >
                 <v-card-title> {{ applicant.applicantFname }} {{ applicant.applicantLname }} </v-card-title>
 
-                <v-card-subtitle class="text-subtitle-1" v-if=""> Application Status:
-                  <v-chip v-if="applicant.applicantStatus== 'no status'" color="primary" outlined class="font-weight-medium">
+                <v-card-subtitle class="text-subtitle-1" v-if="">
+                  Application Status:
+                  <v-chip v-if="applicant.applicantStatus == 'no status'" color="primary" outlined class="font-weight-medium">
                     {{ applicant.applicantStatus }}
                   </v-chip>
-                  <v-chip v-if="applicant.applicantStatus== 'Rejected'" color="error" outlined class="font-weight-medium">
+                  <v-chip v-if="applicant.applicantStatus == 'Rejected'" color="error" outlined class="font-weight-medium">
                     {{ applicant.applicantStatus }}
                   </v-chip>
-                  <v-chip v-if="applicant.applicantStatus== 'Shortlisted'" color="success" outlined class="font-weight-medium">
+                  <v-chip v-if="applicant.applicantStatus == 'Shortlisted'" color="success" outlined class="font-weight-medium">
                     {{ applicant.applicantStatus }}
                   </v-chip>
                 </v-card-subtitle>
@@ -140,7 +141,14 @@
                   <v-card-title>Please Select Rejection Reason(s):</v-card-title>
                   <v-checkbox v-model="reasons" class="ml-5" label="Wrong skill set" color="red" value="Wrong skill set" hide-details></v-checkbox>
                   <v-checkbox v-model="reasons" class="ml-5" label="Poor Experience" color="red" value="Poor Experience" hide-details></v-checkbox>
-                  <v-checkbox v-model="reasons" class="ml-5" label="Lacks required level of education/training." color="red" value="Lacks required level of education/training." hide-details></v-checkbox>
+                  <v-checkbox
+                    v-model="reasons"
+                    class="ml-5"
+                    label="Lacks required level of education/training."
+                    value="Lacks required level of education/training."
+                    color="red"
+                    hide-details
+                  ></v-checkbox>
                   <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn outlined color="orange darken-2" @click="dialog = false"> Cancel </v-btn>
@@ -150,6 +158,7 @@
                       @click="
                         Reject();
                         ChangeStatus();
+                        RejectionReason();
                       "
                       :loading="loadingReject"
                     >
@@ -170,16 +179,21 @@
       <v-snackbar v-model="Rejectedsnackbar" timeout="2000" color="error" outlined dark>
         Applicant Rejected
       </v-snackbar>
-      <v-overlay :value="overlay" opacity="0.9">
-        <fingerprint-spinner class="justify-center" :animation-duration="1500" :size="120" color="#FF9800" />
-      </v-overlay>
+      <v-overlay :value="overlay" opacity="0.95" color="#01579B" >
+        <semipolar-spinner
+          class="justify-center"
+          :animation-duration="1500"
+          :size="120"
+          color="#FF9800"
+        />
+    </v-overlay>
     </v-row>
   </div>
 </template>
 <script>
 import ApiService from "../../services/api.service";
 import { mapGetters, mapActions, mapMutations } from "vuex";
-import { FingerprintSpinner } from "epic-spinners";
+import { FingerprintSpinner,SemipolarSpinner } from "epic-spinners";
 export default {
   data() {
     return {
@@ -224,6 +238,7 @@ export default {
   },
   components: {
     FingerprintSpinner,
+    SemipolarSpinner
   },
   mounted() {
     this.JobID = this.$route.params.id;
@@ -251,17 +266,7 @@ export default {
         }
       });
     },
-    getUser(id) {
-      ApiService.get(`http://localhost:3000/users/${id}`).then((r) => {
-        if (r.status == 200) {
-          this.User = r.data;
-          console.log(this.User);
-        } else {
-          console.log(r);
-        }
-      });
-      return this.User;
-    },
+    
     GetApplication() {
       console.log("Accessed get application");
       ApiService.get(`http://localhost:3000/jobApplications/${this.JobID}`).then((r) => {
@@ -307,23 +312,17 @@ export default {
       });
       return this.Total;
     },
-    //GetDetails(id) {
-    //  this.loadingProfile = true;
-    //  console.log("Accessed get details");
-    //  ApiService.get(`http://localhost:3000/jobApplications/details/${id}`).then((r) => {
-    //    if (r.status == 200) {
-    //      this.Details = r.data.User_Details;
-    //      this.loadingProfile = false;
-    //      this.GetOneApplication(id);
-    //      console.log("Get details success");
-    //      console.log(this.Details);
-    //      //console.log(this.oneJob);
-    //    } else {
-    //      console.log(r);
-    //    }
-    //  });
-    //  return this.Details;
-    //},
+    RejectionReason() {
+        console.log(this.reasons);
+        ApiService.post(`http://localhost:3000/sendingRejectionEmail/${this.oneApplication.Application.applicantID}/${this.oneApplication.Application.jobID}`, this.reasons)
+          .then((r) => {
+            if (r.status == 204) {
+              console.log(r);
+            } else {
+              console.log(r);
+            }
+          });
+      },
     Shortlist() {
       this.oneApplication.Application.applicantStatus = "Shortlisted";
       this.oneApplication.Application.applicantionStatus = "success";
@@ -360,7 +359,7 @@ export default {
           if (r.status == 204) {
             this.loadingReject = false;
             this.Rejectedsnackbar = true;
-            this.dialog= false;
+            this.dialog = false;
             console.log("Rejected Successfully");
             console.log(r);
           } else {
