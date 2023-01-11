@@ -1,4 +1,3 @@
-<h1 align="center">Welcome to Jobsultant 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/ahmedashraffcih/Jobsultant#readme" target="_blank">
@@ -11,8 +10,27 @@
     <img alt="License: Helwan University" src="https://img.shields.io/github/license/ahmedashraffcih/Jobsultant" />
   </a>
 </p>
+<h1 align="center">Welcome to Jobsultant 👋</h1>
 
-> Jobsultant is connecting job seekers with employers looking to hire. Every day, thousands of new job vacancies are listed on the award-winning platform from the region's top employers.
+![JobSultant](src/assets/imgs/jobsultantlogo.png)
+
+
+
+## Project Description:
+> JobSultant is a web-based application that allows job seekers to easily find job opportunities and apply for them, while also allowing recruiters to search for and find suitable candidates for open positions. The platform utilizes collaborative filtering and Cosine Similarity Algorithm to match job seekers with job listings based on their skills, experience, and preferences. The platform features a user-friendly interface and advanced search capabilities, enabling job seekers to quickly and easily find job listings that match their qualifications.
+
+## Objectives:
+
+- To provide job seekers with a comprehensive and user-friendly platform to search for job opportunities.
+- To allow recruiters to efficiently search for and find suitable candidates for open positions.
+- To increase the chances of successful job matches between job seekers and recruiters by using collaborative filtering and Cosine Similarity Algorithm.
+- To enable recruiters to easily post job listings and manage job applications.
+- To enable job seekers to easily create and update their online resumes.
+- To provide job seekers with tools and resources to help them prepare for job interviews and improve their chances of being hired.
+- To enhance the user experience with the latest technology and state-of-the-art-functionality
+- To using machine learning techniques to match job seekers with the best job opportunities based on their skills and experience.
+- To improve the relevance of job search results by taking into account the job seekers' personal preferences and qualifications
+- To increase the effectiveness of the platform by learning from user behavior and feedback.
 
 ### 🏠 [Homepage](https://github.com/ahmedashraffcih/Jobsultant/blob/master/src/views/Home.vue)
 
